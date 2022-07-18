@@ -1,0 +1,46 @@
+[31-Jan-2022 14:32:18 UTC] "Tasks Endpoint"
+[31-Jan-2022 14:32:18 UTC] Process All: swell_get_data
+[31-Jan-2022 14:36:14 UTC] "Tasks Endpoint"
+[31-Jan-2022 14:36:14 UTC] Process All: swell_get_data
+[31-Jan-2022 14:52:05 UTC] "Tasks Endpoint"
+[31-Jan-2022 14:52:05 UTC] Process All: swell_get_data
+[31-Jan-2022 14:52:32 UTC] "Tasks Endpoint"
+[31-Jan-2022 14:52:32 UTC] Process All: swell_get_data
+[31-Jan-2022 15:07:02 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:07:02 UTC] Process All: swell_get_data
+[31-Jan-2022 15:09:03 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:09:03 UTC] Process All: swell_get_data
+[31-Jan-2022 15:11:04 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:11:04 UTC] Process All: swell_get_data
+[31-Jan-2022 15:12:06 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:12:06 UTC] Process All: swell_get_data
+[31-Jan-2022 15:14:07 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:14:07 UTC] Process All: swell_get_data
+[31-Jan-2022 15:14:14 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:14:14 UTC] Process All: swell_get_data
+[31-Jan-2022 15:16:03 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:16:03 UTC] Process All: swell_get_data
+[31-Jan-2022 15:16:30 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:16:30 UTC] Process All: swell_get_data
+[31-Jan-2022 15:17:32 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:17:32 UTC] Process All: swell_get_data
+[31-Jan-2022 15:18:30 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:18:30 UTC] Process All: swell_get_data
+[31-Jan-2022 15:20:16 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:20:16 UTC] Process All: swell_get_data
+[31-Jan-2022 15:31:10 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:31:10 UTC] Process All: swell_get_data
+[31-Jan-2022 15:34:54 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:34:54 UTC] Process All: swell_get_data
+[31-Jan-2022 15:41:02 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:41:02 UTC] Process All: swell_get_data
+[31-Jan-2022 15:41:02 UTC] PHP Notice:  Trying to access array offset on value of type bool in /home/greeqhlk/swell.greelogix.com/wp-content/plugins/swellenterprise/includes/class-swellenterprise-api-services.php on line 106
+[31-Jan-2022 15:41:02 UTC] PHP Notice:  Trying to access array offset on value of type bool in /home/greeqhlk/swell.greelogix.com/wp-content/plugins/swellenterprise/includes/class-swellenterprise-api-services.php on line 106
+[31-Jan-2022 15:41:03 UTC] PHP Notice:  Trying to access array offset on value of type bool in /home/greeqhlk/swell.greelogix.com/wp-content/plugins/swellenterprise/includes/class-swellenterprise-api-services.php on line 709
+[31-Jan-2022 15:41:03 UTC] PHP Notice:  Trying to access array offset on value of type bool in /home/greeqhlk/swell.greelogix.com/wp-content/plugins/swellenterprise/includes/class-swellenterprise-api-services.php on line 183
+[31-Jan-2022 15:44:56 UTC] "Tasks Endpoint"
+[31-Jan-2022 15:44:56 UTC] Process All: swell_get_data
+[31-Jan-2022 16:38:41 UTC] "Tasks Endpoint"
+[31-Jan-2022 16:38:41 UTC] Process All: swell_get_data
+[02-Feb-2022 14:17:47 UTC] "Tasks Endpoint"
+[02-Feb-2022 14:17:47 UTC] "Leads"
