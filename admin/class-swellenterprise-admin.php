@@ -200,6 +200,31 @@ class SWELLEnterprise_Admin {
 
 	    );
 
+	    $fields[] = array(
+            'name'   => 'welcome',
+            'title'  => 'Welcome',
+            'icon'   => 'fa fa-align-justify',
+            'fields' => array(
+
+            	array(
+                    'type'    => 'card',
+                    'class'   => 'class-name', // for all fieds
+                    'title'   => 'Welcome to SWELLEnterprise',
+                    'content' => '',
+                    'header' => 'Header Text',
+                    'footer' => 'Footer Text',
+                ),
+
+                array(
+                    'type'    => 'content',
+                    'class'   => 'class-name', // for all fieds
+                    'content' => '<div class="row"><div class="col-6"><iframe width="560" height="315" src="https://www.youtube.com/embed/ELQrbMUGnRA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="col-6"><h2>Welcome to SWELLEnterprise</h2><p>SWELLEnterprise makes it easier and less expensive for small business owners to manage projects, clients, business development and communication with remote team members. It’s particularly loved by creative service agencies because that’s who designed it. Our cloud-based system manages everything from invoicing to documents, projects to email marketing, replacing 3 or 4 products with just one. </p><p><strong>While you do need an account with SWELLEnterprise to make full use of this plugin, the plugin should continue to work and function without an account.</strong></p><p><a class="btn btn-primary" target="_blank" href="https://app.swellsystem.com/register?utm_source=wordpress&utm_medium=plugin&utm_campaign=intro_page">Try FREE For 30 Days »</a></div></div>',
+
+                ),
+
+            )
+        );
+
         $fields[] = array(
             'name'   => 'authentication',
             'title'  => 'Authentication',
@@ -2868,6 +2893,48 @@ class SWELLEnterprise_Admin {
 
 	public function add_style_to_admin_head() {
 	    global $post_type;
+	    $screen = get_current_screen();
+	    //var_dump($screen);
+	    if ( $screen->base == 'settings_page_swellenterprise') {
+	    	?>
+	    	<style type="text/css">
+                * {
+				  box-sizing: border-box;
+				}
+				.col-1 {width: 8.33%;}
+				.col-2 {width: 16.66%;}
+				.col-3 {width: 25%;}
+				.col-4 {width: 33.33%;}
+				.col-5 {width: 41.66%;}
+				.col-6 {width: 50%;}
+				.col-7 {width: 58.33%;}
+				.col-8 {width: 66.66%;}
+				.col-9 {width: 75%;}
+				.col-10 {width: 83.33%;}
+				.col-11 {width: 91.66%;}
+				.col-12 {width: 100%;}
+				[class*="col-"] {
+				  float: left;
+				  padding: 15px;
+				}
+				.row::after {
+				  content: "";
+				  clear: both;
+				  display: table;
+				}
+				a.btn{
+				    padding: 20px 10px;
+				    background: #06458d;
+				    margin: 20px auto;
+				    display: inline-block;
+				    color: #fff;
+				    text-decoration: none;
+				    font-weight: bold;
+				}
+				a.btn:hover {background: #4894de;}
+            </style>
+	    <?php
+		}
 	    if ( 'lead' == $post_type ) {
 	        ?>
 	            <style type="text/css">
