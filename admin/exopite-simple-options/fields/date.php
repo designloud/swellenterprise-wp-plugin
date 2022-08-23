@@ -27,14 +27,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_date' ) ) {
 				echo '<input type="date" ';
 			} else {
 				echo '<input type="text" ';
-				echo 'class="datepicker ' . $classes . '" ';
+				echo 'class="datepicker ' . esc_attr( $classes ) . '" ';
 			}
 			echo 'name="' . $this->element_name() . '" ';
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
 				echo 'value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . ' ';
 			} else {
 				echo 'value="' . $this->element_value() . '"' . $this->element_attributes() . ' ';
-				echo 'data-format="' . $date_format . '"';
+				echo 'data-format="' . esc_attr( $date_format ) . '"';
 			}
 			echo '>';
 

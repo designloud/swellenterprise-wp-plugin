@@ -34,9 +34,14 @@ class SWELLEnterprise_Deactivator {
 	     * This only required if custom post type has rewrite!
 	     */
 	    flush_rewrite_rules();
+	    // Delete custom field transients for contact/ client/ lead.
 	    delete_transient( "swell_lead_custom_fields" );
 	    delete_transient( "swell_contact_custom_fields" );
 	    delete_transient( "swell_client_custom_fields" );
+	    // Delete task status transients for contact/ client/ lead.
+	    delete_transient( "swell_task_statuses" );
+	    delete_transient( "swell_lead_statuses" );
+
 	    // Deactivating options and webhooks that are set on plugin activation.
 	    $swell_api = new SWELLEnterprise_API();
 

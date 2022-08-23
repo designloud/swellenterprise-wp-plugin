@@ -277,15 +277,15 @@ class SWELLEnterprise_Post_Types {
                 'custom_caps_users' => array(
                     'administrator',
                 ),
-                'taxonomies' => array(
-                    array(
-                        'taxonomy' => 'lead_tag',
-                        'plural' => 'Lead Tags',
-                        'single' => 'Lead Tag',
-                        'post_types' => array('lead'),
-                        'hierarchical' => false,
-                    ),
-                ),
+                // 'taxonomies' => array(
+                //     array(
+                //         'taxonomy' => 'lead_tag',
+                //         'plural' => 'Lead Tags',
+                //         'single' => 'Lead Tag',
+                //         'post_types' => array('lead'),
+                //         'hierarchical' => false,
+                //     ),
+                // ),
             ),
             array(
                 'slug' => 'contact',
@@ -329,15 +329,15 @@ class SWELLEnterprise_Post_Types {
                 'custom_caps_users' => array(
                     'administrator',
                 ),
-                'taxonomies' => array(
-                    array(
-                        'taxonomy' => 'contact_tag',
-                        'plural' => 'Contact Tags',
-                        'single' => 'Contact Tag',
-                        'post_types' => array('contact'),
-                        'hierarchical' => false,
-                    ),
-                ),
+                // 'taxonomies' => array(
+                //     array(
+                //         'taxonomy' => 'contact_tag',
+                //         'plural' => 'Contact Tags',
+                //         'single' => 'Contact Tag',
+                //         'post_types' => array('contact'),
+                //         'hierarchical' => false,
+                //     ),
+                // ),
             ),
             array(
                 'slug' => 'client',
@@ -381,15 +381,15 @@ class SWELLEnterprise_Post_Types {
                 'custom_caps_users' => array(
                     'administrator',
                 ),
-                'taxonomies' => array(
-                    array(
-                        'taxonomy' => 'client_tag',
-                        'plural' => 'Client Tags',
-                        'single' => 'Client Tag',
-                        'post_types' => array('client'),
-                        'hierarchical' => false,
-                    ),
-                ),
+                // 'taxonomies' => array(
+                //     array(
+                //         'taxonomy' => 'client_tag',
+                //         'plural' => 'Client Tags',
+                //         'single' => 'Client Tag',
+                //         'post_types' => array('client'),
+                //         'hierarchical' => false,
+                //     ),
+                // ),
             ),
             array(
                 'slug' => 'note',
@@ -476,15 +476,15 @@ class SWELLEnterprise_Post_Types {
                 'custom_caps_users' => array(
                     'administrator',
                 ),
-                'taxonomies' => array(
-                    array(
-                        'taxonomy' => 'task_tag',
-                        'plural' => 'Task Tags',
-                        'single' => 'Task Tag',
-                        'post_types' => array('task'),
-                        'hierarchical' => false,
-                    ),
-                ),
+                // 'taxonomies' => array(
+                //     array(
+                //         'taxonomy' => 'task_tag',
+                //         'plural' => 'Task Tags',
+                //         'single' => 'Task Tag',
+                //         'post_types' => array('task'),
+                //         'hierarchical' => false,
+                //     ),
+                // ),
             ),
             array(
                 'slug' => 'history',
@@ -529,49 +529,49 @@ class SWELLEnterprise_Post_Types {
                     'administrator',
                 ),
             ),
-            array(
-                'slug' => 'form',
-                'singular' => 'Form',
-                'plural' => 'Forms',
-                'menu_name' => 'Forms',
-                'description' => 'Forms',
-                'has_archive' => true,
-                'hierarchical' => false,
-                'menu_icon' => 'dashicons-tag',
-                'rewrite' => array(
-                    'slug' => 'forms',
-                    'with_front' => true,
-                    'pages' => true,
-                    'feeds' => false,
-                    'ep_mask' => EP_PERMALINK,
-                ),
-                'menu_position' => 21,
-                'public' => true,
-                'publicly_queryable' => true,
-                'exclude_from_search' => true,
-                'show_ui' => true,
-                'show_in_menu' => true,
-                'query_var' => true,
-                'show_in_admin_bar' => true,
-                'show_in_nav_menus' => true,
-                'supports' => array(
-                    /* 'title',
-                      'editor',
-                      'excerpt',
-                      'author',
-                      'thumbnail',
-                      'comments',
-                      'trackbacks', */
-                  //  'custom-fields',
-                /* 'revisions',
-                  'page-attributes',
-                  'post-formats', */
-                ),
-                'custom_caps' => true,
-                'custom_caps_users' => array(
-                    'administrator',
-                ),
-            ),
+            // array(
+            //     'slug' => 'form',
+            //     'singular' => 'Form',
+            //     'plural' => 'Forms',
+            //     'menu_name' => 'Forms',
+            //     'description' => 'Forms',
+            //     'has_archive' => true,
+            //     'hierarchical' => false,
+            //     'menu_icon' => 'dashicons-tag',
+            //     'rewrite' => array(
+            //         'slug' => 'forms',
+            //         'with_front' => true,
+            //         'pages' => true,
+            //         'feeds' => false,
+            //         'ep_mask' => EP_PERMALINK,
+            //     ),
+            //     'menu_position' => 21,
+            //     'public' => true,
+            //     'publicly_queryable' => true,
+            //     'exclude_from_search' => true,
+            //     'show_ui' => true,
+            //     'show_in_menu' => true,
+            //     'query_var' => true,
+            //     'show_in_admin_bar' => true,
+            //     'show_in_nav_menus' => true,
+            //     'supports' => array(
+            //         /* 'title',
+            //           'editor',
+            //           'excerpt',
+            //           'author',
+            //           'thumbnail',
+            //           'comments',
+            //           'trackbacks', */
+            //       //  'custom-fields',
+            //     /* 'revisions',
+            //       'page-attributes',
+            //       'post-formats', */
+            //     ),
+            //     'custom_caps' => true,
+            //     'custom_caps_users' => array(
+            //         'administrator',
+            //     ),
+            // ),
             array(
                 'slug' => 'client_portal',
                 'singular' => 'Page',

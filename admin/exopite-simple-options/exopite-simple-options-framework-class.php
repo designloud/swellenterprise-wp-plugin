@@ -1399,7 +1399,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			do_action( 'exopite_sof_before_generate_field', $field, $this->config );
 			do_action( 'exopite_sof_before_add_field', $field, $this->config );
-			//print_r( $field );
+			// print_r( $field );
 			$output     = '';
 			$class      = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
 			$depend     = '';
@@ -1587,7 +1587,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 * for metabox no need to do this.
 		 */
 		public function display_options_page_header() {
-
+			
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" name="' . $this->unique . '" class="exopite-sof-form-js ' . $this->unique . '-form" data-save="' . esc_attr__( 'Saving...', 'exopite-sof' ) . '" data-saved="' . esc_attr__( 'Saved Successfully.', 'exopite-sof' ) . '">';
 
 			settings_fields( $this->unique );
@@ -1599,6 +1599,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			}
 
 			$option_title = ( ! empty( $this->config['option_title'] ) ) ? $this->config['option_title'] : $this->config['title'];
+			// add_option( 'swell_base_url', )
+
 
 			echo '<header class="exopite-sof-header exopite-sof-header-js">';
 			echo '<h1>' . $option_title . $current_language_title . '</h1>';
@@ -1666,36 +1668,21 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		public function display_options_section_footer($section) {
 			// echo "<pre>";
 			// print_r( $section );
-			if( $section['name'] === 'notes' ){
+			if( isset( $_GET['post'] ) ) {
+				if( $section['name'] === 'notes' ){
 				echo '<div class="add-note"><div><h4 class="exopite-sof-title add-heading">Add New '.ucfirst( $section['name'] ).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=note&attached_post_id='.get_the_ID().'"> Add '.ucfirst( $section['name'] ).'</a></div></div>';
-			}
+				}
 
-			if( $section['name'] ==='tasks' ){
-				echo '<div class="add-task">
-				<div><h4 class="exopite-sof-title add-heading">Add New '.ucfirst( $section['name'] ).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=task&attached_post_id='.get_the_ID().'"> Add '.ucfirst( $section['name'] ).'</a></div></div>';
-			}
-
-			if( $section['name'] === 'custom_fields' && empty( $section['fields'] ) ) {
-				$post_type = get_post_type( get_the_ID() );
-				if( $post_type === 'lead' ) {
-					$custom_fields = get_transient( "swell_lead_custom_fields" );
-					echo '<div class="custom-fields">';
-					if( is_array( $custom_fields ) ) {
-					foreach ( $custom_fields as $custom_field ) {
-						echo '<div class="exopite-sof-field exopite-sof-field-text">
-								<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
-								<div class="exopite-sof-fieldset">
-								<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
-								</div>
-								<div class="clearfix"></div>
-							</div>';
-						}
-					}
-					echo '</div>';
-				} else if( $post_type === 'contact' ) {
-					$custom_fields = get_transient( "swell_contact_custom_fields" );
-					echo '<div class="custom-fields">';
-					if( is_array( $custom_fields ) ) {
+				if( $section['name'] ==='tasks' ){
+					echo '<div class="add-task">
+					<div><h4 class="exopite-sof-title add-heading">Add New '.ucfirst( $section['name'] ).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=task&attached_post_id='.get_the_ID().'"> Add '.ucfirst( $section['name'] ).'</a></div></div>';
+				}
+				if( $section['name'] === 'custom_fields' && empty( $section['fields'] ) ) {
+					$post_type = get_post_type( get_the_ID() );
+					if( $post_type === 'lead' ) {
+						$custom_fields = get_transient( "swell_lead_custom_fields" );
+						echo '<div class="custom-fields">';
+						if( is_array( $custom_fields ) ) {
 						foreach ( $custom_fields as $custom_field ) {
 							echo '<div class="exopite-sof-field exopite-sof-field-text">
 									<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
@@ -1705,28 +1692,50 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 									<div class="clearfix"></div>
 								</div>';
 							}
-							
-					}
-					echo '</div>';
-					
-				} else {
-					$custom_fields = get_transient( "swell_client_custom_fields" );
-					echo '<div class="custom-fields">';
-					if( is_array( $custom_fields ) ) {
-						foreach ( $custom_fields as $custom_field ) {
-							echo '<div class="exopite-sof-field exopite-sof-field-text">
-									<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
-									<div class="exopite-sof-fieldset">
-									<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
-									</div>
-									<div class="clearfix"></div>
-								</div>';
 						}
+						echo '</div>';
+					} else if( $post_type === 'contact' ) {
+						$custom_fields = get_transient( "swell_contact_custom_fields" );
+						echo '<div class="custom-fields">';
+						if( is_array( $custom_fields ) ) {
+							foreach ( $custom_fields as $custom_field ) {
+								echo '<div class="exopite-sof-field exopite-sof-field-text">
+										<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
+										<div class="exopite-sof-fieldset">
+										<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
+										</div>
+										<div class="clearfix"></div>
+									</div>';
+								}
+								
+						}
+						echo '</div>';
+						
+					} else {
+						$custom_fields = get_transient( "swell_client_custom_fields" );
+						echo '<div class="custom-fields">';
+						if( is_array( $custom_fields ) ) {
+							foreach ( $custom_fields as $custom_field ) {
+								echo '<div class="exopite-sof-field exopite-sof-field-text">
+										<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
+										<div class="exopite-sof-fieldset">
+										<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
+										</div>
+										<div class="clearfix"></div>
+									</div>';
+							}
+						}
+						echo '</div>';
 					}
-					echo '</div>';
 				}
-			}
 
+			} else {
+				if( isset( $_GET['post_type'] ) && $section['name'] !== 'first' ) {
+					echo '<div class="no-post-created">
+					<div><h4 class="exopite-sof-title add-heading">No '.ucfirst( $_GET['post_type'] ).' created yet.</h4></div></div>';
+				}
+				
+			}
 			echo '</div>'; // exopite-sof-section
 
 		}

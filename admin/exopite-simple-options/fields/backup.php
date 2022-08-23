@@ -42,14 +42,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 				echo '<a href="#" class="button button-primary exopite-sof-import-js" data-confirm="' . esc_attr__( 'Are you sure, you want to overwrite existing options?', 'exopite-sof' ) . '">' . esc_attr__( 'Import a Backup', 'exopite-sof' ) . '</a>';
 
 				echo '<hr />';
-				echo '<textarea name="_nonce" class="exopite-sof__export" readonly>' . $encoded_options . '</textarea>';
-				echo '<a href="' . $export . '" class="button button-primary" target="_blank">' . esc_attr__( 'Download Backup', 'exopite-sof' ) . '</a>';
+				echo '<textarea name="_nonce" class="exopite-sof__export" readonly>' . esc_attr( $encoded_options ) . '</textarea>';
+				echo '<a href="' . esc_attr( $export ) . '" class="button button-primary" target="_blank">' . esc_attr__( 'Download Backup', 'exopite-sof' ) . '</a>';
 
 				echo '<hr />';
 				echo '<small class="exopite-sof-info--small exopite-sof-info--warning">' . esc_attr__( 'Please be sure for reset all of framework options.', 'exopite-sof' ) . '</small>';
 				echo '<a href="#" class="button button-warning exopite-sof-reset-js" data-confirm="' . esc_attr__( 'Are you sure, you want to reset all options?', 'exopite-sof' ) . '">' . esc_attr__( 'Reset All Options', 'exopite-sof' ) . '</a>';
 
-				echo '<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . $this->unique . '" data-wpnonce="' . $nonce . '"></div>';
+				echo '<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . $this->unique . '" data-wpnonce="' . esc_attr( $nonce ) . '"></div>';
 
 			} else {
 

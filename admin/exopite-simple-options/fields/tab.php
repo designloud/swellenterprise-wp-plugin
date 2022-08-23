@@ -37,7 +37,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 			/**
 			 * Tab navigation
 			 */
-			echo '<ul class="exopite-sof-tab-header' . $equal_width . '">';
+			echo '<ul class="exopite-sof-tab-header' . esc_attr( $equal_width ) . '">';
 
 			foreach ( $tabs as $key => $tab ) {
 
@@ -58,8 +58,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 				reset( $tabs );
 				$tab_active = ( $key === key( $tabs ) ) ? ' active' : '';
 
-				echo '<div class="exopite-sof-tab-content' . $tab_active . '">';
-				echo '<div class="exopite-sof-tab-mobile-header">' . $tab['title'] . '</div>';
+				echo '<div class="exopite-sof-tab-content' . esc_attr( $tab_active ) . '">';
+				echo '<div class="exopite-sof-tab-mobile-header">' . esc_attr( $tab['title'] ) . '</div>';
 				echo '<div class="exopite-sof-tab-content-body">';
 				echo '<div class="exopite-sof-tab-content-body-inner">';
 

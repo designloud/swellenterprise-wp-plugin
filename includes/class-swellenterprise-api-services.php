@@ -33,6 +33,7 @@ class SWELLEnterprise_API_Services {
             
         }
     }
+    
     public function check_if_post_exists($post_type, $key = 'hash_id', $value) {
         $args = array('post_type' => $post_type, 'meta_key' => $key, 'meta_value' => $value);
         $posts = get_posts($args);
@@ -42,6 +43,7 @@ class SWELLEnterprise_API_Services {
             return $posts[0]->ID;
         }
     }
+
 
     public function swell_get_data($process_all = 0) {
         ini_set("log_errors", 1);
@@ -264,21 +266,32 @@ class SWELLEnterprise_API_Services {
 
         ini_set("log_errors", 1);
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($contact));
+        error_log( json_encode( $contact ) );
+        error_log( json_encode( $contact['custom_fields'] ) );
+        // Writing logs in file.
+        $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+        fwrite($fp, json_encode("Create Contact Endpoint"). PHP_EOL );
+        fwrite($fp, json_encode($contact). PHP_EOL);
+        fclose($fp);
+
         if( !$ignore_wp_insert ) {
             $args = array(
                 'ID' => $post_id,
                 'post_status' => 'publish',
                 'post_type' => 'contact',
-                'post_title' => $contact['first_name'] . ' ' . $contact['last_name'] . ' - ' . $contact['organization'],
+                'post_title' => (isset( $contact['first_name'] )? sanitize_text_field( $contact['first_name'] ) : '') . ' ' . (isset( $contact['last_name'] )? sanitize_text_field( $contact['last_name'] ): '') . ' - ' . (isset( $contact['organization'] )? sanitize_text_field( $contact['organization'] ): ''),
                 'meta_input' => array(
-                    'email' => isset($contact['email'])?$contact['email']:'',
-                    'phone' => isset($contact['phone_number'])?$contact['phone_number']:'',
-                    'address' => isset($contact['address'])?$contact['address']:'',
-                    'city' => isset($contact['city'])?$contact['city']:'',
-                    'state' => isset($contact['state'])?$contact['state']:'',
-                    'zip' => isset($contact['zip'])?$contact['zip']:'',
-                    'hash_id' => isset($contact['id'])?$contact['id']:'',
+                    'first_name' => isset( $contact['first_name'] )? sanitize_text_field( $contact['first_name'] ):'',
+                    'last_name' => isset($contact['last_name']) ? sanitize_text_field( $contact['last_name'] ) : '',
+                    'organization' => isset($contact['organization']) ? sanitize_text_field( $contact['organization'] ) : '',
+                    'email' => isset($contact['email'])? sanitize_email( $contact['email'] ):'',
+                    'phone_number' => isset($contact['phone_number'])? sanitize_text_field( $contact['phone_number'] ):'',
+                    'address' => isset($contact['address'])? sanitize_text_field( $contact['address'] ):'',
+                    'city' => isset($contact['city'])? sanitize_text_field($contact['city'] ):'',
+                    'state' => isset($contact['state'])? sanitize_text_field( $contact['state'] ):'',
+                    'zip' => isset($contact['zip'])? sanitize_text_field($contact['zip'] ):'',
+                    'hash_id' => isset($contact['id'])? sanitize_text_field( $contact['id']):'',
+                    'custom_fields' => isset($contact['custom_fields']) ? sanitize_text_field( $contact['custom_fields'] ) : '',
                 /* 'nick_name' => $contact['custom_fields']['Nickname_6'],
                   'date_of_birth' => $contact['custom_fields']['DOB_7'], */
                 ),
@@ -286,23 +299,23 @@ class SWELLEnterprise_API_Services {
             $post = wp_insert_post($args);
         }
         
-        if(isset($contact['custom_fields'])){
-            $custom_fields = $contact['custom_fields'];
-            // creating/ updating custom fields.
-            update_post_meta( $post_id, 'custom_fields', $custom_fields );    
-        }
+        // if(isset($contact['custom_fields'])){
+        //     $custom_fields = $contact['custom_fields'];
+        //     // creating/ updating custom fields.
+        //     update_post_meta( $post_id, 'custom_fields', $custom_fields );    
+        // }
         
-
-        update_post_meta($post_id, 'first_name', isset($contact['first_name']) ? $contact['first_name'] : '');
-        update_post_meta($post_id, 'last_name', isset($contact['last_name']) ? $contact['last_name'] : '');
-        update_post_meta($post_id, 'organization', isset($contact['organization']) ? $contact['organization'] : '');
-        update_post_meta($post_id, 'email', isset($contact['email']) ? $contact['email'] : '');
-        update_post_meta($post_id, 'phone_number', isset($contact['phone_number']) ? $contact['phone_number'] : '');
-        update_post_meta($post_id, 'address', isset($contact['address']) ? $contact['address'] : '');
-        update_post_meta($post_id, 'city', isset($contact['city']) ? $contact['city'] : '');
-        update_post_meta($post_id, 'state', isset($contact['state']) ? $contact['state'] : '');
-        update_post_meta($post_id, 'zip', isset($contact['zip']) ? $contact['zip'] : '');
-        update_post_meta($post_id, 'hash_id', isset($contact['id']) ? $contact['id'] : '');
+        update_post_meta($post_id, 'first_name', isset($contact['first_name']) ? sanitize_text_field( $contact['first_name'] ) : '');
+        update_post_meta($post_id, 'last_name', isset($contact['last_name']) ? sanitize_text_field( $contact['last_name'] ) : '');
+        update_post_meta($post_id, 'organization', isset($contact['organization']) ? sanitize_text_field( $contact['organization'] ) : '');
+        update_post_meta($post_id, 'email', isset($contact['email']) ? sanitize_email( $contact['email'] ) : '');
+        update_post_meta($post_id, 'phone_number', isset($contact['phone_number']) ? sanitize_text_field( $contact['phone_number'] ) : '');
+        update_post_meta($post_id, 'address', isset($contact['address']) ? sanitize_textarea_field( $contact['address'] ) : '');
+        update_post_meta($post_id, 'city', isset($contact['city']) ? sanitize_text_field( $contact['city'] ) : '');
+        update_post_meta($post_id, 'state', isset($contact['state']) ? sanitize_text_field( $contact['state'] ) : '');
+        update_post_meta($post_id, 'zip', isset($contact['zip']) ? sanitize_text_field( $contact['zip'] ) : '');
+        update_post_meta($post_id, 'hash_id', isset($contact['id']) ? sanitize_text_field( $contact['id'] ) : '');
+        update_post_meta( $post_id, 'custom_fields', isset($contact['custom_fields']) ? sanitize_text_field( $contact['custom_fields']  ): '' );
       
     }
 
@@ -376,23 +389,30 @@ class SWELLEnterprise_API_Services {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log(json_encode("Create Client"));
         error_log(json_encode($client));
+
+        // Writing logs in file.
+        $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+        fwrite($fp, json_encode("Create Client"). PHP_EOL );
+        fwrite($fp, json_encode($client). PHP_EOL);
+        fclose($fp);
+
         if( !$ignore_wp_insert ) {
             $args = array(
                 'ID' => $post_id,
                 'post_status' => 'publish',
                 'post_type' => 'client',
-                'post_title' => $client['first_name'] . ' ' . $client['last_name'] . ' - ' . $client['organization'],
+                'post_title' => (isset( $client['first_name'] )? sanitize_text_field( $client['first_name'] ) : '') . ' ' . (isset( $client['last_name'] )? sanitize_text_field( $client['last_name'] ): '') . ' - ' . (isset( $client['organization'] )? sanitize_text_field( $client['organization'] ): ''),
                 'meta_input' => array(
-                    'first_name' => $client['first_name'],
-                    'last_name' => $client['last_name'],
-                    'organization' => $client['organization'],
-                    'email' => $client['email'],
-                    'phone' => $client['phone_number'],
-                    'address' => $client['address'],
-                    'city' => $client['city'],
-                    'state' => $client['state'],
-                    'zip' => $client['zip'],
-                    'hash_id' => $client['id'],
+                    'first_name' => isset( $client['first_name'] )? sanitize_text_field ( $client['first_name'] ):'',
+                    'last_name' => isset( $client['last_name'] )? sanitize_text_field( $client['last_name'] ):'',
+                    'organization' => isset( $client['organization'] )? sanitize_text_field( $client['organization'] ):'',
+                    'email' => isset( $client['email'] )? sanitize_email( $client['email'] ):'',
+                    'phone' => isset( $client['phone_number'] )? sanitize_text_field( $client['phone_number'] ):'',
+                    'address' => isset( $client['address'] )? sanitize_textarea_field( $client['address'] ):'',
+                    'city' => isset( $client['city'] )? sanitize_text_field( $client['city'] ):'',
+                    'state' => isset( $client['state'] )? sanitize_text_field( $client['state'] ):'',
+                    'zip' => isset( $client['zip'] )? sanitize_text_field( $client['zip'] ):'',
+                    'hash_id' => isset( $client['id'] )? sanitize_text_field( $client['id'] ):'',
                 /* 'date_of_birth' => $client['custom_fields']['DOB_1'],
                   'nick_name' => $client['custom_fields']['Nickname_6'], */
                 ),
@@ -416,16 +436,16 @@ class SWELLEnterprise_API_Services {
 
         //will execute these statements in case of updation
          //if( $hash_id === $client['id'] ) {
-          update_post_meta( $post_id, 'first_name', $client['first_name'] );
-          update_post_meta( $post_id, 'last_name', $client['last_name'] );
-          update_post_meta( $post_id, 'organization', $client['organization'] );
-          update_post_meta( $post_id, 'email', $client['email'] );
-          update_post_meta( $post_id, 'phone_number', $client['phone_number'] );
-          update_post_meta( $post_id, 'address', $client['address'] );
-          update_post_meta( $post_id, 'city', $client['city'] );
-          update_post_meta( $post_id, 'state', $client['state'] );
-          update_post_meta( $post_id, 'zip', $client['zip'] );
-          update_post_meta( $post_id, 'hash_id', $client['id'] );
+          update_post_meta( $post_id, 'first_name', isset( $client['first_name'] )? sanitize_text_field( $client['first_name'] ) : '' );
+          update_post_meta( $post_id, 'last_name', isset( $client['last_name'] )? sanitize_text_field( $client['last_name'] ) : '' );
+          update_post_meta( $post_id, 'organization', isset( $client['organization'] )? sanitize_text_field( $client['organization'] ) : '' );
+          update_post_meta( $post_id, 'email', isset( $client['email'] )? sanitize_text_field( $client['email'] ) : '' );
+          update_post_meta( $post_id, 'phone_number', isset( $client['phone_number'] )? sanitize_text_field( $client['phone_number'] ) : '' );
+          update_post_meta( $post_id, 'address', isset( $client['address'] )? sanitize_text_field( $client['address'] ) : '' );
+          update_post_meta( $post_id, 'city', isset( $client['city'] )? sanitize_text_field( $client['city'] ) : '' );
+          update_post_meta( $post_id, 'state', isset( $client['state'] )? sanitize_text_field( $client['state'] ) : '' );
+          update_post_meta( $post_id, 'zip', isset( $client['zip'] )? sanitize_text_field( $client['zip'] ) : '' );
+          update_post_meta( $post_id, 'hash_id', isset( $client['id'] )? sanitize_text_field( $client['id'] ) : '' );
           //} 
 
         /* if(array_key_exists('field', $client)) {
@@ -453,34 +473,48 @@ class SWELLEnterprise_API_Services {
           } */
     }
 
-    public function create_lead($lead = NULL, $post_id = 0, $ignore_wp_insert = 0) {
-         ini_set("log_errors", 1);
+    public function create_lead($lead = NULL, $post_id = 0, $ignore_wp_insert = 0 ) {
+          ini_set("log_errors", 1);
           ini_set("error_log", dirname( __FILE__ )."/swell.log");
           error_log( json_encode( $lead )); 
-        
-          if(!$ignore_wp_insert ){
+          error_log("ignore_wp_insert $ignore_wp_insert");
+
+          // Writing logs in file.
+            $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+            fwrite($fp, json_encode("Create Lead Endpoint"). PHP_EOL );
+            fwrite($fp, json_encode($lead). PHP_EOL);
+            fclose($fp);
+
+          if( !$ignore_wp_insert ){
+            error_log( json_encode( $lead['id'] ) );
+            if( !empty($lead['id']) && !( $post_id  )) {
+                $post_id = $this->get_post_id_by_meta_key_and_value( 'hash_id', $lead['id'] );
+                error_log( json_encode( "Post id" ) );
+                error_log( json_encode( $post_id ) );
+            }
             $args = array(
                 'ID' => $post_id,
                 'post_status' => 'publish',
                 'post_type' => 'lead',
-                'post_title' => $lead['first_name'] . ' ' . $lead['last_name'] . ' - ' . $lead['organization'],
+                'post_title' => (isset( $lead['first_name'] )? sanitize_text_field( $lead['first_name'] ) : '') . ' ' . (isset( $lead['last_name'] )? sanitize_text_field( $lead['last_name'] ): '') . ' - ' . (isset( $lead['organization'] )? sanitize_text_field( $lead['organization'] ): ''),
                 'meta_input' => array(
-                    'first_name' => $lead['first_name'],
-                    'last_name' => $lead['last_name'],
-                    'email' => $lead['email'],
-                    'phone' => $lead['phone_number'],
-                    'address' => $lead['address'],
-                    'city' => $lead['city'],
-                    'state' => $lead['state'],
-                    'zip' => $lead['zip'],
-                    'organization' => $lead['organization'],
-                    'hash_id' => $lead['id'],
+                    'first_name' => isset( $lead['first_name'] )? sanitize_text_field( $lead['first_name'] ) : '',
+                    'last_name' => isset( $lead['last_name'] ) ? sanitize_text_field( $lead['last_name'] ) : '',
+                    'email' => isset($lead['email']) ? sanitize_email( $lead['email'] ): '',
+                    'phone' => isset($lead['phone_number']) ? sanitize_text_field( $lead['phone_number'] ): '',
+                    'address' => isset($lead['address']) ? sanitize_textarea_field( $lead['address'] ): '',
+                    'city' => isset($lead['city']) ? sanitize_text_field( $lead['city'] ): '',
+                    'state' => isset($lead['state']) ? sanitize_text_field( $lead['state'] ): '',
+                    'zip' => isset($lead['zip']) ? sanitize_text_field( $lead['zip'] ): '',
+                    'organization' => isset($lead['organization']) ? sanitize_text_field( $lead['organization'] ): '',
+                    'hash_id' => isset($lead['id']) ? sanitize_text_field( $lead['id'] ): '',
                 ),
             );
             $post_id = wp_insert_post($args);
         }
-        if ($lead['status_name'] && $lead['status']) {
-            wp_set_object_terms($post_id, $lead['status_name'], 'lead_status');
+            // $ignore_wp_insert = 1;        
+        if ( isset( $lead['status'] ) ) {
+            update_post_meta( $post_id, 'swell_lead_status', $lead['status']);
         }
         if( isset($lead['custom_fields'])){
             $custom_fields = $lead['custom_fields'];
@@ -489,16 +523,16 @@ class SWELLEnterprise_API_Services {
         
         // code for updating post.
 
-        update_post_meta($post_id, 'first_name', $lead['first_name']);
-        update_post_meta($post_id, 'last_name', $lead['last_name']);
-        update_post_meta($post_id, 'organization', $lead['organization']);
-        update_post_meta($post_id, 'email', $lead['email']);
-        update_post_meta($post_id, 'phone_number', $lead['phone_number']);
-        update_post_meta($post_id, 'address', $lead['address']);
-        update_post_meta($post_id, 'city', $lead['city']);
-        update_post_meta($post_id, 'state', $lead['state']);
-        update_post_meta($post_id, 'zip', $lead['zip']);
-        update_post_meta($post_id, 'hash_id', $lead['id']);
+        update_post_meta($post_id, 'first_name', isset( $lead['first_name'] ) ? sanitize_text_field( $lead['first_name'] ) : '');
+        update_post_meta($post_id, 'last_name', isset( $lead['last_name'] ) ? sanitize_text_field( $lead['last_name'] ) : '');
+        update_post_meta($post_id, 'organization', isset( $lead['organization'] ) ? sanitize_text_field( $lead['organization'] ) : '');
+        update_post_meta($post_id, 'email', isset( $lead['email'] ) ? sanitize_email( $lead['email'] ) : '');
+        update_post_meta($post_id, 'phone_number', isset( $lead['phone_number'] ) ? sanitize_text_field( $lead['phone_number'] ) : '');
+        update_post_meta($post_id, 'address', isset( $lead['address'] ) ? sanitize_text_field( $lead['address'] ) : '');
+        update_post_meta($post_id, 'city', isset( $lead['city'] ) ? sanitize_text_field( $lead['city'] ) : '');
+        update_post_meta($post_id, 'state', isset( $lead['state'] ) ? sanitize_text_field( $lead['state'] ) : '');
+        update_post_meta($post_id, 'zip', isset( $lead['zip'] ) ? sanitize_text_field( $lead['zip'] ) : '');
+        update_post_meta($post_id, 'hash_id', isset( $lead['id'] ) ? sanitize_text_field( $lead['id'] ) : '');
 
 
         /* if(array_key_exists('field', $lead)) {
@@ -553,16 +587,12 @@ class SWELLEnterprise_API_Services {
         global $wpdb;
         // $key = "hash_id";
         /* $meta = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."postmeta WHERE meta_key='".$key."' AND meta_value='".$value."'"); */
-        $meta = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "postmeta WHERE meta_key='" . $key . "' AND meta_value='" . $value . "'");
-        if (is_array($meta) && !empty($meta) && isset($meta[0])) {
-            $meta = $meta[0];
-        }
-        if (is_object($meta)) {
-            ini_set("error_log", dirname(__FILE__) . "/swell.log");
-            error_log(json_encode("returning id"));
-            return $meta->post_id;
-        } else {
-            return false;
+        $meta = $wpdb->get_results("SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key='" . $key . "' AND meta_value='" . $value . "'", ARRAY_A);
+        ini_set("error_log", dirname(__FILE__) . "/swell.log");
+            error_log(json_encode("meta"));
+            error_log(json_encode($meta));
+        if (is_array($meta) && !empty($meta) ) {
+            return $meta['0']['post_id'];
         }
     }
 
@@ -619,10 +649,12 @@ class SWELLEnterprise_API_Services {
             $deleted_ids = $this->get_associated_post_id_by_meta_key_and_value('client', $client['id']);
             // delete associated notes and tasks of client.
             error_log(json_encode($deleted_ids));
-            foreach ($deleted_ids as $key => $value) {
-                error_log(json_encode($value->post_id));
-                $deleted_lead = wp_delete_post($value->post_id);
-                error_log(json_encode($deleted_lead));
+            if( is_array( $deleted_ids ) ) {
+                foreach ($deleted_ids as $key => $value) {
+                    error_log(json_encode($value->post_id));
+                    $deleted_lead = wp_delete_post($value->post_id);
+                    error_log(json_encode($deleted_lead));
+                }    
             }
             // delete Lead.
             $deleted_lead = wp_delete_post($client_id);
@@ -662,7 +694,6 @@ class SWELLEnterprise_API_Services {
           error_log($note['id']); */
         if ($note['id']) {
             $post = $this->get_deletion_id('hash_id', $note['id']);
-            error_log($post_array);
             $post_deleted = wp_delete_post($post->post_id);
             error_log(json_encode($post_deleted));
         }
@@ -785,13 +816,13 @@ class SWELLEnterprise_API_Services {
             'ID' => $post_id,
             'post_status' => 'publish',
             'post_type' => 'note',
-            'post_title' => isset($note['title'])?$note['title']:'',
-            'post_content' => isset($note['description'])?$note['description']:'',
-            'post_author' => isset($note['user_id'])?$note['user_id']:'',
+            'post_title' => isset($note['title'])? sanitize_title( $note['title'] ) :'',
+            'post_content' => isset($note['description'])? sanitize_textarea_field( $note['description'] ):'',
+            'post_author' => isset($note['user_id'])? sanitize_text_field ( $note['user_id'] ):'',
             'meta_input' => array(
-                'created_at' => isset($note['created_at'])?$note['created_at'] : '',
-                'updated_at' => isset($note['updated_at'])?$note['updated_at'] : '',
-                'hash_id' => isset($note['id'])?$note['id'] : '',
+                'created_at' => isset($note['created_at'])? sanitize_text_field( $note['created_at'] ) : '',
+                'updated_at' => isset($note['updated_at'])? sanitize_text_field( $note['updated_at'] ) : '',
+                'hash_id' => isset($note['id'])? sanitize_text_field( $note['id'] ) : '',
                 $relation => $relation_id,
             ),
         );
@@ -800,9 +831,9 @@ class SWELLEnterprise_API_Services {
         //error_log( json_encode( $note['user_id'] ));
         // update_post_meta( $thisNote, 'author', $note['author'] );
         // update_post_meta( $thisNote, 'avatar_url', $note['user']['avatar_url'] );
-        update_post_meta($thisNote, 'created_at', $note['created_at']);
-        update_post_meta($thisNote, 'updated_at', $note['updated_at']);
-        update_post_meta($thisNote, 'hash_id', $note['id']);
+        update_post_meta($thisNote, 'created_at', isset( $note['created_at'] )? sanitize_text_field( $note['created_at'] ): '' );
+        update_post_meta($thisNote, 'updated_at', isset( $note['updated_at'] )? sanitize_text_field( $note['updated_at'] ): '' );
+        update_post_meta($thisNote, 'hash_id', isset( $note['id'] )? sanitize_text_field( $note['id'] ): '');
         update_post_meta($thisNote, $relation . '_id', $relation_id);
     }
 
@@ -825,34 +856,36 @@ class SWELLEnterprise_API_Services {
             'ID' => $post_id,
             'post_status' => 'publish',
             'post_type' => 'task',
-            'post_title' => isset($task['title'])?$task['title']:'',
-            'post_content' => isset($task['details'])?$task['details']:'',
-            'post_author' => isset($task['user_id'])?$task['user_id']:'',
+            'post_title' => isset($task['title'])? sanitize_title( $task['title'] ) :'',
+            'post_content' => isset($task['details'])? sanitize_textarea_field( $task['details'] ) :'',
+            'post_author' => isset($task['user_id'])? sanitize_text_field( $task['user_id'] ) :'',
             'meta_input' => array(
-                'created_at' => isset($task['created_at'])?$task['created_at']:'',
-                'updated_at' => isset($task['updated_at'])?$task['updated_at']:'',
-                'start_date' => isset($task['start'])?$task['start']:'',
-                'start_time' => isset($task['start_time'])?$task['start_time']:'',
-                'end_date' => isset($task['end'])?$task['end']:'',
-                'end_time' => isset($task['end_time'])?$task['end_time']:'',
-                'hash_id' => isset($task['id'])?$task['id']:'',
+                'created_at' => isset($task['created_at'])? sanitize_text_field( $task['created_at'] ) :'',
+                'updated_at' => isset($task['updated_at'])? sanitize_text_field( $task['updated_at'] ) :'',
+                'start_date' => isset($task['start'])? sanitize_text_field( $task['start'] ) :'',
+                'start_time' => isset($task['start_time'])? sanitize_text_field( $task['start_time'] ) :'',
+                'end_date' => isset($task['end'])? sanitize_text_field( $task['end'] ) :'',
+                'end_time' => isset($task['end_time'])? sanitize_text_field( $task['end_time'] ) :'',
+                'hash_id' => isset($task['id'])? sanitize_text_field( $task['id'] ) :'',
                 $relation => $relation_id,
             ),
         );
 
         $thisTask = wp_insert_post($task_args);
+
         if (isset($task['status_name']) && isset($task['status'])) {
-            wp_set_object_terms($thisTask, $task['status_name'], 'task_status');
+            // wp_set_object_terms($thisTask, $task['status'], 'task_status');
+            update_post_meta( $thisTask, 'swell_task_status', sanitize_text_field($task['status']) );
         }
 
 
 //             update_post_meta( $thisTask, 'author', $task['author'] );
 //             update_post_meta( $thisNote, 'avatar_url', $note['user']['avatar_url'] );
-        update_post_meta($thisTask, 'created_at', $task['created_at']);
-        update_post_meta($thisTask, 'updated_at', $task['updated_at']);
-        update_post_meta($thisTask, 'start_time', $task['start_time']);
-        update_post_meta($thisTask, 'end_time', $task['end_time']);
-        update_post_meta($thisTask, 'hash_id', $task['id']);
+        update_post_meta($thisTask, 'created_at', isset( $task['created_at'] )? sanitize_text_field($task['created_at']):'' );
+        update_post_meta($thisTask, 'updated_at', isset( $task['updated_at'] )? sanitize_text_field($task['updated_at']):'' );
+        update_post_meta($thisTask, 'start_time', isset( $task['start_time'] )? sanitize_text_field($task['start_time']):'' );
+        update_post_meta($thisTask, 'end_time', isset( $task['end_time'] )? sanitize_text_field($task['end_time']):'' );
+        update_post_meta($thisTask, 'hash_id', isset( $task['id'] )? sanitize_text_field($task['id']):'' );
         update_post_meta($thisTask, $relation . '_id', $relation_id);
     }
 
@@ -886,8 +919,9 @@ class SWELLEnterprise_API_Services {
 
             $this->swell_admin_notice('danger', 'There is an error: Not Authorized');
         }
-
+        
         //No transient so call the API and create one.
+        if( isset( $this->options['username'] ) && isset( $this->options['password'] ) ) {
         $headers = array(
             'Content-type' => 'application/json',
             'Authorization' => 'Basic ' . base64_encode($this->options['username'] . ':' . $this->options['password'])
@@ -909,6 +943,7 @@ class SWELLEnterprise_API_Services {
          $response_body = wp_remote_retrieve_body( $response );
         // echo "<pre>";
         // print_r( $response_body );
+        // die();
 
 
         //Decode the JSON in the body, if it is json
@@ -937,6 +972,7 @@ class SWELLEnterprise_API_Services {
           ),
         )
       );
+    }
       
     }
 

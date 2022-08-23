@@ -254,13 +254,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				if ( isset( $this->config['type'] ) && $this->config['type'] == 'metabox' && isset( $this->config['options'] ) && $this->config['options'] == 'simple' ) {
 
-					echo '<div class="' . implode( ' ' , $classes ) . '" data-is-sortable="' . $sortable . '" data-name="' . $this->element_name() . '">';
+					echo '<div class="' . implode( ' ' , $classes ) . '" data-is-sortable="' . esc_attr( $sortable ) . '" data-name="' . $this->element_name() . '">';
 
 				} else {
 
 					$data_multilang = ( $this->config['multilang'] ) ? true : false;
 
-					echo '<div class="' . implode( ' ' , $classes ) . '" data-multilang="' . $data_multilang . '" data-is-sortable="' . $sortable . '" data-name="' . $base_id['id'] . '">';
+					echo '<div class="' . implode( ' ' , $classes ) . '" data-multilang="' . esc_attr( $data_multilang ) . '" data-is-sortable="' . $sortable . '" data-name="' . $base_id['id'] . '">';
 
 				}
 
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				echo '</div>'; // exopite-sof-cloneable__wrapper
 
-				echo '<div class="exopite-sof-cloneable-data" data-unique-id="' . $unique_id . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'exopite-sof' ) . ' ' . $this->field['options']['limit'] . '</div>';
+				echo '<div class="exopite-sof-cloneable-data" data-unique-id="' . esc_attr( $unique_id ) . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'exopite-sof' ) . ' ' . $this->field['options']['limit'] . '</div>';
 
 				echo '<a href="#" class="button button-primary exopite-sof-cloneable--add">' . $this->field['options']['button_title'] . '</a>';
 

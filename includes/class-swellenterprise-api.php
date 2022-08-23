@@ -288,46 +288,58 @@ class SWELLEnterprise_API {
         //** Leads ***/
         ini_set("log_errors", 1);
         ini_set("error_log", plugin_dir_path(__DIR__) . "/swell.txt");
-        error_log(('lead.create'));
-        $lead_create_id = $this->register_swell_webhook('POST', 'lead.create', site_url() . '/wp-json/swell/v1/leads');
+        // Writing logs in file.
+        $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+        $this->options = get_exopite_sof_option('swellenterprise');
+        if( !empty( $this->options['username']) && !empty($this->options['password'] ) ) {
+            ini_set("log_errors", 1);
+            ini_set("error_log", plugin_dir_path(__DIR__) . "/swell.txt");
+            error_log(('Webhooks Registered'));
+            // Writing logs in file.
+            $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+            fwrite($fp, json_encode('Webhooks Registered').PHP_EOL);
+            fclose($fp);
+             $lead_create_id = $this->register_swell_webhook('POST', 'lead.create', site_url() . '/wp-json/swell/v1/leads');
 
-        $lead_update_id = $this->register_swell_webhook('POST', 'lead.update', site_url() . '/wp-json/swell/v1/leads');
-        
-        $lead_delete_id = $this->register_swell_webhook('POST', 'lead.delete', site_url() . '/wp-json/swell/v1/leads-delete');
-        $lead_destroy_id = $this->register_swell_webhook('POST', 'lead.destroy', site_url() . '/wp-json/swell/v1/leads-delete'); 
-        
-        $client_create_id = $this->register_swell_webhook('POST', 'client.create', site_url() . '/wp-json/swell/v1/clients');
-        
-        $client_update_id = $this->register_swell_webhook('POST', 'client.update', site_url() . '/wp-json/swell/v1/clients');
-        
-        $client_delete_id = $this->register_swell_webhook('POST', 'client.delete', site_url() . '/wp-json/swell/v1/clients-delete');
-        $client_destroy_id = $this->register_swell_webhook('POST', 'client.destroy', site_url() . '/wp-json/swell/v1/clients-delete');
-        
-        $contact_create_id = $this->register_swell_webhook('POST', 'contact.create', site_url() . '/wp-json/swell/v1/contacts');
-        
-        $contact_update_id = $this->register_swell_webhook('POST', 'contact.update', site_url() . '/wp-json/swell/v1/contacts');
-        
-        $contact_delete_id = $this->register_swell_webhook('POST', 'contact.delete', site_url() . '/wp-json/swell/v1/contacts-delete');
-        
-        $contact_destroy_id = $this->register_swell_webhook('POST', 'contact.destroy', site_url() . '/wp-json/swell/v1/contacts-delete');        
-        
-        $note_create_id = $this->register_swell_webhook('POST', 'note.create', site_url() . '/wp-json/swell/v1/notes');
-        
-        $note_update_id = $this->register_swell_webhook('POST', 'note.update', site_url() . '/wp-json/swell/v1/notes');
-        
-        $note_delete_id = $this->register_swell_webhook('POST', 'note.delete', site_url() . '/wp-json/swell/v1/notes-delete');
-        
-        $note_destroy_id = $this->register_swell_webhook('POST', 'note.destroy', site_url() . '/wp-json/swell/v1/notes-delete');
+            $lead_update_id = $this->register_swell_webhook('POST', 'lead.update', site_url() . '/wp-json/swell/v1/leads');
+            
+            $lead_delete_id = $this->register_swell_webhook('POST', 'lead.delete', site_url() . '/wp-json/swell/v1/leads-delete');
+            $lead_destroy_id = $this->register_swell_webhook('POST', 'lead.destroy', site_url() . '/wp-json/swell/v1/leads-delete'); 
+            
+            $client_create_id = $this->register_swell_webhook('POST', 'client.create', site_url() . '/wp-json/swell/v1/clients');
+            
+            $client_update_id = $this->register_swell_webhook('POST', 'client.update', site_url() . '/wp-json/swell/v1/clients');
+            
+            $client_delete_id = $this->register_swell_webhook('POST', 'client.delete', site_url() . '/wp-json/swell/v1/clients-delete');
+            $client_destroy_id = $this->register_swell_webhook('POST', 'client.destroy', site_url() . '/wp-json/swell/v1/clients-delete');
+            
+            $contact_create_id = $this->register_swell_webhook('POST', 'contact.create', site_url() . '/wp-json/swell/v1/contacts');
+            
+            $contact_update_id = $this->register_swell_webhook('POST', 'contact.update', site_url() . '/wp-json/swell/v1/contacts');
+            
+            $contact_delete_id = $this->register_swell_webhook('POST', 'contact.delete', site_url() . '/wp-json/swell/v1/contacts-delete');
+            
+            $contact_destroy_id = $this->register_swell_webhook('POST', 'contact.destroy', site_url() . '/wp-json/swell/v1/contacts-delete');        
+            
+            $note_create_id = $this->register_swell_webhook('POST', 'note.create', site_url() . '/wp-json/swell/v1/notes');
+            
+            $note_update_id = $this->register_swell_webhook('POST', 'note.update', site_url() . '/wp-json/swell/v1/notes');
+            
+            $note_delete_id = $this->register_swell_webhook('POST', 'note.delete', site_url() . '/wp-json/swell/v1/notes-delete');
+            
+            $note_destroy_id = $this->register_swell_webhook('POST', 'note.destroy', site_url() . '/wp-json/swell/v1/notes-delete');
 
-        /** Tasks * */
-        $task_create_id = $this->register_swell_webhook('POST', 'task.create', site_url() . '/wp-json/swell/v1/tasks');
-        
-        $task_update_id = $this->register_swell_webhook('POST', 'task.update', site_url() . '/wp-json/swell/v1/tasks');
-        
-        $task_destroy_id = $this->register_swell_webhook('POST', 'task.destroy', site_url() . '/wp-json/swell/v1/tasks-delete');
-        
-        $task_delete_id = $this->register_swell_webhook('POST', 'task.delete', site_url() . '/wp-json/swell/v1/tasks-delete');    
-        // die();
+            /** Tasks * */
+            $task_create_id = $this->register_swell_webhook('POST', 'task.create', site_url() . '/wp-json/swell/v1/tasks');
+            
+            $task_update_id = $this->register_swell_webhook('POST', 'task.update', site_url() . '/wp-json/swell/v1/tasks');
+            
+            $task_destroy_id = $this->register_swell_webhook('POST', 'task.destroy', site_url() . '/wp-json/swell/v1/tasks-delete');
+            
+            $task_delete_id = $this->register_swell_webhook('POST', 'task.delete', site_url() . '/wp-json/swell/v1/tasks-delete');    
+            // die();
+
+        }
     }
 
     public function init_contact_service() {

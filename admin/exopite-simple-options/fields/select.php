@@ -96,7 +96,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 				if ( ! empty( $select ) ) {
 
 					foreach ( $select as $key => $value ) {
-						echo '<option value="' . $key . '" ' . $this->checked( $this->element_value(), $key, 'selected' ) . '>' . $value . '</option>';
+						echo '<option value="' . esc_attr( $key ) . '" ' . $this->checked( $this->element_value(), $key, 'selected' ) . '>' . esc_attr( $value ) . '</option>';
 
 					}
 				}

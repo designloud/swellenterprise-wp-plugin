@@ -240,8 +240,9 @@ class SWELLEnterprise {
         $this->loader->add_action('wp_ajax_swell_get_data', $plugin_services, 'swell_get_data', 999);
         $this->loader->add_action('rest_api_init', $SWELLEnterprise_RestApis, 'register_routes', 999);
         $this->loader->add_action('wp_trash_post', $SWELLEnterprise_RestApis, 'swell_trash_post', 10, 2);
-        $this->loader->add_action('edit_form_after_editor', $SWELLEnterprise_RestApis, 'bic_edit_form_callback', 10, 1);
+        $this->loader->add_action('edit_form_after_editor', $SWELLEnterprise_RestApis, 'swell_edit_form_callback', 10, 1);
         $this->loader->add_action('save_post', $SWELLEnterprise_RestApis, 'swell_get_post_data', 10, 3);
+        $this->loader->add_filter( 'http_request_timeout', $SWELLEnterprise_RestApis, 'increase_request_http_request_timeout_filter', 10, 2 );
         /**
          * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
          * so hooking into init from the activation hook won't do anything.
@@ -259,9 +260,9 @@ class SWELLEnterprise {
         //$this->loader->add_action('init', $plugin_api, 'init_services', 999);
 
 
-        if (isset($_GET['register_swell_hooks'])) {
+        //if (isset($_GET['register_swell_hooks'])) {
             $this->loader->add_action('init', $plugin_api, 'registerWebhooks', 999);
-        }
+        //}
 
 
         $this->loader->add_action( 'init', $plugin_services, 'sync_alldata', 999 );

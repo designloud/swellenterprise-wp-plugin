@@ -193,11 +193,11 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
   }
   public function create_item_leads( $request ) {
-        /*echo '200';
+        echo '200';
         ini_set("log_errors", 1);
         ini_set("error_log", dirname( __FILE__ )."/swell.log");
         error_log( 'json_encode($request)' );
-        error_log( json_encode($request->get_json_params()) );*/
+        error_log( json_encode($request->get_json_params()) );
         $lead = $request->get_json_params();
         if(isset($lead['payload']['id'])){ //check the key exists in the array
             $plugin_services = new SWELLEnterprise_API_Services();
@@ -255,12 +255,17 @@ public function delete_item_contacts( $request ) {
 }
 // notes creation callback.
 public function create_item_notes( $request ) {
-        /*print_r( $request->get_json_params() );
+        print_r( $request->get_json_params() );
         echo '200';
         ini_set("log_errors", 1);
         ini_set("error_log", dirname( __FILE__ )."/swell.log");
         error_log( json_encode("Notes endpoint"));
-        error_log( json_encode($request->get_json_params()) );*/
+        error_log( json_encode($request->get_json_params()) );
+        // Writing logs in file.
+        $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+        fwrite($fp, json_encode("Notes endpoint").PHP_EOL);
+        fwrite($fp, json_encode($request->get_json_params()).PHP_EOL );
+        fclose($fp);
         $note = $request->get_json_params();
         if(isset($note['payload']['id'])) { //check the key exists in the array
             $plugin_services = new SWELLEnterprise_API_Services();
@@ -277,21 +282,28 @@ public function create_item_notes( $request ) {
 // Delete notes callback.
   public function delete_item_notes( $request ) {
         print_r( $request->get_json_params() );
-       /* echo '200';
+        echo '200';
         ini_set("log_errors", 1);
         ini_set("error_log", dirname( __FILE__ )."/swell.log");
-        error_log( json_encode($request->get_json_params()) );*/
+        error_log( json_encode($request->get_json_params()) );
         $delete_post_hash_id = $request->get_json_params();
         $plugin_services = new SWELLEnterprise_API_Services();
         $plugin_services->delete_note( $delete_post_hash_id['payload'] );
   }
   // Tasks creation and updation callback.
   public function create_item_tasks( $request ) {
-        /*echo '200';
+        echo '200';
         ini_set("log_errors", 1);
         ini_set("error_log", dirname( __FILE__ )."/swell.log");
         error_log( json_encode("Tasks Endpoint") );
-        error_log( json_encode($request->get_json_params()) );*/
+        error_log( json_encode($request->get_json_params()) );
+
+        // Writing logs in file.
+        $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
+        fwrite($fp, json_encode("Tasks Endpoint"). PHP_EOL );
+        fwrite($fp, json_encode($request->get_json_params()). PHP_EOL );
+        fclose($fp);
+
         $task = $request->get_json_params();
         if(isset($task['payload']['id'])){ //check the key exists in the array
             $plugin_services = new SWELLEnterprise_API_Services();
@@ -448,10 +460,11 @@ public function create_item_notes( $request ) {
    * @return array
    */
   public function swell_get_post_data( $post_ID, $post, $update ) {
-      if( $_POST ) {
-        $post_type = $_POST['post_type'];
+      if( isset( $_POST['post_type']) ) {
+          $post_type = sanitize_text_field( $_POST['post_type'] );
         // get hash_id.
         $id = get_post_field( 'hash_id', $post_ID );
+        $url = '';
         $url_args = array();
         if( !empty( $id ) ) {
           $method = 'PUT';
@@ -499,11 +512,6 @@ public function create_item_notes( $request ) {
             $body_fields = $this->get_body_fields( $post_type, $post_ID ); 
           }
         }
-        // echo $url;
-        // echo $method;
-        // echo "<pre>";
-        // print_r( $body_fields );
-        // die();
         // In case post type is note.
         if( $post_type === 'note' ) {
           $id = get_post_meta( $post_ID, 'hash_id', true );
@@ -515,7 +523,6 @@ public function create_item_notes( $request ) {
           }
           $body_fields = $this->get_notes_body_fields( $post_ID, $method );
         }
-
         // In case when post_type is task.
         if( $post_type === 'task' ) {
           $id = get_post_meta( $post_ID, 'hash_id', true );
@@ -527,6 +534,7 @@ public function create_item_notes( $request ) {
           }
           $body_fields = $this->get_task_body_fields( $post_ID );          
         }
+
         $plugin_services = new SWELLEnterprise_API_Services();
         // echo "URL is:".$url;
         // echo "Method is:".$method;
@@ -536,8 +544,13 @@ public function create_item_notes( $request ) {
         // if( $body_fields ) {
         //   $result = $plugin_services->rs_remote_request( $url, $method, $body_fields ); 
         // } else {
+        // if( isset($url) && isset($method) && isset($body_fields) ) {
           $result = $plugin_services->rs_remote_request( $url, $method, $body_fields );
         // }
+        // }
+        // echo "<pre>";
+        // var_dump( $result['response_body'] );
+        // echo $result['response_body']->id;
         // echo "<pre>";
         // print_r( $result );
         // die();
@@ -546,6 +559,10 @@ public function create_item_notes( $request ) {
         }
 
         if( $post_type === 'lead' ) {
+          ini_set("log_errors", 1);
+          ini_set("error_log", dirname( __FILE__ )."/swell.log");
+          error_log( json_encode( "From system" ));
+          error_log( json_encode( $body_fields ));
           $plugin_services->create_lead($body_fields,$post_ID, 1 );
         }
         if ( $post_type === 'contact' ) {
@@ -560,13 +577,8 @@ public function create_item_notes( $request ) {
         }
         // Saving task id against task for updation.
         if( $post_type === 'task' ) {
-          // echo "<pre>";
-          // print_r( $result['response_body'] );
-          // var_dump( $result['response_body']->id );
-          // die();
           add_post_meta( $post_ID, 'hash_id', $result['response_body']->id );
-        }
-        
+        }    
         // if( $result && $result['response_code'] === 201 ) {
           if( $post_type === 'lead' || $post_type === 'client' || $post_type === 'contact' ) {
             $url = get_site_url()."/wp-admin/edit.php?post_type=".$post_type;
@@ -610,17 +622,27 @@ public function create_item_notes( $request ) {
         
       }
   }
+  public function increase_request_http_request_timeout_filter( ) {
+    $timeout_value = 800;
+    // filter...
+    return $timeout_value;
+  }
   // Get Notes body fields.
   public function get_notes_body_fields( $post_ID ) {
     global $_POST;
+    echo "<pre>";
+    print_r( $_POST );
+    print_r( $_GET );
       if ( isset( $_POST['attached_post_id'] ) ) {
         // $id = 0;
-        $attach_id = get_post_field( 'hash_id', $_POST['attached_post_id'] );
-        $attchment_post_type = get_post_type( $_POST['attached_post_id'] );
-        $resource = ucfirst( $attchment_post_type );
-        update_post_meta( $post_ID, $attchment_post_type, $attach_id );
-        update_post_meta( $post_ID, $attchment_post_type.'_id', $attach_id );
-        update_post_meta( $post_ID, 'resource', $resource );
+        $attach_id = sanitize_text_field( get_post_field( 'hash_id', $_POST['attached_post_id'] ) );
+        if( isset( $_POST['attached_post_id'] ) ) {
+          $attchment_post_type = get_post_type( $_POST['attached_post_id'] );
+          $resource = ucfirst( $attchment_post_type );
+          update_post_meta( $post_ID, $attchment_post_type, $attach_id );
+          update_post_meta( $post_ID, $attchment_post_type.'_id', $attach_id );
+          update_post_meta( $post_ID, 'resource', $resource );
+        }
       } else {
         // $id = get_post_meta( $post_ID, 'note_id', true );
         $attach_id = '';
@@ -628,8 +650,8 @@ public function create_item_notes( $request ) {
       }
       $body_fields = array(
         // 'id'          => $id,
-        'title'       => $_POST['post_title'],
-        'description' => $_POST['content'],
+        'title'       => sanitize_title( $_POST['post_title'] ),
+        'description' => sanitize_textarea_field( $_POST['content'] ),
         'attach_id' => $attach_id,
         'resource' => $resource,
       );
@@ -640,12 +662,15 @@ public function create_item_notes( $request ) {
     global $_POST;
     if( isset( $_POST['attached_post_id'] ) ) {
       // $id = 0;
-      $attach_id = get_post_field( 'hash_id', $_POST['attached_post_id'] );
-      $attchment_post_type = get_post_type( $_POST['attached_post_id'] );
-      $resource = ucfirst( $attchment_post_type );
-      update_post_meta( $post_ID, $attchment_post_type, $attach_id );
-      update_post_meta( $post_ID, $attchment_post_type.'_id', $attach_id );
-      update_post_meta( $post_ID, 'resource', $resource );
+      $attached_post_id = sanitize_text_field( $_POST['attached_post_id'] );
+      if( isset( $attached_post_id ) ) {
+        $attach_id = get_post_field( 'hash_id', $attached_post_id );
+        $attchment_post_type = get_post_type( $attached_post_id );
+        $resource = ucfirst( $attchment_post_type );
+        update_post_meta( $post_ID, $attchment_post_type, $attach_id );
+        update_post_meta( $post_ID, $attchment_post_type.'_id', $attach_id );
+        update_post_meta( $post_ID, 'resource', $resource );
+      }
     } else {
       // $id = get_post_meta( $post_ID, 'task_id', true );
       $attach_id = '';
@@ -653,32 +678,34 @@ public function create_item_notes( $request ) {
     }
     // If task status is set.
     if( isset( $_POST['swell_task_status_field'] ) ) {
-      $status = $_POST['swell_task_status_field'];
+      $status = sanitize_text_field($_POST['swell_task_status_field']);
       update_post_meta(
           $post_ID,
           'swell_task_status',
-          $_POST['swell_task_status_field']
+          $status
       );
     } else {
       $status = '';
     }
+
     $body_fields = array(
       // 'id'    => $id,
-      'title' => $_POST['post_title'],
-      'details' => $_POST['content'],
-      'start' => $_POST['swellenterprise-meta']['start_date'],
-      'end' => $_POST['swellenterprise-meta']['end_date'],
-      'start_time' => $_POST['swellenterprise-meta']['start_time'],
-      'end_time' => $_POST['swellenterprise-meta']['end_time'],
+      'title' => isset( $_POST['post_title'] )? sanitize_title( $_POST['post_title'] ) : null,
+      'details' => isset( $_POST['content'] )? sanitize_textarea_field( $_POST['content'] ) : null,
+      'start' => isset( $_POST['swellenterprise-meta']['start_date'] )? sanitize_text_field ( $_POST['swellenterprise-meta']['start_date'] ): null,
+      'end' => isset( $_POST['swellenterprise-meta']['end_date'] )? sanitize_text_field( $_POST['swellenterprise-meta']['end_date'] ): null,
+      'start_time' => isset( $_POST['swellenterprise-meta']['start_time'] ) ? sanitize_text_field( $_POST['swellenterprise-meta']['start_time'] ): null,
+      'end_time' => isset( $_POST['swellenterprise-meta']['end_time'] )? sanitize_text_field( $_POST['swellenterprise-meta']['end_time'] ): null,
       'status' => $status,
       'attach_id' => $attach_id,
       'resource' => $resource,
      );
     // Adding task fields data in postmeta.
-    update_post_meta( $post_ID, 'start_date', $_POST['swellenterprise-meta']['start_date'] );
-    update_post_meta( $post_ID, 'end_date', $_POST['swellenterprise-meta']['end_date'] );
-    update_post_meta( $post_ID, 'start_time', $_POST['swellenterprise-meta']['start_time'] );
-    update_post_meta( $post_ID, 'end_time', $_POST['swellenterprise-meta']['end_time'] );
+
+    update_post_meta( $post_ID, 'start_date', sanitize_text_field( $_POST['swellenterprise-meta']['start_date'] ) );
+    update_post_meta( $post_ID, 'end_date', sanitize_text_field( $_POST['swellenterprise-meta']['end_date'] ) );
+    update_post_meta( $post_ID, 'start_time', sanitize_text_field( $_POST['swellenterprise-meta']['start_time'] ) );
+    update_post_meta( $post_ID, 'end_time', sanitize_text_field( $_POST['swellenterprise-meta']['end_time'] ) );
     return $body_fields;
   }
 
@@ -688,7 +715,7 @@ public function create_item_notes( $request ) {
     $custom_fields = array();
     // get hash_id.
     $id        = get_post_field( 'hash_id', $post_id );
-    $post_data = $_POST['swellenterprise-meta'];
+    $post_data = isset( $_POST['swellenterprise-meta'] )? $_POST['swellenterprise-meta']: null;
     // echo "<pre>";
     // print_r( $_POST );
     //print_r( $post_data );
@@ -696,11 +723,11 @@ public function create_item_notes( $request ) {
 
     // Setting lead status if post type is lead.
     if( $post_type === 'lead' && isset( $_POST['swell_lead_status_field'] ) ) {
-        $status = $_POST['swell_lead_status_field'];
+        $status = sanitize_text_field( $_POST['swell_lead_status_field'] );
         update_post_meta(
             $post_id,
             'swell_lead_status',
-            $_POST['swell_lead_status_field']
+            $status
         );
     } else {
       $status = '';
@@ -717,20 +744,25 @@ public function create_item_notes( $request ) {
     //     }
     //   }
     // }
-
+    if( isset( $post_data['custom_field'] ) ) {
+        $custom_fields = $post_data['custom_field'];
+    } else {
+      $custom_fields = '';
+    }
+    
     $form_data = array( 
       'id'         => $id,
-      'first_name' => $post_data['first_name'],
-      'last_name' => $post_data['last_name'],
-      'organization' => $post_data['organization'],
-      'address' => $post_data['address'],
-      'city' => $post_data['city'],
-      'state' => $post_data['state'],
-      'zip' => $post_data['zip'],
-      'phone_number' => $post_data['phone'],
-      'email' => $post_data['email'],
+      'first_name' => isset($post_data['first_name'] )? sanitize_text_field( $post_data['first_name'] ):null,
+      'last_name' => isset($post_data['last_name'] )? sanitize_text_field( $post_data['last_name'] ):null,
+      'organization' => isset($post_data['organization'] )? sanitize_text_field( $post_data['organization'] ):null,
+      'address' => isset($post_data['address'] )? sanitize_textarea_field( $post_data['address'] ):null,
+      'city' => isset($post_data['city'] )? sanitize_text_field( $post_data['city'] ):null,
+      'state' => isset($post_data['state'] )? sanitize_text_field( $post_data['state'] ):null,
+      'zip' => isset($post_data['zip'] )? sanitize_text_field( $post_data['zip'] ):null,
+      'phone_number' => isset($post_data['phone'] )? sanitize_text_field( $post_data['phone'] ):null,
+      'email' => isset($post_data['email'] )? sanitize_email( $post_data['email']):null,
       'status_id' => $status,
-      'custom_fields' => $post_data['custom_field']
+      'custom_fields' => $custom_fields
     );
     
     return $form_data;
@@ -833,7 +865,7 @@ public function create_item_notes( $request ) {
   public function swell_save_task_statuses () {
       if( false == ( $service_data = get_transient( "swell_task_statuses" ) ) ) 
       {
-        $task_status_url = "https://hdr.ketchsystem.com/api/statuses/task";
+        $task_status_url = SWELLENTERPRISE_BASE_URL . 'api/statuses/task';
         $method = 'GET';
         $plugin_services = new SWELLEnterprise_API_Services();
         $result = $plugin_services->rs_remote_request(  $task_status_url, $method);        
@@ -841,9 +873,11 @@ public function create_item_notes( $request ) {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log( json_encode( $result ));
         //Success (200 = changes ok, 204 = no change needed)
-        if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
+        if ( isset( $result['response_code'] ) ) {
+          if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
             $task_status_data = $result['response_body'];
             set_transient( "swell_task_statuses", $task_status_data, 1 * DAY_IN_SECONDS );
+          }
         }
       }
   }
@@ -855,7 +889,7 @@ public function create_item_notes( $request ) {
   public function swell_save_lead_statuses () {
     if( false == ( $service_data = get_transient( "swell_lead_statuses" ) ) ) 
       {
-        $lead_status_url = "https://hdr.ketchsystem.com/api/statuses/lead";
+        $lead_status_url = SWELLENTERPRISE_BASE_URL . 'api/statuses/lead';
         $method = 'GET';
         $plugin_services = new SWELLEnterprise_API_Services();
         $result = $plugin_services->rs_remote_request(  $lead_status_url, $method);        
@@ -863,9 +897,11 @@ public function create_item_notes( $request ) {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log( json_encode( $result ));
         //Success (200 = changes ok, 204 = no change needed)
-        if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
-            $lead_status_data = $result['response_body'];
-            set_transient( "swell_lead_statuses", $lead_status_data, 1 * DAY_IN_SECONDS );
+        if ( isset( $result['response_code'] ) ) {
+          if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
+              $lead_status_data = $result['response_body'];
+              set_transient( "swell_lead_statuses", $lead_status_data, 1 * DAY_IN_SECONDS );
+          }
         }
       }
   }
@@ -878,7 +914,7 @@ public function create_item_notes( $request ) {
   public function swell_save_lead_custom_fields () {
     if( false == ( $service_data = get_transient( "swell_lead_custom_fields" ) ) ) 
       {
-        $lead_custom_fields_url = "https://hdr.ketchsystem.com/api/customfields/lead/";
+        $lead_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/lead';
         $method = 'GET';
         $plugin_services = new SWELLEnterprise_API_Services();
         $result = $plugin_services->rs_remote_request( $lead_custom_fields_url, $method);        
@@ -887,9 +923,11 @@ public function create_item_notes( $request ) {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log( json_encode( $result ));
         //Success (200 = changes ok, 204 = no change needed)
-        if ( $result['response_code'] === 201 || $result['response_code'] === 204 ) {
-            $lead_custom_fields_data = $result['response_body'];
-            set_transient( "swell_lead_custom_fields", $lead_custom_fields_data, 1 * DAY_IN_SECONDS );
+        if ( isset( $result['response_code'] ) ) {
+          if ( $result['response_code'] === 201 || $result['response_code'] === 204 ) {
+              $lead_custom_fields_data = $result['response_body'];
+              set_transient( "swell_lead_custom_fields", $lead_custom_fields_data, 1 * DAY_IN_SECONDS );
+          }
         }
       }
   }
@@ -902,7 +940,7 @@ public function create_item_notes( $request ) {
   public function swell_save_contact_custom_fields () {
     if( false == ( $service_data = get_transient( "swell_contact_custom_fields" ) ) ) 
       {
-        $contact_custom_fields_url = "https://hdr.ketchsystem.com/api/customfields/contact/";
+        $contact_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/contact';
         $method = 'GET';
         $plugin_services = new SWELLEnterprise_API_Services();
         $result = $plugin_services->rs_remote_request( $contact_custom_fields_url, $method);        
@@ -910,10 +948,12 @@ public function create_item_notes( $request ) {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log( json_encode( $result ));
         //Success (200 = changes ok, 204 = no change needed)
-         if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
+        if ( isset( $result['response_code'] ) ) {
+          if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
             $contact_custom_fields_data = $result['response_body'];
             set_transient( "swell_contact_custom_fields", $contact_custom_fields_data, 1 * DAY_IN_SECONDS );
-         }
+          }
+        }
       }
   }
      /**
@@ -924,7 +964,7 @@ public function create_item_notes( $request ) {
   public function swell_save_client_custom_fields () {
     if( false == ( $service_data = get_transient( "swell_client_custom_fields" ) ) ) 
       {
-        $client_custom_fields_url = "https://hdr.ketchsystem.com/api/customfields/client/";
+        $client_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/client';
         $method = 'GET';
         $plugin_services = new SWELLEnterprise_API_Services();
         $result = $plugin_services->rs_remote_request(  $client_custom_fields_url, $method);        
@@ -932,9 +972,11 @@ public function create_item_notes( $request ) {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log( json_encode( $result ));
         //Success (200 = changes ok, 204 = no change needed)
-        if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
-            $client_custom_fields_data = $result['response_body'];
-            set_transient( "swell_client_custom_fields", $client_custom_fields_data, 1 * DAY_IN_SECONDS );
+        if ( isset( $result['response_code'] ) ) {
+          if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
+              $client_custom_fields_data = $result['response_body'];
+              set_transient( "swell_client_custom_fields", $client_custom_fields_data, 1 * DAY_IN_SECONDS );
+          }
         }
       }
   }
@@ -959,14 +1001,15 @@ public function create_item_notes( $request ) {
   public function swell_task_status_callback( $post) {
     $get_task_statuses = get_transient('swell_task_statuses');
     $saved_task_status = get_post_meta( $post->ID, 'swell_task_status', true );
+    if ( $get_task_statuses ) {
     ?>
     <label for="swell_task_status_field">Select Task Status</label>
     <select name="swell_task_status_field" id="swell_task_status_field" class="postbox">
       <?php foreach ( $get_task_statuses as $get_task_status ) {?> 
-        <option value="<?php echo $get_task_status->id; ?>" <?php selected( $saved_task_status, $get_task_status->id ); ?> ><?php echo $get_task_status->label; ?></option>
+        <option value="<?php echo esc_attr( $get_task_status->id ); ?>" <?php selected( $saved_task_status, $get_task_status->id ); ?> ><?php echo esc_attr( $get_task_status->label ); ?></option>
         <?php } ?>
     </select>
-    <?php
+    <?php }
   }
 
   /**
@@ -989,26 +1032,28 @@ public function create_item_notes( $request ) {
    */
   public function swell_lead_status_callback( $post ) {
     $swell_lead_statuses = get_transient('swell_lead_statuses');
-    $saved_lead_status = get_post_meta( $post->ID, 'swell_lead_status', true ); 
+    $saved_lead_status = get_post_meta( $post->ID, 'swell_lead_status', true );
+    if ( $swell_lead_statuses ) {
     ?>
     <label for="swell_lead_status_field">Select Lead Status</label>
     <select name="swell_lead_status_field" id="swell_lead_status_field" class="postbox">
       <?php foreach ( $swell_lead_statuses as $swell_lead_status ) { ?>
-        <option value="<?php echo $swell_lead_status->id; ?>" <?php selected( $saved_lead_status, $swell_lead_status->id ); ?>><?php echo $swell_lead_status->label; ?></option>
+        <option value="<?php echo esc_attr($swell_lead_status->id); ?>" <?php selected( $saved_lead_status, $swell_lead_status->id ); ?>><?php echo esc_attr($swell_lead_status->label); ?></option>
       <?php } ?>
     </select>
     <?php
+    }
   }
   /**
    * Create lead status meta box callback.
    *
    * @return array
    */
-  public function bic_edit_form_callback ( $post ) {
+  public function swell_edit_form_callback ( $post ) {
     if( isset( $_GET['attached_post_id'] ) ) {
       if( $post->post_type === 'note' || $post->post_type === 'task' ) {
         $output = '<input type="hidden" id="'.$_GET['attached_post_id'].'" name="attached_post_id" value="'.$_GET['attached_post_id'].'">';
-        echo $output;
+        echo  $output;
       }  
     } 
   }

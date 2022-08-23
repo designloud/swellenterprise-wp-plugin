@@ -29,7 +29,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_button_bar' ) ) {
 					foreach ( $options as $key => $value ) {
 						echo '<div class="button-bar__item">';
 						echo '<input type="radio" name="' . $this->element_name() . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '>';
-						echo '<button class="button-bar__button">' . $value . '</button>';
+						echo '<button class="button-bar__button">' . esc_attr( $value ) . '</button>';
 						echo '</div>';
 
 					}

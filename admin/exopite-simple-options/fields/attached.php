@@ -50,7 +50,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
 					foreach ( $images as $image ) { ?>
                         <span class="exopite-sof-attachment-media exopite-sof-attachment-media-js"
-                              data-media-id="<?php echo $image->ID; ?>"><span
+                              data-media-id="<?php echo esc_attr( $image->ID ); ?>"><span
                                     class="exopite-sof-attachment-media-delete-overlay"></span><span
                                     class="exopite-sof-attachment-media-delete exopite-sof-attachment-media-delete-js"><i
                                         class="fa fa-times" aria-hidden="true"></i></span><img

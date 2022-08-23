@@ -39,7 +39,7 @@ $swell_task_status['Complete'] = 2;
  */
 define('SWELLENTERPRISE_VERSION', '1.0.0');
 define('PLUGIN_NAME_BASE_NAME', plugin_basename(__FILE__));
-define('SWELLENTERPRISE_BASE_URL', 'https://hdr.ketchsystem.com/');
+define('SWELLENTERPRISE_BASE_URL', 'https://app.swellsystem.com/');
 
 /**
  * The code that runs during plugin activation.
@@ -94,8 +94,6 @@ function swell_action_updated_option($callable, $int, $int1) {
 
     if ($callable == 'swellenterprise') {
         $plugin_api = new SWELLEnterprise_API();
-        $plugin_api->registerWebhooks();
-
-        
+        // $plugin_api->registerWebhooks();
     }
 }

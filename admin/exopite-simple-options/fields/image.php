@@ -83,13 +83,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image' ) ) {
 				$preview    = $attachment[0];
 			}
 
-			echo '<div class="exopite-sof-media exopite-sof-image ' . $classes . '" ' . $this->element_attributes() . '>';
-			echo '<div class="exopite-sof-image-preview' . $hidden . '">';
-			echo '<div class="exopite-sof-image-inner"><i class="fa fa-times exopite-sof-image-remove"></i><img src="' . $preview . '" alt="preview" /></div>';
+			echo '<div class="exopite-sof-media exopite-sof-image ' . esc_attr( $classes ) . '" ' . $this->element_attributes() . '>';
+			echo '<div class="exopite-sof-image-preview' . esc_attr( $hidden ) . '">';
+			echo '<div class="exopite-sof-image-inner"><i class="fa fa-times exopite-sof-image-remove"></i><img src="' . esc_attr( $preview ) . '" alt="preview" /></div>';
 			echo '</div>';
 
 			echo '<input type="text" name="' . $this->element_name() . '" value="' . $this->element_value() . '">';
-			echo '<a href="#" class="button button-primary exopite-sof-button">' . $add . '</a>';
+			echo '<a href="#" class="button button-primary exopite-sof-button">' . esc_attr( $add ) . '</a>';
 			echo '</div>';
 			echo $this->element_after();
 

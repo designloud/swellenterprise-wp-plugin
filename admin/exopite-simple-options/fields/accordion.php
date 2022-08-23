@@ -58,7 +58,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 
 				echo '<div class="exopite-sof-cloneable__item exopite-sof-accordion__item ' . implode( ' ', $muster_classes ) . '">';
 
-				echo '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title">' . $section_title . '</h4>';
+				echo '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title">' . esc_attr( $section_title ) . '</h4>';
 
 				echo '<div class="exopite-sof-accordion__content">';
 

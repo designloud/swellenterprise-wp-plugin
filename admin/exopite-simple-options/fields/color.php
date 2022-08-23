@@ -32,16 +32,16 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_color' ) ) {
 			}
 			echo '" ';
 			if ( ! isset( $this->field['picker'] ) || $this->field['picker'] != 'html5' ) {
-				echo 'class="minicolor ' . $classes . '" ';
+				echo 'class="minicolor ' . esc_attr( $classes ) . '" ';
 			}
 			if ( isset( $this->field['rgba'] ) && $this->field['rgba'] ) {
 				echo 'data-opacity="1" ';
 			}
 			if ( in_array( $control, $controls ) ) {
-				echo 'data-control="' . $control . '" '; // hue, brightness, saturation, wheel
+				echo 'data-control="' . esc_attr( $control ) . '" '; // hue, brightness, saturation, wheel
 			}
 			if ( in_array( $format, $formats ) ) {
-				echo 'data-format="' . $format . '" '; // hue, brightness, saturation, wheel
+				echo 'data-format="' . esc_attr( $format ) . '" '; // hue, brightness, saturation, wheel
 			}
 			echo 'name="' . $this->element_name() . '" value="' . $this->element_value() . '"';
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {

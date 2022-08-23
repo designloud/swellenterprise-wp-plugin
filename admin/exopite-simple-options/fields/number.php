@@ -34,7 +34,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_number' ) ) {
 
 			echo $this->element_prepend();
 
-			echo '<input type="number" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . $attrs . '/>';
+			echo '<input type="number" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . esc_attr( $attrs ) . '/>';
 
 			echo $this->element_append();
 

@@ -51,7 +51,7 @@ class SWELLEnterprise_Activator {
          * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
          */
         $plugin_post_types->create_custom_post_type();
-        // $plugin_api->registerWebhooks();
+        //$plugin_api->registerWebhooks();
         /*
           $plugin_services->sync_clients();
           $plugin_services->sync_leads();

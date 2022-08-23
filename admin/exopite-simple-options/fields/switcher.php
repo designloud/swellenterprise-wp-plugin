@@ -24,7 +24,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_switcher' ) ) {
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
 			echo '<label class="checkbox">';
-			echo '<input name="' . $this->element_name() . '" value="yes" class="checkbox__input ' . $classes . '" type="checkbox"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>';
+			echo '<input name="' . $this->element_name() . '" value="yes" class="checkbox__input ' . esc_attr( $classes ) . '" type="checkbox"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>';
 			echo '<div class="checkbox__switch"></div>';
 			echo '</label>' . $label;
 			echo $this->element_after();

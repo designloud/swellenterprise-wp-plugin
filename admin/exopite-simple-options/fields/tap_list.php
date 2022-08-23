@@ -38,14 +38,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tap_list' ) ) {
 					switch ( $input_type ) {
 						case 'radio':
 							echo '<label class="radio-button">';
-							echo '<input type="' . $input_type . '" name="' . $this->element_name( $input_attr ) . '" class="radio-button__input" id="' . $this->field['id'] . '-' . sanitize_title( $value ) . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '/>';
+							echo '<input type="' . esc_attr( $input_type ) . '" name="' . $this->element_name( $input_attr ) . '" class="radio-button__input" id="' . $this->field['id'] . '-' . sanitize_title( $value ) . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '/>';
 							echo '<div class="radio-button__checkmark"></div>';
 							echo '</label>';
 							break;
 
 						case 'checkbox':
 							echo '<label class="checkbox checkbox--noborder">';
-							echo '<input type="' . $input_type . '" name="' . $this->element_name( $input_attr ) . '" class="checkbox__input checkbox--noborder__input" id="' . $this->field['id'] . '-' . sanitize_title( $value ) . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '>';
+							echo '<input type="' . esc_attr( $input_type ) . '" name="' . $this->element_name( $input_attr ) . '" class="checkbox__input checkbox--noborder__input" id="' . $this->field['id'] . '-' . sanitize_title( $value ) . '" value="' . esc_attr( $key ) . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '>';
 							echo '<div class="checkbox__checkmark checkbox--noborder checkbox--noborder__checkmark"></div>';
 							echo '</label>';
 							break;

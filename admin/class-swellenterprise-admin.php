@@ -208,19 +208,59 @@ class SWELLEnterprise_Admin {
 
             	array(
                     'type'    => 'card',
-                    'class'   => 'class-name', // for all fieds
+                    'class'   => 'text-class', // for all fields
                     'title'   => 'Welcome to SWELLEnterprise',
                     'content' => '',
                     'header' => 'Header Text',
                     'footer' => 'Footer Text',
                 ),
-
                 array(
-                    'type'    => 'content',
-                    'class'   => 'class-name', // for all fieds
-                    'content' => '<div class="row"><div class="col-6"><iframe width="560" height="315" src="https://www.youtube.com/embed/ELQrbMUGnRA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="col-6"><h2>Welcome to SWELLEnterprise</h2><p>SWELLEnterprise makes it easier and less expensive for small business owners to manage projects, clients, business development and communication with remote team members. It’s particularly loved by creative service agencies because that’s who designed it. Our cloud-based system manages everything from invoicing to documents, projects to email marketing, replacing 3 or 4 products with just one. </p><p><strong>While you do need an account with SWELLEnterprise to make full use of this plugin, the plugin should continue to work and function without an account.</strong></p><p><a class="btn btn-primary" target="_blank" href="https://app.swellsystem.com/register?utm_source=wordpress&utm_medium=plugin&utm_campaign=intro_page">Try FREE For 30 Days »</a></div></div>',
-
+                    'id'          => 'swell_welcome',
+                    'type'        => 'content',
+                    'title'       => 'Welcome to SWELLEnterprise',
+                    'class'       => 'text-class',
+                    'description' => '<div class="row">
+                                 <div class="col-6 swell-video">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ELQrbMUGnRA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                 </div>
+                                  <div class="col-6 swell-about">
+                                    
+                                    <p>SWELLEnterprise makes it easier and less expensive for small business owners to manage projects, clients, business development and communication with remote team members. It’s particularly loved by creative service agencies because that’s who designed it. Our cloud-based system manages everything from invoicing to documents, projects to email marketing, replacing 3 or 4 products with just one. </p>
+                                    <p>
+                                       <strong>While you do need an account with SWELLEnterprise to make full use of this plugin, the plugin should continue to work and function without an account.</strong>
+                                    </p>
+                                    <p>
+                                       <a class="btn btn-primary" target="_blank" href="https://app.swellsystem.com/register?utm_source=wordpress&utm_medium=plugin&utm_campaign=intro_page">Try FREE For 30 Days »</a>
+                                    </p>
+                                 </div>
+                              </div>',
+                    // 'default'     => 'john@doe.com',
+                    'attributes'    => array(
+                        'rows'        => 10,
+                        'cols'        => 5,
+                        // 'placeholder' => 'you@example.com',
+                    ),
                 ),
+                // array(
+                //     'type'    => 'content',
+                //     'class'   => 'text-class', // for all fields
+                //     'content' => '<div class="row">
+                //                  <div class="col-6">
+                //                     <iframe width="560" height="315" src="https://www.youtube.com/embed/ELQrbMUGnRA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                //                  </div>
+                //                   <div class="col-6">
+                //                     <h2></h2>
+                //                     <p> </p>
+                //                     <p>
+                //                        <strong>While you do need an account with SWELLEnterprise to make full use of this plugin, the plugin should continue to work and function without an account.</strong>
+                //                     </p>
+                //                     <p>
+                //                        <a class="btn btn-primary" target="_blank" href="https://app.swellsystem.com/register?utm_source=wordpress&utm_medium=plugin&utm_campaign=intro_page">Try FREE For 30 Days »</a>
+                //                     </p>
+                //                  </div>
+                //               </div>',
+
+                // ),
 
             )
         );
@@ -252,7 +292,6 @@ class SWELLEnterprise_Admin {
                     'title'  => 'Password',
                 ),
 
-
             )
         );
 
@@ -283,24 +322,22 @@ class SWELLEnterprise_Admin {
                     'label'   => 'Do you want to create and sync your contacts?',
                     'default' => 'yes',
                 ),
-	            array(
-                    'id'      => 'form_switcher',
-                    'type'    => 'switcher',
-                    'title'   => 'Forms',
-                    'label'   => 'Do you enable the form builder and sync your forms?',
-                    'default' => 'yes',
-                ),
+	          // array(
+                //     'id'      => 'form_switcher',
+                //     'type'    => 'switcher',
+                //     'title'   => 'Forms',
+                //     'label'   => 'Do you enable the form builder and sync your forms?',
+                //     'default' => 'yes',
+                // ),
                 array(
                     'id'      => 'note_switcher',
                     'type'    => 'switcher',
                     'title'   => 'Notes',
                     'label'   => 'Do you want to create and sync your notes?',
                     'default' => 'yes',
-
-
-	    /**
-	     * Second Tab
-	     */
+			    /**
+			     * Second Tab
+			     */
 
                 ),
                 array(
@@ -2236,6 +2273,7 @@ class SWELLEnterprise_Admin {
 		
 
         $custom_fields_data = get_post_meta( $post_ID, 'custom_fields', true);
+	
         if( is_array( $custom_fields_data ) ) {
         	foreach ($custom_fields_data as $custom_field_key => $custom_field_value) {
             $custom_fields[] = array(
@@ -2258,6 +2296,7 @@ class SWELLEnterprise_Admin {
 
         }
         }
+
 		if($post_type !== ''){
 			/********************************************************************
 				Get notes relations on single-edit screen
@@ -2558,7 +2597,7 @@ class SWELLEnterprise_Admin {
             'fields' => array(
                 array(
                     'id'          => 'start_date',
-                    'type'        => 'text',
+                    'type'        => 'date',
                     'title'       => 'Start Date',
                     'class'       => 'text-class',
                     'description' => 'Start Date',
@@ -2574,7 +2613,7 @@ class SWELLEnterprise_Admin {
 
                 array(
                     'id'          => 'end_date',
-                    'type'        => 'text',
+                    'type'        => 'date',
                     'title'       => 'End Date',
                     'class'       => 'text-class',
                     'description' => 'End Date',
@@ -2589,7 +2628,7 @@ class SWELLEnterprise_Admin {
                 ),
                 array(
                     'id'          => 'start_time',
-                    'type'        => 'text',
+                    'type'        => 'time',
                     'title'       => 'Start Time',
                     'class'       => 'text-class',
                     'description' => 'Start Time',
@@ -2604,7 +2643,7 @@ class SWELLEnterprise_Admin {
                 ),
                 array(
                     'id'          => 'end_time',
-                    'type'        => 'text',
+                    'type'        => 'time',
                     'title'       => 'End Time',
                     'class'       => 'text-class',
                     'description' => 'End Time',
@@ -2664,7 +2703,7 @@ class SWELLEnterprise_Admin {
 			if ( ! $first_name ) {
 				_e( 'n/a' );  
 			} else {
-				echo $first_name;
+				echo esc_attr( $first_name );
 			}
 		}
 
@@ -2675,7 +2714,7 @@ class SWELLEnterprise_Admin {
 			if ( ! $last_name ) {
 				_e( 'n/a' );  
 			} else {
-				echo $last_name;
+				echo esc_attr( $last_name );
 			}
 		}
 
@@ -2686,7 +2725,7 @@ class SWELLEnterprise_Admin {
 			if ( ! $organization ) {
 				_e( 'n/a' );  
 			} else {
-				echo $organization;
+				echo esc_attr( $organization );
 			}
 		}
 	  
@@ -2725,7 +2764,8 @@ class SWELLEnterprise_Admin {
 	     * @link http://wordpress.stackexchange.com/questions/8427/change-order-of-custom-columns-for-edit-panels
 	     */
 	    // $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-lead_tag', 'taxonomy-lead_status', 'date');
-	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-lead_tag', 'date');
+	    // $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-lead_tag', 'date');
+	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'date');
 
 	    // -- OR --
 	    // https://crunchify.com/how-to-move-wordpress-admin-column-before-or-after-any-other-column-manage-post-columns-hook/
@@ -2773,7 +2813,8 @@ class SWELLEnterprise_Admin {
 	     *
 	     * @link http://wordpress.stackexchange.com/questions/8427/change-order-of-custom-columns-for-edit-panels
 	     */
-	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-contact_tag', 'date');
+	    // $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-contact_tag', 'date');
+	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'date');
 
 	    // -- OR --
 	    // https://crunchify.com/how-to-move-wordpress-admin-column-before-or-after-any-other-column-manage-post-columns-hook/
@@ -2821,7 +2862,8 @@ class SWELLEnterprise_Admin {
 	     *
 	     * @link http://wordpress.stackexchange.com/questions/8427/change-order-of-custom-columns-for-edit-panels
 	     */
-	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-client_tag', 'date');
+	    // $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'taxonomy-client_tag', 'date');
+	    $customOrder = array('cb', 'first_name', 'last_name', 'organization', 'date');
 
 	    // -- OR --
 	    // https://crunchify.com/how-to-move-wordpress-admin-column-before-or-after-any-other-column-manage-post-columns-hook/
