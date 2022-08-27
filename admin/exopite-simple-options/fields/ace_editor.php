@@ -34,12 +34,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_ace_editor' ) ) {
 
 			echo $this->element_before();
 
-			echo '<div class="exopite-sof-ace-editor-wrapper">';
-			echo '<div id="exopite-sof-ace-' . esc_attr( $editor_id ) . '" class="exopite-sof-ace-editor"' . $this->element_attributes() . '></div>';
-			echo '</div>';
+			echo esc_html('<div class="exopite-sof-ace-editor-wrapper">');
+			echo esc_html('<div id="exopite-sof-ace-' . esc_attr( $editor_id ) . '" class="exopite-sof-ace-editor"' . $this->element_attributes() . '></div>');
+			echo esc_html('</div>');
 
-			echo '<textarea class="exopite-sof-ace-editor-textarea hidden" name="' . $this->element_name() . '">' . $this->element_value() . '</textarea>';
-			echo '<textarea class="exopite-sof-ace-editor-options hidden">' . $options . '</textarea>';
+			echo esc_html('<textarea class="exopite-sof-ace-editor-textarea hidden" name="' . $this->element_name() . '">' . $this->element_value() . '</textarea>');
+			echo esc_html('<textarea class="exopite-sof-ace-editor-options hidden">' . $options . '</textarea>');
 
 			echo $this->element_after();
 

@@ -46,7 +46,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
 				} else {
 
-					echo '<div class="exopite-sof-attachment-container" data-ajaxurl="' . site_url( 'wp-admin/admin-ajax.php' ) . '">';
+					echo esc_html('<div class="exopite-sof-attachment-container" data-ajaxurl="' . site_url( 'wp-admin/admin-ajax.php' ) . '">');
 
 					foreach ( $images as $image ) { ?>
                         <span class="exopite-sof-attachment-media exopite-sof-attachment-media-js"
@@ -57,7 +57,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
                                     src="<?php echo wp_get_attachment_image_src( $image->ID, 'thumbnail' )[0]; ?>"/></span>
 					<?php }
 
-					echo '</div>';
+					echo esc_html('</div>');
 
 				}
 

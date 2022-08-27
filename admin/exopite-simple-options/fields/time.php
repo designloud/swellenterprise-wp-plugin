@@ -27,14 +27,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_time' ) ) {
 				echo '<input type="time" ';
 			} else {
 				echo '<input type="time" ';
-				echo 'class="timepicker ' . esc_attr( $classes ) . '" ';
+				echo esc_html('class="timepicker ' . esc_attr( $classes ) . '" ');
 			}
-			echo 'name="' . $this->element_name() . '" ';
+			echo esc_html('name="' . $this->element_name() . '" ');
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
-				echo 'value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . ' ';
+				echo esc_html('value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . ' ');
 			} else {
-				echo 'value="' . $this->element_value() . '"' . $this->element_attributes() . ' ';
-				echo 'data-format="' . esc_attr( $date_format ) . '"';
+				echo esc_html('value="' . $this->element_value() . '"' . $this->element_attributes() . ' ');
+				echo esc_html('data-format="' . esc_attr( $date_format ) . '"');
 			}
 			echo '>';
 

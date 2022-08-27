@@ -89,14 +89,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 				$class      = $this->element_class();
 				$extra_name = ( isset( $this->field['attributes']['multiple'] ) ) ? '[]' : '';
 
-				echo '<select name="' . $this->element_name( $extra_name ) . '"' . $this->element_class() . $this->element_attributes() . '>';
+				echo esc_html('<select name="' . $this->element_name( $extra_name ) . '"' . $this->element_class() . $this->element_attributes() . '>');
 
 				echo ( isset( $this->field['default_option'] ) ) ? '<option value="">' . $this->field['default_option'] . '</option>' : '';
 
 				if ( ! empty( $select ) ) {
 
 					foreach ( $select as $key => $value ) {
-						echo '<option value="' . esc_attr( $key ) . '" ' . $this->checked( $this->element_value(), $key, 'selected' ) . '>' . esc_attr( $value ) . '</option>';
+						echo esc_html('<option value="' . esc_attr( $key ) . '" ' . $this->checked( $this->element_value(), $key, 'selected' ) . '>' . esc_attr( $value ) . '</option>');
 
 					}
 				}

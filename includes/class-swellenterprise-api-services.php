@@ -9,6 +9,7 @@
  * @package    Exopite_Portfolio
  * @subpackage Exopite_Portfolio/includes
  */
+if( !class_exists('SWELLEnterprise_API_Services') ) {
 class SWELLEnterprise_API_Services {
 
     protected $leads, $contacts, $clients;
@@ -976,4 +977,5 @@ class SWELLEnterprise_API_Services {
       
     }
 
+}
 }

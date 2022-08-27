@@ -31,3 +31,6 @@ input.pswrd
   clear: both;
   display: table;
 }
+.custom-info{
+  display: inline-grid;
+}

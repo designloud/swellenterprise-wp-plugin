@@ -9,6 +9,7 @@
  * @package    Exopite_Portfolio
  * @subpackage Exopite_Portfolio/includes
  */
+if ( ! class_exists( 'SWELLEnterprise_Post_Types' ) ) {
 class SWELLEnterprise_Post_Types {
 
     /**
@@ -627,4 +628,5 @@ class SWELLEnterprise_Post_Types {
     }
 
     // ...
+}
 }

@@ -39,9 +39,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 				'is_options_simple' => $this->config['is_options_simple'],
 			), null );
 
-			echo '<div class="exopite-sof-accordion">';
+			echo esc_html('<div class="exopite-sof-accordion">');
 
-			echo '<div class="exopite-sof-accordion__wrapper" data-all-open="' . $this->allow_all_open . '">';
+			echo esc_html('<div class="exopite-sof-accordion__wrapper" data-all-open="' . $this->allow_all_open . '">');
 
 			/**
 			 * Accordion items
@@ -56,11 +56,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 					$muster_classes[] = 'exopite-sof-accordion--hidden';
 				}
 
-				echo '<div class="exopite-sof-cloneable__item exopite-sof-accordion__item ' . implode( ' ', $muster_classes ) . '">';
+				echo esc_html('<div class="exopite-sof-cloneable__item exopite-sof-accordion__item ' . implode( ' ', $muster_classes ) . '">');
 
-				echo '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title">' . esc_attr( $section_title ) . '</h4>';
+				echo esc_html('<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title">' . esc_attr( $section_title ) . '</h4>');
 
-				echo '<div class="exopite-sof-accordion__content">';
+				echo esc_html('<div class="exopite-sof-accordion__content">');
 
 				foreach ( $section['fields'] as $field ) {
 
@@ -83,14 +83,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 
 				}
 
-				echo '</div>'; // exopite-sof-accordion__content
-				echo '</div>'; // exopite-sof-accordion__title
+				echo esc_html('</div>'); // exopite-sof-accordion__content
+				echo esc_html('</div>'); // exopite-sof-accordion__title
 
 
 			}
 
-			echo '</div>'; // exopite-sof-accordion__wrapper
-			echo '</div>'; // exopite-sof-accordion
+			echo esc_html('</div>'); // exopite-sof-accordion__wrapper
+			echo esc_html('</div>'); // exopite-sof-accordion
 
 			echo $this->element_after();
 

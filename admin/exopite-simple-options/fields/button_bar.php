@@ -25,15 +25,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_button_bar' ) ) {
 
 				if ( ! empty( $options ) ) {
 
-					echo '<div class="button-bar">';
+					echo esc_html('<div class="button-bar">');
 					foreach ( $options as $key => $value ) {
-						echo '<div class="button-bar__item">';
-						echo '<input type="radio" name="' . $this->element_name() . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '>';
-						echo '<button class="button-bar__button">' . esc_attr( $value ) . '</button>';
-						echo '</div>';
+						echo esc_html('<div class="button-bar__item">');
+						echo esc_html('<input type="radio" name="' . $this->element_name() . '" value="' . $key . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) . '>');
+						echo esc_html('<button class="button-bar__button">' . esc_attr( $value ) . '</button>');
+						echo esc_html('</div>');
 
 					}
-					echo '</div>';
+					echo esc_html('</div>');
 				}
 
 			}

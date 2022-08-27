@@ -9,6 +9,7 @@
  * @package    Exopite_Portfolio
  * @subpackage Exopite_Portfolio/includes
  */
+if( !class_exists('SWELLEnterprise_API') ) {
 class SWELLEnterprise_API {
 
     protected $leads, $contacts, $clients;
@@ -376,4 +377,5 @@ class SWELLEnterprise_API {
         return new WP_REST_Response('success', 200);
     }
 
+}
 }

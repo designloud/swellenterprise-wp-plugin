@@ -182,7 +182,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 				update_post_meta( $attachment, 'qquuid', sanitize_text_field( $_POST['qquuid'] ) );
 
 				// Generate ALT attribute based on file name
-				$alt = substr( $_FILES['qqfile']['name'], 0, strrpos( $_FILES['qqfile']['name'], "." ) );
+				$alt = substr( sanitize_text_field( $_FILES['qqfile']['name'] ), 0, strrpos( sanitize_text_field( $_FILES['qqfile']['name'] ), "." ) );
 				$alt = sanitize_title( $alt );
 				$alt = str_replace( '-', ' ', $alt );
 				$alt = ucwords( strtolower( $alt ) );

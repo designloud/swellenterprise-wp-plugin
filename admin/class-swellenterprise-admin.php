@@ -120,7 +120,7 @@ class SWELLEnterprise_Admin {
 
             // Iterate through the plugins being updated and check if ours is there
             foreach( $options['plugins'] as $plugin ) {
-                if( $plugin == PLUGIN_NAME_BASE_NAME ) {
+                if( $plugin == SWELLENTERPRISE_BASE_NAME ) {
 
 					// Your code here, eg display a message:
 
@@ -219,11 +219,11 @@ class SWELLEnterprise_Admin {
                     'type'        => 'content',
                     'title'       => 'Welcome to SWELLEnterprise',
                     'class'       => 'text-class',
-                    'description' => '<div class="row">
+                    'description' => '<div class="row custom-info">
                                  <div class="col-6 swell-video">
                                     <iframe width="560" height="315" src="https://www.youtube.com/embed/ELQrbMUGnRA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                  </div>
-                                  <div class="col-6 swell-about">
+                                  <div class="col-12 swell-about">
                                     
                                     <p>SWELLEnterprise makes it easier and less expensive for small business owners to manage projects, clients, business development and communication with remote team members. It’s particularly loved by creative service agencies because that’s who designed it. Our cloud-based system manages everything from invoicing to documents, projects to email marketing, replacing 3 or 4 products with just one. </p>
                                     <p>
@@ -2261,7 +2261,7 @@ class SWELLEnterprise_Admin {
         //if( isset($_GET['post'])){
 
 
-		$post_ID = isset($_GET['post']) ? $_GET['post'] : 0;
+		$post_ID = isset($_GET['post']) ? sanitize_text_field( $_GET['post'] ) : 0;
 		$post_type = '';
 		$notes = array();
 		$tasks = array();
@@ -2565,7 +2565,7 @@ class SWELLEnterprise_Admin {
 
     public function tasks_custom_meta_boxes() {
       // if( isset( $_GET['post'] )){
-        $post_ID = isset($_GET['post']) ?  $_GET['post'] : 0;
+        $post_ID = isset($_GET['post']) ?  sanitize_text_field( $_GET['post'] ) : 0;
         $post_type = '';
         if(($post_ID)){
             $post = get_post($post_ID);

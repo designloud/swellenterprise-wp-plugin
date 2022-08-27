@@ -26,14 +26,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_editor' ) ) {
 				$classes[] = 'tinymce-js';
 				$classes   = implode( ' ', $classes );
 
-				echo '<textarea id="' . $this->field['id'] . '" name="' . $this->element_name() . '" class="' . esc_attr( $classes ) . '"' . $this->element_attributes() . '>' . $this->element_value() . '</textarea>';
+				echo esc_html('<textarea id="' . $this->field['id'] . '" name="' . $this->element_name() . '" class="' . esc_attr( $classes ) . '"' . $this->element_attributes() . '>' . $this->element_value() . '</textarea>');
 
 			} elseif ( $editor == 'trumbowyg' ) {
 
 				$classes[] = 'trumbowyg-js';
 				$classes   = implode( ' ', $classes );
 
-				echo '<textarea id="' . $this->field['id'] . '" name="' . $this->element_name() . '" data-icon-path="' . plugin_dir_url( __DIR__ ) . 'assets/editors/trumbowyg/icons.svg" class="' . esc_attr( $classes ) . '"' . $this->element_attributes() . '>' . $this->element_value() . '</textarea>';
+				echo esc_html('<textarea id="' . $this->field['id'] . '" name="' . $this->element_name() . '" data-icon-path="' . plugin_dir_url( __DIR__ ) . 'assets/editors/trumbowyg/icons.svg" class="' . esc_attr( $classes ) . '"' . $this->element_attributes() . '>' . $this->element_value() . '</textarea>');
 
 			} else {
 

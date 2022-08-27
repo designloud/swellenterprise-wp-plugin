@@ -20,6 +20,7 @@
  * @subpackage SWELLEnterprise/includes
  * @author     Your Name <email@example.com>
  */
+if( !class_exists('SWELLEnterprise_Deactivator') ) {
 class SWELLEnterprise_Deactivator {
 
 	/**
@@ -53,4 +54,5 @@ class SWELLEnterprise_Deactivator {
 	    }
 	    
 	}
+}
 }

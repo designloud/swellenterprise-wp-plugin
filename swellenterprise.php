@@ -38,7 +38,7 @@ $swell_task_status['Complete'] = 2;
  * Rename this for your plugin and update it as you release new versions.
  */
 define('SWELLENTERPRISE_VERSION', '1.0.0');
-define('PLUGIN_NAME_BASE_NAME', plugin_basename(__FILE__));
+define('SWELLENTERPRISE_BASE_NAME', plugin_basename(__FILE__));
 define('SWELLENTERPRISE_BASE_URL', 'https://app.swellsystem.com/');
 
 /**

@@ -37,8 +37,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_range' ) ) {
 
 			echo $this->element_before();
 
-			echo '<input type="range" name="' . $this->element_name() . '" oninput="updateRangeInput(this)" class="range ' . esc_attr( $classes ) . '"' . esc_attr( $attrs ) . ' value="' . $this->element_value() . '"' . $this->element_attributes() . '>' . esc_attr( $unit );
-			echo '<input type="number" value="' . $this->element_value() . '" oninput="updateInputRange(this)"' . esc_attr( $attrs ) . '>';
+			echo esc_html('<input type="range" name="' . $this->element_name() . '" oninput="updateRangeInput(this)" class="range ' . esc_attr( $classes ) . '"' . esc_attr( $attrs ) . ' value="' . $this->element_value() . '"' . $this->element_attributes() . '>' . esc_attr( $unit ));
+			echo esc_html('<input type="number" value="' . $this->element_value() . '" oninput="updateInputRange(this)"' . esc_attr( $attrs ) . '>');
 
 			echo $this->element_after();
 

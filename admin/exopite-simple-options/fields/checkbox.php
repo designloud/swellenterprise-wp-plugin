@@ -24,15 +24,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_checkbox' ) ) {
 
 			switch ( $style ) {
 				case 'fancy':
-					echo '<label class="checkbox">';
-					echo '<input type="checkbox" class="checkbox__input" name="' . $this->element_name() . '" value="yes"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>';
-					echo '<div class="checkbox__checkmark"></div>';
+					echo esc_html('<label class="checkbox">');
+					echo esc_html('<input type="checkbox" class="checkbox__input" name="' . $this->element_name() . '" value="yes"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>');
+					echo esc_html('<div class="checkbox__checkmark"></div>');
 					echo $label;
-					echo '</label>';
+					echo esc_html('</label>');
 					break;
 
 				default:
-					echo '<label><input type="checkbox" name="' . $this->element_name() . '" value="yes"' . $this->element_class() . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '/> ' . $label . '</label>';
+					echo esc_html('<label><input type="checkbox" name="' . $this->element_name() . '" value="yes"' . $this->element_class() . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '/> ' . $label . '</label>');
 					break;
 			}
 

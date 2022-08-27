@@ -17,7 +17,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_hidden' ) ) {
 		public function output() {
 
 			echo $this->element_before();
-			echo '<input type="' . $this->element_type() . '" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>';
+			echo esc_html('<input type="' . $this->element_type() . '" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>');
 			echo $this->element_after();
 
 		}

@@ -1399,7 +1399,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			do_action( 'exopite_sof_before_generate_field', $field, $this->config );
 			do_action( 'exopite_sof_before_add_field', $field, $this->config );
-			// print_r( $field );
 			$output     = '';
 			$class      = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
 			$depend     = '';

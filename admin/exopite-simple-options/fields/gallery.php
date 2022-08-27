@@ -33,24 +33,24 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_gallery' ) ) {
 
 			$value = $this->element_value();
 
-			echo '<div class="exopite-sof-gallery-field" data-media-frame-title="' . esc_attr( $options['media_frame_title'] ) . '" data-media-frame-button="' . esc_attr( $options['media_frame_button'] ) . '" data-media-frame-type="' . esc_attr( $options['media_type'] ) . '">';
-			echo '<input type="hidden" name="' . $this->element_name() . '" data-control="gallery-ids" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>';
-			echo '<div class="exopite-sof-gallery">';
+			echo esc_html('<div class="exopite-sof-gallery-field" data-media-frame-title="' . esc_attr( $options['media_frame_title'] ) . '" data-media-frame-button="' . esc_attr( $options['media_frame_button'] ) . '" data-media-frame-type="' . esc_attr( $options['media_type'] ) . '">');
+			echo esc_html('<input type="hidden" name="' . $this->element_name() . '" data-control="gallery-ids" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>');
+			echo esc_html('<div class="exopite-sof-gallery">');
 
 			if ( $value ) :
 
 				$meta_array = explode( ',', $value );
 				foreach ( $meta_array as $meta_gall_item ) :
 
-					echo '<span><span class="exopite-sof-image-delete"></span><img id="' . esc_attr( $meta_gall_item ) . '" src="' . wp_get_attachment_thumb_url( $meta_gall_item ) . '"></span>';
+					echo esc_html('<span><span class="exopite-sof-image-delete"></span><img id="' . esc_attr( $meta_gall_item ) . '" src="' . wp_get_attachment_thumb_url( $meta_gall_item ) . '"></span>');
 
 				endforeach;
 
 			endif;
 
-			echo '</div>';
-			echo '<input class="exopite-sof-gallery-add button button-primary exopite-sof-button" type="button" value="' . esc_attr( $options['add_button'] ) . '" />';
-			echo '</div>';
+			echo esc_html('</div>');
+			echo esc_html('<input class="exopite-sof-gallery-add button button-primary exopite-sof-button" type="button" value="' . esc_attr( $options['add_button'] ) . '" />');
+			echo esc_html('</div>');
 
 			echo $this->element_append();
 
