@@ -600,9 +600,9 @@ class SWELLEnterprise_API_Services {
     public function get_deletion_id($key, $note_id) {
         global $wpdb;
         $meta = $wpdb->get_results("SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key='" . $key . "' AND meta_value='" . $note_id . "'");
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($meta));
+        // ini_set("log_errors", 1);
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode($meta));
         if (is_array($meta) && !empty($meta) && isset($meta[0])) {
             $meta = $meta[0];
             return $meta;
@@ -614,9 +614,9 @@ class SWELLEnterprise_API_Services {
     /*     * * Delete Lead ** */
 
     public function delete_lead($lead = NULL) {
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($lead['id']));
+        // ini_set("log_errors", 1);
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode($lead['id']));
         // Get lead id
         $lead_id = $this->get_post_id_by_meta_key_and_value('hash_id', $lead['id']);
         error_log(json_encode($lead_id));
@@ -639,9 +639,9 @@ class SWELLEnterprise_API_Services {
     /*     * * Delete Client ** */
 
     public function delete_client($client = NULL) {
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($client['id']));
+        // ini_set("log_errors", 1);
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode($client['id']));
         // Get client id
         $client_id = $this->get_post_id_by_meta_key_and_value('hash_id', $client['id']);
         error_log(json_encode($client_id));
@@ -666,9 +666,9 @@ class SWELLEnterprise_API_Services {
     /*     * * Delete Contact ** */
 
     public function delete_contact($contact = NULL) {
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($contact['id']));
+        // ini_set("log_errors", 1);
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode($contact['id']));
         // Get client id
         $contact_id = $this->get_post_id_by_meta_key_and_value('hash_id', $contact['id']);
         error_log(json_encode($contact_id));
@@ -753,8 +753,8 @@ class SWELLEnterprise_API_Services {
 
     // Sync Leads.
     public function sync_leads() {
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode("sync Leads"));
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode("sync Leads"));
         $this->get_leads();
         if (isset($this->leads)) {
             error_log(json_encode("Leads set"));
@@ -773,8 +773,8 @@ class SWELLEnterprise_API_Services {
     }
 
     public function get_leads() {
-        ini_set("error_log", dirname(__FILE__) . "/swell.log");
-        error_log(json_encode($this->options['lead_switcher']));
+        // ini_set("error_log", dirname(__FILE__) . "/swell.log");
+        // error_log(json_encode($this->options['lead_switcher']));
         //if ($this->options['lead_switcher'] === 'yes') {
         ini_set("error_log", dirname(__FILE__) . "/swell.log");
         error_log(json_encode("get Leads"));
@@ -839,10 +839,10 @@ class SWELLEnterprise_API_Services {
     }
 
     public function create_task($task, $relation = null, $relation_id = null, $post_id = 0) {
-         echo '200';
-          ini_set("log_errors", 1);
-          ini_set("error_log", dirname( __FILE__ )."/swell.log");
-          error_log( json_encode( $task ) ); 
+         // echo '200';
+         //  ini_set("log_errors", 1);
+         //  ini_set("error_log", dirname( __FILE__ )."/swell.log");
+         //  error_log( json_encode( $task ) ); 
         if ($relation === 'leads') {
             $relation = 'lead';
         }

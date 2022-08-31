@@ -1,9 +1,10 @@
 === SWELLEnterprise ===
-Contributors: Firdousi
+Contributors: bitsclansolutions
 Tags: comments, spam
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tested up to: 6.0.1
+Stable tag: 1.0.0
+Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +14,7 @@ A plugin that connects your website to the SWELLEnterprise services.
 
 A plugin that connects your website to the SWELLEnterprise services.
 
-Major features in Akismet include:
+Major features in SWELLEnterprise include:
 
 * Connects wordpress with Laravel.
 * Two way syncing functionality.

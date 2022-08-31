@@ -633,9 +633,11 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       print_r( $_GET );
         if ( isset( $_POST['attached_post_id'] ) ) {
           // $id = 0;
-          $attach_id = sanitize_text_field( get_post_field( 'hash_id', $_POST['attached_post_id'] ) );
+          $attached_id = sanitize_text_field( $_POST['attached_post_id'] );
+          $attach_id = sanitize_text_field( get_post_field( 'hash_id', $attached_id ) );
           if( isset( $_POST['attached_post_id'] ) ) {
-            $attchment_post_type = get_post_type( $_POST['attached_post_id'] );
+            $attached_id = sanitize_text_field( $_POST['attached_post_id'] );
+            $attchment_post_type = get_post_type( $attached_id );
             $resource = ucfirst( $attchment_post_type );
             update_post_meta( $post_ID, $attchment_post_type, $attach_id );
             update_post_meta( $post_ID, $attchment_post_type.'_id', $attach_id );
@@ -714,7 +716,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       $custom_fields = array();
       // get hash_id.
       $id        = get_post_field( 'hash_id', $post_id );
-      $post_data = isset( $_POST['swellenterprise-meta'] )? $_POST['swellenterprise-meta']: null;
+      $post_data = isset( $_POST['swellenterprise-meta'] )? sanitize_text_field( $_POST['swellenterprise-meta'] ): null;
       // echo "<pre>";
       // print_r( $_POST );
       //print_r( $post_data );
@@ -1053,7 +1055,8 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_edit_form_callback ( $post ) {
       if( isset( $_GET['attached_post_id'] ) ) {
         if( $post->post_type === 'note' || $post->post_type === 'task' ) {
-          $output = '<input type="hidden" id="'.sanitize_text_field( $_GET['attached_post_id'] ).'" name="attached_post_id" value="'.sanitize_text_field( $_GET['attached_post_id'] ).'">';
+          $get_attached_id = sanitize_text_field( $_GET['attached_post_id'] );
+          $output = '<input type="hidden" id="'.$get_attached_id.'" name="attached_post_id" value="'.$get_attached_id.'">';
           echo  ($output);
         }  
       } 
