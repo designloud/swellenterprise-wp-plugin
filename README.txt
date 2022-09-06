@@ -1,5 +1,5 @@
 === SWELLEnterprise ===
-Contributors: bitsclansolutions
+Contributors: designloud
 Tags: comments, spam
 Requires at least: 3.0.1
 Tested up to: 6.0.1
