@@ -1,6 +1,6 @@
 === SWELLEnterprise ===
-Contributors: hdr105
-Tags: comments, spam
+Contributors: designloud, hdr105
+Tags: crm, project management, client management, 
 Requires at least: 3.0.1
 Tested up to: 6.0.1
 Stable tag: 1.0.0
@@ -16,7 +16,7 @@ A plugin that connects your website to the SWELLEnterprise services.
 
 Major features in SWELLEnterprise include:
 
-* Connects wordpress with Laravel.
+* Connects wordpress with <a href="https://swellsystem.com" target="_blank">SWELLEnterprise</a>.
 * Two way syncing functionality.
 
 == Installation ==
@@ -27,7 +27,6 @@ e.g.
 
 1. Upload `swellenterprise.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('swellenterprise_hook'); ?>` in your templates
 
 == Changelog ==
 
