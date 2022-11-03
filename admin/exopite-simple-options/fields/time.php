@@ -19,28 +19,28 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_time' ) ) {
 			$date_format = ( ! empty( $this->field['format'] ) ) ? $this->field['format'] : 'mm/dd/yy';
 			$classes     = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
-			echo $this->element_prepend();
+			echo esc_attr( $this->element_prepend() );
 
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
-				echo '<input type="time" ';
+				echo  '<input type="time" ';
 			} else {
-				echo '<input type="time" ';
-				echo esc_html('class="timepicker ' . esc_attr( $classes ) . '" ');
+				echo  '<input type="time" ';
+				echo 'class="timepicker ' . esc_attr( $classes ) . '" ';
 			}
-			echo esc_html('name="' . $this->element_name() . '" ');
+			echo 'name="' . esc_attr( $this->element_name() ) . '" ';
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
-				echo esc_html('value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . ' ');
+				echo 'value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_class()  ). esc_attr( $this->element_attributes() ) . ' ';
 			} else {
-				echo esc_html('value="' . $this->element_value() . '"' . $this->element_attributes() . ' ');
-				echo esc_html('data-format="' . esc_attr( $date_format ) . '"');
+				echo 'value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_attributes() ) . ' ';
+				echo 'data-format="' . esc_attr( $date_format ) . '"';
 			}
 			echo '>';
 
-			echo $this->element_append();
+			echo esc_attr( $this->element_append() );
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

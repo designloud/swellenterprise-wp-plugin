@@ -20,7 +20,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			$unallows = array();
 			$unique_id = ( ! empty( $this->unique ) ) ? $this->unique : $this->field['id'];
@@ -35,8 +35,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 
 			$fields = $this->field['fields'];
 
-			echo '<div class="container">';
-			echo '<div class="row">';
+			echo esc_html( '<div class="container">' );
+			echo esc_html( '<div class="row">' );
 
 			/**
 			 * 1 -> col-12 col-lg-12 (12/index)
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 
 			foreach ( $fields as $field ) {
 
-				echo '<div class="' . implode( ' ', $col_classes ) . '">';
+				echo esc_html( '<div class="' . implode( ' ', $col_classes ) . '">' );
 
 				if ( in_array( $field['type'], $unallows ) ) {
 					$field['_notice'] = true;
@@ -71,23 +71,23 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 
 				$field_value = '';
 				if ( isset( $field['id'] ) && isset( $this->value[ $field['id'] ] ) ) {
-					$field_value = $this->value[ $field['id'] ];
+					$field_value = esc_attr( $this->value[ $field['id'] ] );
 				} elseif ( isset( $field['default'] ) ) {
-					$field_value = $field['default'];
+					$field_value = esc_attr( $field['default'] );
 				}
 
-				$class = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
+				$class = 'Exopite_Simple_Options_Framework_Field_' . esc_attr( $field['type'] );
 
 				echo $self->add_field( $field, $field_value );
 
-				echo '</div>'; // col
+				echo esc_html( '</div>' ); // col
 
 			}
 
-			echo '</div>'; // row
-			echo '</div>'; // container
+			echo esc_html( '</div>' ); // row
+			echo esc_html( '</div>' ); // container
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

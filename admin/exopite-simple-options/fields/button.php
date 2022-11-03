@@ -31,18 +31,18 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_button' ) ) {
 
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
-			echo $this->element_before();
-            echo '<a ';
+			echo esc_attr( $this->element_before() );
+            echo esc_html( '<a ' );
             if ( ! empty( $this->field['options']['href'] ) ) {
-                echo 'href="' . $this->field['options']['href'] . '"';
+                echo esc_html( 'href="' . $this->field['options']['href'] . '"' );
             }
             if ( ! empty( $this->field['options']['btn-id'] ) ) {
-                echo ' id="' . $this->field['options']['btn-id'] . '"';
+                echo esc_html( ' id="' . $this->field['options']['btn-id'] . '"' );
             }
-            echo ' target="' . $this->field['options']['target'] . '"';
-            echo ' class="' . $this->field['options']['btn-class'] . ' ' . $classes . '"';
-            echo $this->element_attributes() . '/>' . $this->field['options']['value'] . '</a>';
-            echo $this->element_after();
+            echo esc_html( ' target="' . esc_attr( $this->field['options']['target'] ) . '"' );
+            echo esc_html( ' class="' . esc_attr( $this->field['options']['btn-class'] ) . ' ' . esc_attr( $classes ) . '"' );
+            echo esc_html( esc_attr( $this->element_attributes() ) . '/>' . esc_attr( $this->field['options']['value'] ) . '</a>' );
+            echo esc_attr( $this->element_after() );
 
 		}
 

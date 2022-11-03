@@ -32,13 +32,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 			$this->org_value    = $value;
 			$this->unique       = $unique;
 			$this->config       = $config;
-			$this->where        = ( isset( $this->config['type'] ) ) ? $this->config['type'] : '';
-			$this->multilang    = ( isset( $this->config['multilang'] ) ) ? $this->config['multilang'] : false;
-			$this->is_multilang = ( isset( $this->config['is_multilang'] ) ) ? (bool) $this->config['is_multilang'] : false;
+			$this->where        = ( isset( $this->config['type'] ) ) ? sanitize_text_field( $this->config['type'] ) : '';
+			$this->multilang    = ( isset( $this->config['multilang'] ) ) ? sanitize_text_field( $this->config['multilang'] ) : false;
+			$this->is_multilang = ( isset( $this->config['is_multilang'] ) ) ? sanitize_text_field( (bool) $this->config['is_multilang'] ) : false;
 			$this->google_fonts = '';
 
-			$this->lang_default = ( $this->multilang && isset( $this->multilang['default'] ) ) ? $this->multilang['default'] : mb_substr( get_locale(), 0, 2 );
-			$this->lang_current = ( $this->multilang && isset( $this->multilang['current'] ) ) ? $this->multilang['current'] : $this->lang_default;
+			$this->lang_default = ( $this->multilang && isset( $this->multilang['default'] ) ) ? sanitize_text_field( $this->multilang['default'] ) : mb_substr( get_locale(), 0, 2 );
+			$this->lang_current = ( $this->multilang && isset( $this->multilang['current'] ) ) ? sanitize_text_field( $this->multilang['current'] ) : $this->lang_default;
 
 			$this->languages = (
 				$this->multilang &&
@@ -66,15 +66,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 			if ( isset( $this->field['pseudo'] ) && $this->field['pseudo'] ) {
 				$element = 'span';
 			}
-			return ( isset( $this->field['before'] ) ) ? '<' . $element . ' class="exopite-sof-before">' . $this->field['before'] . '</' . $element . '>' : '';
+			return ( isset( $this->field['before'] ) ) ? '<' . $element . ' class="exopite-sof-before">' . esc_attr( $this->field['before'] ). '</' . $element . '>' : '';
 
 		}
 
 		public function element_after() {
 
-			$out = ( isset( $this->field['info'] ) ) ? '<span class="exopite-sof-text-desc">' . $this->field['info'] . '</span>' : '';
+			$out = ( isset( $this->field['info'] ) ) ? '<span class="exopite-sof-text-desc">' . esc_attr( $this->field['info'] ) . '</span>' : '';
 			$out .= $this->element_help();
-			$out .= ( isset( $this->field['after'] ) ) ? '<div class="exopite-sof-after">' . $this->field['after'] . '</div>' : '';
+			$out .= ( isset( $this->field['after'] ) ) ? '<div class="exopite-sof-after">' . esc_attr( $this->field['after'] ) . '</div>' : '';
 
 			// $out .= $this->element_get_error();
 
@@ -95,9 +95,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 				$out .= '<span class="input-prepend">';
 
 				if ( strpos( $this->field['prepend'], 'fa-' ) !== false ) {
-					$out .= '<i class="fa ' . $this->field['prepend'] . '" aria-hidden="true"></i>';
+					$out .= '<i class="fa ' . esc_attr( $this->field['prepend'] ) . '" aria-hidden="true"></i>';
 				} elseif ( strpos( $this->field['prepend'], 'dashicons' ) !== false ) {
-					$out .= '<span class="dashicons ' . $this->field['prepend'] . '"></span>';
+					$out .= '<span class="dashicons ' . esc_attr( $this->field['prepend'] ) . '"></span>';
 				} else {
 					$out .= $this->field['prepend'];
 				}
@@ -116,9 +116,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 				$out .= '<span class="input-append">';
 
 				if ( strpos( $this->field['append'], 'fa-' ) !== false ) {
-					$out .= '<i class="fa ' . $this->field['append'] . '" aria-hidden="true"></i>';
+					$out .= '<i class="fa ' . esc_attr( $this->field['append'] ) . '" aria-hidden="true"></i>';
 				} elseif ( strpos( $this->field['append'], 'dashicons' ) !== false ) {
-					$out .= '<span class="dashicons ' . $this->field['append'] . '"></span>';
+					$out .= '<span class="dashicons ' . esc_attr( $this->field['append'] ). '"></span>';
 				} else {
 					$out .= $this->field['append'];
 				}
@@ -134,7 +134,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 		}
 
 		public function element_help() {
-			return ( isset( $this->field['help'] ) ) ? '<span class="exopite-sof-help" title="' . $this->field['help'] . '" data-title="' . $this->field['help'] . '"><span class="fa fa-question"></span></span>' : '';
+			return ( isset( $this->field['help'] ) ) ? esc_html( '<span class="exopite-sof-help" title="' . esc_attr( $this->field['help'] ) . '" data-title="' . esc_attr( $this->field['help'] ) . '"><span class="fa fa-question"></span></span>' ) : '';
 		}
 
 		public function element_type() {
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 				if ( is_array( $default ) ) {
 
 					if ( isset( $default['function'] ) && is_callable( $default['function'] ) ) {
-						$args = ( isset( $default['args'] ) ) ? $default['args'] : '';
+						$args = ( isset( $default['args'] ) ) ? sanitize_text_field( $default['args'] ) : '';
 
 						return call_user_func( $default['function'], $args );
 					}
@@ -201,7 +201,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 		public function element_attributes( $el_attributes = array() ) {
 
 			$attributes = ( isset( $this->field['attributes'] ) ) ? $this->field['attributes'] : array();
-			$element_id = ( isset( $this->field['id'] ) ) ? $this->field['id'] : '';
+			$element_id = ( isset( $this->field['id'] ) ) ? sanitize_text_field( $this->field['id'] ) : '';
 
 			if ( $el_attributes !== false ) {
 				$sub_element   = ( isset( $this->field['sub'] ) ) ? 'sub-' : '';
@@ -233,7 +233,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 			$classes     = array_filter( $classes );
 			$field_class = implode( ' ', $classes );
 
-			return ( ! empty( $field_class ) ) ? ' class="' . $field_class . '"' : '';
+			return ( ! empty( $field_class ) ) ? ' class="' . esc_attr( $field_class ) . '"' : '';
 
 		}
 
@@ -249,7 +249,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 			}
 
 			if ( $echo ) {
-				echo $result;
+				echo esc_attr( $result );
 			}
 
 			return $result;

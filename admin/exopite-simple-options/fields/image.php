@@ -70,7 +70,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image' ) ) {
 			 * @link https://rudrastyh.com/wordpress/customizable-media-uploader.html
 			 */
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			$preview = '';
 			$value   = $this->element_value();
@@ -88,10 +88,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image' ) ) {
 			echo esc_html('<div class="exopite-sof-image-inner"><i class="fa fa-times exopite-sof-image-remove"></i><img src="' . esc_attr( $preview ) . '" alt="preview" /></div>');
 			echo esc_html('</div>');
 
-			echo esc_html('<input type="text" name="' . $this->element_name() . '" value="' . $this->element_value() . '">');
+			echo esc_html('<input type="text" name="' . $this->element_name() . '" value="' . esc_attr( $this->element_value() ) . '">');
 			echo esc_html('<a href="#" class="button button-primary exopite-sof-button">' . esc_attr( $add ) . '</a>');
 			echo esc_html('</div>');
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

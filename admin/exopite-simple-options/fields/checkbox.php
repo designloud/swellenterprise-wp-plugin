@@ -18,16 +18,16 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_checkbox' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
-			$label = ( isset( $this->field['label'] ) ) ? $this->field['label'] : '';
-			$style = ( isset( $this->field['style'] ) ) ? $this->field['style'] : '';
+			echo esc_attr( $this->element_before() );
+			$label = ( isset( $this->field['label'] ) ) ? esc_attr( $this->field['label'] ) : '';
+			$style = ( isset( $this->field['style'] ) ) ? esc_attr( $this->field['style'] ): '';
 
 			switch ( $style ) {
 				case 'fancy':
 					echo esc_html('<label class="checkbox">');
-					echo esc_html('<input type="checkbox" class="checkbox__input" name="' . $this->element_name() . '" value="yes"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>');
+					echo esc_html('<input type="checkbox" class="checkbox__input" name="' . esc_attr( $this->element_name() ) . '" value="yes"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>');
 					echo esc_html('<div class="checkbox__checkmark"></div>');
-					echo $label;
+					echo sanitize_text_field( $label );
 					echo esc_html('</label>');
 					break;
 
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_checkbox' ) ) {
 			}
 
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

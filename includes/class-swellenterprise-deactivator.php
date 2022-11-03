@@ -48,7 +48,7 @@ class SWELLEnterprise_Deactivator {
 
 	    $events_array = ['lead.create','lead.update','lead.delete','lead.destroy','client.create','client.update','client.delete','client.destroy','contact.create','contact.update','contact.delete','contact.destroy','note.create','note.update','note.delete','note.destroy','task.create','task.update','task.destroy','task.delete'];
 	    foreach ( $events_array as $event ) {
-	    	$option_name = 'swell_'.$event.'_webhook';
+	    	$option_name = 'swell_'.esc_attr( $event ) .'_webhook';
 	    	$webhook_option_id = intval( get_option( $option_name ) );
 	    	$swell_Webhook_deleted_data = $swell_api->delete_swell_webhook( $webhook_option_id, $option_name );
 	    }

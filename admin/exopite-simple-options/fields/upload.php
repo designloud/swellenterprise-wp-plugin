@@ -63,7 +63,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			?>
             <!-- Fine Uploader Thumbnails template w/ customization
@@ -162,17 +162,17 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
 
 			?>
             <div class="qq-template" <?php
-			echo 'data-filecount="' . $this->field['options']['filecount'] . '" ';
-			echo 'data-mimetypes="' . $allowed_mime_types . '" ';
-			echo 'data-maxsize="' . $maxsize . '" ';
-			echo ( $this->field['options']['attach'] && $this->config['type'] == 'metabox' ) ? 'data-postid="' . get_the_ID() . '" ' : '';
-			echo 'data-ajaxurl="' . site_url( 'wp-admin/admin-ajax.php' ) . '" ';
-			echo 'data-delete-enabled="' . $this->field['options']['delete-enabled'] . '" ';
-			echo 'data-delete-force-confirm="' . $this->field['options']['delete-force-confirm'] . '" ';
-			echo 'data-retry-enable-auto="' . $this->field['options']['retry-enable-auto'] . '" ';
-			echo 'data-retry-max-auto-attempts="' . $this->field['options']['retry-max-auto-attempts'] . '" ';
-			echo 'data-retry-auto-attempt-delay="' . $this->field['options']['retry-auto-attempt-delay'] . '" ';
-			echo 'data-auto-upload="' . $this->field['options']['auto-upload'] . '" ';
+			echo esc_html( 'data-filecount="' . esc_attr( $this->field['options']['filecount'] ) . '" ' );
+			echo esc_html( 'data-mimetypes="' . esc_attr( $allowed_mime_types ) . '" ' );
+			echo esc_html( 'data-maxsize="' . esc_attr( $maxsize ) . '" ' );
+			echo ( $this->field['options']['attach'] && $this->config['type'] == 'metabox' ) ? esc_html('data-postid="' . get_the_ID() . '" ') : '';
+			echo esc_html( 'data-ajaxurl="' . site_url( 'wp-admin/admin-ajax.php' ) . '" ' );
+			echo esc_html( 'data-delete-enabled="' . $this->field['options']['delete-enabled'] . '" ');
+			echo esc_html( 'data-delete-force-confirm="' . $this->field['options']['delete-force-confirm'] . '" ' );
+			echo esc_html( 'data-retry-enable-auto="' . $this->field['options']['retry-enable-auto'] . '" ' );
+			echo esc_html( 'data-retry-max-auto-attempts="' . $this->field['options']['retry-max-auto-attempts'] . '" ' );
+			echo esc_html( 'data-retry-auto-attempt-delay="' . $this->field['options']['retry-auto-attempt-delay'] . '" ' );
+			echo esc_html( 'data-auto-upload="' . $this->field['options']['auto-upload'] . '" ');
 			?>>
             </div>
             <div class="qq-template-info">
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
             </div>
 			<?php
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

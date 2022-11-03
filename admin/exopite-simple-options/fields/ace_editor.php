@@ -32,34 +32,20 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_ace_editor' ) ) {
 			$options = ( ! empty( $this->field['options'] ) ) ? $this->field['options'] : array();
 			$options = json_encode( wp_parse_args( $options, $defaults ) );
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			echo esc_html('<div class="exopite-sof-ace-editor-wrapper">');
 			echo esc_html('<div id="exopite-sof-ace-' . esc_attr( $editor_id ) . '" class="exopite-sof-ace-editor"' . $this->element_attributes() . '></div>');
 			echo esc_html('</div>');
 
-			echo esc_html('<textarea class="exopite-sof-ace-editor-textarea hidden" name="' . $this->element_name() . '">' . $this->element_value() . '</textarea>');
-			echo esc_html('<textarea class="exopite-sof-ace-editor-options hidden">' . $options . '</textarea>');
+			echo esc_html('<textarea class="exopite-sof-ace-editor-textarea hidden" name="' . esc_attr( $this->element_name() ) . '">' . $this->element_value() . '</textarea>');
+			echo esc_html('<textarea class="exopite-sof-ace-editor-options hidden">' . esc_attr( $options ) . '</textarea>');
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 
 		public static function enqueue( $args ) {
-
-			//https://cdnjs.com/libraries/ace/
-
-//			wp_enqueue_script( 'ace-editor', '//cdnjs.cloudflare.com/ajax/libs/ace/1.2.4/ace.js', array( 'jquery' ), '1.2.4', true );
-//
-//			wp_enqueue_script( 'ace-editor-language_tool', '//cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ext-language_tools.js', array( 'ace-editor' ), '1.2.4', true );
-//
-//			$script_file = 'ace-loader.min.js';
-//			$script_name = 'exopite-sof-ace-loader';
-//
-//			wp_enqueue_script( $script_name, $args['plugin_sof_url'] . 'assets/' . $script_file, array( 'ace-editor-language_tool' ), filemtime( join( DIRECTORY_SEPARATOR, array(
-//				$args['plugin_sof_path'] . 'assets',
-//				$script_file
-//			) ) ), true );
 
 			/**
 			 * For some reason this is not working. :-O

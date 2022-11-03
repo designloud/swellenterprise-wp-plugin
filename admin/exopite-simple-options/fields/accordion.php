@@ -26,7 +26,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			$unallows 	= array( 'accordion' );
 			$sections   = array_values( $this->field['sections'] );
@@ -41,15 +41,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 
 			echo esc_html('<div class="exopite-sof-accordion">');
 
-			echo esc_html('<div class="exopite-sof-accordion__wrapper" data-all-open="' . $this->allow_all_open . '">');
+			echo esc_html('<div class="exopite-sof-accordion__wrapper" data-all-open="' . esc_attr( $this->allow_all_open ) . '">');
 
 			/**
 			 * Accordion items
 			 */
 			foreach ( $sections as $key => $section ) {
 
-				$is_section_closed = ( isset( $section['options']['closed'] ) ) ? (bool) $section['options']['closed'] : $this->defaults['closed'];
-				$section_title = ( isset( $section['options']['title'] ) ) ? esc_attr( $section['options']['title'] ) : $this->defaults['section_title'];
+				$is_section_closed = ( isset( $section['options']['closed'] ) ) ? (bool) esc_atr( $section['options']['closed'] ) : esc_attr( $this->defaults['closed'] );
+				$section_title = ( isset( $section['options']['title'] ) ) ? esc_attr( $section['options']['title'] ) : esc_attr( $this->defaults['section_title'] );
 
 				$muster_classes = array();
 				if ( $is_section_closed && $this->is_accordion_closed ) {
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 						$field_value = $field['default'];
 					}
 
-					echo $self->add_field( $field, $field_value );
+					echo esc_attr( $self->add_field( $field, $field_value ) );
 
 				}
 
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_accordion' ) ) {
 			echo esc_html('</div>'); // exopite-sof-accordion__wrapper
 			echo esc_html('</div>'); // exopite-sof-accordion
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

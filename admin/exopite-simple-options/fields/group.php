@@ -65,7 +65,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			$unallows  = array();
 			// $unallows  = array( 'group' );
@@ -141,39 +141,39 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 				$classes[] = 'exopite-sof-accordion';
 			}
 
-			echo '<div class="' . implode( ' ', $classes ) . '" data-limit="' . $limit . '">';
+			echo esc_html( '<div class="' . implode( ' ', $classes ) . '" data-limit="' . esc_attr( $limit ) . '">' );
 
 			$wrapper_classes = array( 'exopite-sof-accordion__wrapper' );
 
 			if ( $this->is_accordion && ! $this->is_repeater ) {
-				echo '<div class="' . implode( ' ', $wrapper_classes ) . '">';
+				echo esc_html( '<div class="' . implode( ' ', $wrapper_classes ) . '">' );
 			}
 
-			echo '<div class="exopite-sof-cloneable__item ' . implode( ' ', $muster_classes ) . '">';
+			echo esc_html( '<div class="exopite-sof-cloneable__item ' . implode( ' ', $muster_classes ) . '">' );
 
 			if ( $this->is_repeater || ! empty( $this->group_title ) ) {
 
-				echo '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title"><span class="exopite-sof-cloneable__text">' . $this->group_title . '</span>';
+				echo esc_html( '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title"><span class="exopite-sof-cloneable__text">' . esc_str( $this->group_title ) . '</span>' );
 				if ( $this->is_repeater ) {
-					echo '<span class="exopite-sof-cloneable--helper">';
+					echo esc_html( '<span class="exopite-sof-cloneable--helper">' );
 					if ( $sortable ) {
-						echo '<i class="fa fa-arrows-v"></i>';
+						echo esc_html( '<i class="fa fa-arrows-v"></i>' );
 					}
 					if ( $this->is_cloneable ) {
-						echo '<i class="exopite-sof-cloneable--clone fa fa-clone disabled"></i>';
+						echo esc_html( '<i class="exopite-sof-cloneable--clone fa fa-clone disabled"></i>' );
 					}
-					echo '<i class="exopite-sof-cloneable--remove fa fa-times disabled"></i>';
-					echo '</span>';
+					echo esc_html( '<i class="exopite-sof-cloneable--remove fa fa-times disabled"></i>' );
+					echo esc_html( '</span>' );
 				}
-				echo '</h4>';
+				echo esc_html( '</h4>' );
 
 			}
 
-			echo '<div class="exopite-sof-cloneable__content ';
+			echo esc_html( '<div class="exopite-sof-cloneable__content ' );
 			if ( ! $this->is_repeater ) {
-				echo 'exopite-sof-sub-dependencies ';
+				echo esc_html( 'exopite-sof-sub-dependencies ' );
 			}
-			echo 'exopite-sof-accordion__content">';
+			echo esc_html( 'exopite-sof-accordion__content">' );
 
 			$self                      = new Exopite_Simple_Options_Framework( $base_id, null );
 			$self->config['multilang'] = $this->config['multilang'];
@@ -234,12 +234,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 			}
 
-			echo '</div>'; // exopite-sof-cloneable-content
+			echo esc_html( '</div>' ); // exopite-sof-cloneable-content
 
-			echo '</div>'; // exopite-sof-cloneable__item
+			echo esc_html( '</div>' ); // exopite-sof-cloneable__item
 
 			if ( $this->is_accordion && ! $this->is_repeater ) {
-				echo '</div>';  // exopite-sof-accordion__wrapper
+				echo esc_html('</div>');  // exopite-sof-accordion__wrapper
 			}
 
 			// IF REPEATER
@@ -254,13 +254,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				if ( isset( $this->config['type'] ) && $this->config['type'] == 'metabox' && isset( $this->config['options'] ) && $this->config['options'] == 'simple' ) {
 
-					echo '<div class="' . implode( ' ' , $classes ) . '" data-is-sortable="' . esc_attr( $sortable ) . '" data-name="' . $this->element_name() . '">';
+					echo esc_html( '<div class="' . implode( ' ' , $classes ) . '" data-is-sortable="' . esc_attr( $sortable ) . '" data-name="' . esc_attr( $this->element_name() ) . '">' );
 
 				} else {
 
 					$data_multilang = ( $this->config['multilang'] ) ? true : false;
 
-					echo '<div class="' . implode( ' ' , $classes ) . '" data-multilang="' . esc_attr( $data_multilang ) . '" data-is-sortable="' . $sortable . '" data-name="' . $base_id['id'] . '">';
+					echo esc_html( '<div class="' . implode( ' ' , $classes ) . '" data-multilang="' . esc_attr( $data_multilang ) . '" data-is-sortable="' . esc_attr( $sortable ) . '" data-name="' . esc_attr( $base_id['id'] ) . '">' );
 
 				}
 
@@ -286,27 +286,27 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 						 * (without this check group will display from other languages elements as empty)
 						 */
 
-						echo '<div class="exopite-sof-cloneable__item';
+						echo esc_html( '<div class="exopite-sof-cloneable__item' );
 						if ( $this->is_accordion && $this->is_accordion_closed ) {
-							echo ' exopite-sof-accordion__item';
+							echo esc_html( ' exopite-sof-accordion__item' );
 						}
 						if ( $this->is_accordion && $this->is_accordion_closed ) {
-							echo ' exopite-sof-accordion--hidden';
+							echo esc_html( ' exopite-sof-accordion--hidden' );
 						}
-						echo '">';
+						echo esc_html( '">' );
 
-						echo '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title"><span class="exopite-sof-cloneable__text">' . $this->field['options']['group_title'] . '</span>';
-						echo '<span class="exopite-sof-cloneable--helper">';
+						echo esc_html( '<h4 class="exopite-sof-cloneable__title exopite-sof-accordion__title"><span ) class="exopite-sof-cloneable__text">' . esc_attr( $this->field['options']['group_title'] ) . '</span>';
+						echo esc_html( '<span class="exopite-sof-cloneable--helper">' );
 						if ( $sortable ) {
-							echo '<i class="fa fa-arrows-v"></i>';
+							echo esc_html( '<i class="fa fa-arrows-v"></i>' );
 						}
 						if ( $this->is_cloneable ) {
-							echo '<i class="exopite-sof-cloneable--clone fa fa-clone"></i>';
+							echo esc_html( '<i class="exopite-sof-cloneable--clone fa fa-clone"></i>' );
 						}
-						echo '<i class="exopite-sof-cloneable--remove fa fa-times"></i>';
-						echo '</span>';
-						echo '</h4>';
-						echo '<div class="exopite-sof-cloneable__content exopite-sof-sub-dependencies exopite-sof-accordion__content">';
+						echo esc_html( '<i class="exopite-sof-cloneable--remove fa fa-times"></i>' );
+						echo esc_html( '</span>' );
+						echo esc_html( '</h4>' );
+						echo esc_html( '<div class="exopite-sof-cloneable__content exopite-sof-sub-dependencies exopite-sof-accordion__content">');
 
 						if ( $this->config['is_options_simple'] ) {
 
@@ -336,8 +336,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 						}
 
-						echo '</div>'; // exopite-sof-cloneable__content
-						echo '</div>'; // exopite-sof-cloneable__item
+						echo esc_html( '</div>' ); // exopite-sof-cloneable__content
+						echo esc_html( '</div>' ); // exopite-sof-cloneable__item
 
 						$num ++;
 
@@ -345,17 +345,17 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				}
 
-				echo '</div>'; // exopite-sof-cloneable__wrapper
+				echo esc_html ( '</div>' ); // exopite-sof-cloneable__wrapper
 
-				echo '<div class="exopite-sof-cloneable-data" data-unique-id="' . esc_attr( $unique_id ) . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'exopite-sof' ) . ' ' . $this->field['options']['limit'] . '</div>';
+				echo esc_html ( '<div class="exopite-sof-cloneable-data" data-unique-id="' . esc_attr( $unique_id ) . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'exopite-sof' ) . ' ' . esc_attr( $this->field['options']['limit'] ) . '</div>' );
 
-				echo '<a href="#" class="button button-primary exopite-sof-cloneable--add">' . $this->field['options']['button_title'] . '</a>';
+				echo esc_html ( '<a href="#" class="button button-primary exopite-sof-cloneable--add">' . esc_attr( $this->field['options']['button_title'] ) . '</a>' );
 
 			}
 
-			echo '</div>'; // exopite-sof-group
+			echo esc_html( '</div>' ); // exopite-sof-group
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

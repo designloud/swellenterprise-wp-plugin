@@ -85,7 +85,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 			if ( isset( $_POST['media-ids'] ) && is_array( $_POST['media-ids'] ) ) {
 
 				// Sanitize attachment ids, these should be absint
-				$attachment_id_array = array_map( 'absint', $_POST['media-ids'] );
+				$attachment_id_array = array_map( 'absint', sanitize_key( $_POST['media-ids'] ) );
 
 
 				foreach ( $attachment_id_array as $attachmentid ) {
@@ -224,7 +224,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 			);
 
 			// Attach file to post if attach is true and it is uploaded in a post (metabox)
-			$post_id   = ( isset( $_POST['postId'] ) ) ? intval( $_POST['postId'] ) : 0;
+			$post_id   = ( isset( $_POST['postId'] ) ) ? intval(sanitize_text_field( $_POST['postId'] )) : 0;
 			$attach_id = wp_insert_attachment( $attachment, $updated_url, $post_id );
 
 			// Determines if attachment is an image.

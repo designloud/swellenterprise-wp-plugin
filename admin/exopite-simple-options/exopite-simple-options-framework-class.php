@@ -571,14 +571,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			$retval = 'error';
 
 			$nonce_v = wp_verify_nonce( $_POST['wpnonce'], 'exopite_sof_backup' );
-			$nonce = $_POST['wpnonce'];
-
-			if ( isset( $_POST['unique'] ) && ! empty( $_POST['value'] ) && isset( $_POST['wpnonce'] ) && wp_verify_nonce( $_POST['wpnonce'], 'exopite_sof_backup' ) ) {
+			$nonce = sanitize_text_field( $_POST['wpnonce'] );
+			if ( isset( $_POST['unique'] )  && ! empty( sanitize_text_field( $_POST['value'] ) ) && isset( $_POST['wpnonce'] ) && wp_verify_nonce( $_POST['wpnonce'], 'exopite_sof_backup' ) ) {
 
 				$option_key = sanitize_key( $_POST['unique'] );
 
 				//Using json_decode
-				$value = json_decode( stripslashes( $_POST['value'] ), true );
+				$value = json_decode( stripslashes( sanitize_text_field( $_POST['value'] ) ), true );
 
 				if ( is_array( $value ) ) {
 
@@ -617,7 +616,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			$retval = 'error';
 
-			if ( isset( $_POST['unique'] ) && isset( $_POST['wpnonce'] ) && wp_verify_nonce( $_POST['wpnonce'], 'exopite_sof_backup' ) ) {
+			if ( isset( $_POST['unique'] ) && isset(  $_POST['wpnonce'] )  && wp_verify_nonce( $_POST['wpnonce'], 'exopite_sof_backup' ) ) {
 
 				delete_option( sanitize_key( $_POST['unique'] ) );
 
@@ -729,7 +728,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				foreach ( $settings_links_config_array as $link ) {
 
 					$link_text         = isset( $link['text'] ) ? sanitize_text_field( $link['text'] ) : __( 'Settings', '' );
-					$link_url_un_clean = isset( $link['url'] ) ? $link['url'] : '#';
+					$link_url_un_clean = isset( $link['url'] ) ? esc_url( $link['url'] ) : '#';
 
 					$link_type = isset( $link['type'] ) ? sanitize_key( $link['type'] ) : 'default';
 
@@ -1064,11 +1063,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				// if this is metabox, $posted_data is post_id we are saving
 				$post_id = $posted_data;
 				if ( $this->is_options_simple() ) {
-					$posted_data = $_POST;
+					$posted_data = sanitize_post( $_POST );
 				} else {
 
 					if ( isset( $_POST[ $this->unique ] ) ) {
-						$posted_data = $_POST[ $this->unique ];
+						$posted_data = sanitize_text_field( $_POST[ $this->unique ] );
 					} else {
 						return false;
 					}
@@ -1669,12 +1668,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			// print_r( $section );
 			if( isset( $_GET['post'] ) ) {
 				if( $section['name'] === 'notes' ){
-				echo '<div class="add-note"><div><h4 class="exopite-sof-title add-heading">Add New '.ucfirst( $section['name'] ).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=note&attached_post_id='.get_the_ID().'"> Add '.ucfirst( $section['name'] ).'</a></div></div>';
+				echo '<div class="add-note"><div><h4 class="exopite-sof-title add-heading">Add New '.esc_html(ucfirst( $section['name'] )).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=note&attached_post_id='.get_the_ID().'"> Add '.esc_html(ucfirst( $section['name'] )).'</a></div></div>';
 				}
 
 				if( $section['name'] ==='tasks' ){
 					echo '<div class="add-task">
-					<div><h4 class="exopite-sof-title add-heading">Add New '.ucfirst( $section['name'] ).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=task&attached_post_id='.get_the_ID().'"> Add '.ucfirst( $section['name'] ).'</a></div></div>';
+					<div><h4 class="exopite-sof-title add-heading">Add New '.esc_html(ucfirst( $section['name'] )).'</h4></div><div><a class="clearfix add-items" href="'.get_site_url().'/wp-admin/post-new.php?post_type=task&attached_post_id='.get_the_ID().'"> Add '.esc_html(ucfirst( $section['name'] )).'</a></div></div>';
 				}
 				if( $section['name'] === 'custom_fields' && empty( $section['fields'] ) ) {
 					$post_type = get_post_type( get_the_ID() );
@@ -1683,10 +1682,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 						echo '<div class="custom-fields">';
 						if( is_array( $custom_fields ) ) {
 						foreach ( $custom_fields as $custom_field ) {
+							$field_name = get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID());
 							echo '<div class="exopite-sof-field exopite-sof-field-text">
-									<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
+									<h4 class="exopite-sof-title">'.esc_attr($custom_field->name).'<p class="exopite-sof-description">'.esc_attr($custom_field->name).'</p></h4>
 									<div class="exopite-sof-fieldset">
-									<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
+									<input type="text" name="swellenterprise-meta[custom_field]['.($custom_field->name).']" value="'.esc_html( $field_name ).'" class="text-class" data-depend-id='.esc_attr($custom_field->name).' rows="10" cols="5" placeholder="" data-test="test">
 									</div>
 									<div class="clearfix"></div>
 								</div>';
@@ -1698,15 +1698,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 						echo '<div class="custom-fields">';
 						if( is_array( $custom_fields ) ) {
 							foreach ( $custom_fields as $custom_field ) {
+								$field_name = get_post_meta( 'custom_fields['.esc_attr($custom_field->name).']', get_the_ID());
 								echo '<div class="exopite-sof-field exopite-sof-field-text">
-										<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
+										<h4 class="exopite-sof-title">'.esc_attr($custom_field->name).'<p class="exopite-sof-description">'.esc_attr($custom_field->name).'</p></h4>
 										<div class="exopite-sof-fieldset">
-										<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
+										<input type="text" name="swellenterprise-meta[custom_field]['.($custom_field->name).']" value="'.sanitize_text_field( $field_name ).'" class="text-class" data-depend-id='.esc_attr($custom_field->name).' rows="10" cols="5" placeholder="" data-test="test">
 										</div>
 										<div class="clearfix"></div>
 									</div>';
-								}
-								
+							}
 						}
 						echo '</div>';
 						
@@ -1715,10 +1715,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 						echo '<div class="custom-fields">';
 						if( is_array( $custom_fields ) ) {
 							foreach ( $custom_fields as $custom_field ) {
+								$field_name = get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID());
 								echo '<div class="exopite-sof-field exopite-sof-field-text">
-										<h4 class="exopite-sof-title">'.$custom_field->name.'<p class="exopite-sof-description">'.$custom_field->name.'</p></h4>
+										<h4 class="exopite-sof-title">'.esc_attr($custom_field->name).'<p class="exopite-sof-description">'.esc_attr($custom_field->name).'</p></h4>
 										<div class="exopite-sof-fieldset">
-										<input type="text" name="swellenterprise-meta[custom_field]['.$custom_field->name.']" value="'.get_post_meta( 'custom_fields['.$custom_field->name.']', get_the_ID()).'" class="text-class" data-depend-id='.$custom_field->name.' rows="10" cols="5" placeholder="" data-test="test">
+										<input type="text" name="swellenterprise-meta[custom_field]['.($custom_field->name).']" value="'.sanitize_text_field( $field_name ).'" class="text-class" data-depend-id='.esc_attr($custom_field->name).' rows="10" cols="5" placeholder="" data-test="test">
 										</div>
 										<div class="clearfix"></div>
 									</div>';
@@ -1731,7 +1732,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			} else {
 				if( isset( $_GET['post_type'] ) && $section['name'] !== 'first' ) {
 					echo '<div class="no-post-created">
-					<div><h4 class="exopite-sof-title add-heading">No '.ucfirst( $_GET['post_type'] ).' created yet.</h4></div></div>';
+					<div><h4 class="exopite-sof-title add-heading">No '.ucfirst( escape_str( $_GET['post_type']) ).' created yet.</h4></div></div>';
 				}
 				
 			}
@@ -1800,10 +1801,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             $section_name = ( isset( $section['name'] ) ) ? $section['name'] : '';
 
-			echo '<li  class="exopite-sof-nav-list-item' . $active . $hidden . '"' . $depend . ' data-section="' . $section_name . '">';
+			echo '<li  class="exopite-sof-nav-list-item' . esc_attr( $active ) . esc_attr( $hidden ) . '"' . esc_attr( $depend ) . ' data-section="' . sanitize_text_field( ($section_name) ) . '">';
 			echo '<span class="exopite-sof-nav-list-item-title">';
 			$this->get_menu_item_icons( $section );
-			echo $section['title'];
+			echo ucfirst( sanitize_title($section['title']) );
 			echo '</span>';
 			echo '</li>';
 
@@ -1829,7 +1830,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 					echo '<li  class="exopite-sof-nav-list-parent-item' . $active . '">';
 					echo '<span class="exopite-sof-nav-list-item-title">';
 					$this->get_menu_item_icons( $value );
-					echo $value['title'];
+					echo sanitize_title( ucfirst($value['title']) );
 					echo '</span>';
 					echo '<ul style="display:none;">';
 
@@ -1864,25 +1865,25 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		public function display_debug_infos() {
 
-			echo '<pre>MULTILANG<br>';
-			var_export( $this->config['multilang'] );
-			echo '</pre>';
+			// echo '<pre>MULTILANG<br>';
+			// var_export( $this->config['multilang'] );
+			// echo '</pre>';
 
-			echo '<pre>IS_SIMPLE:<br>';
-			var_export( $this->is_options_simple() );
-			echo '</pre>';
+			// echo '<pre>IS_SIMPLE:<br>';
+			// var_export( $this->is_options_simple() );
+			// echo '</pre>';
 
-			echo '<pre>IS_MULTILANG<br>';
-			var_export( $this->is_multilang() );
-			echo '</pre>';
+			// echo '<pre>IS_MULTILANG<br>';
+			// var_export( $this->is_multilang() );
+			// echo '</pre>';
 
-			echo '<pre>IS_SPECIAL_MULTILANG_PLUGIN_ACTIVE<br>';
-			var_export( $this->is_special_multilang_active() );
-			echo '</pre>';
+			// echo '<pre>IS_SPECIAL_MULTILANG_PLUGIN_ACTIVE<br>';
+			// var_export( $this->is_special_multilang_active() );
+			// echo '</pre>';
 
-			echo '<pre>DB_OPTIONS<br>';
-			var_export( $this->db_options );
-			echo '</pre>';
+			// echo '<pre>DB_OPTIONS<br>';
+			// var_export( $this->db_options );
+			// echo '</pre>';
 
 		}
 
@@ -1891,11 +1892,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function display_page() {
 
-			do_action( 'exopite_simple_options_framework_form_' . $this->config['type'] . '_before' );
+			do_action( 'exopite_simple_options_framework_form_' . esc_attr($this->config['type']) . '_before' );
 
 			settings_errors();
 
-			echo '<div class="exopite-sof-wrapper exopite-sof-wrapper-' . $this->config['type'] . ' ' . $this->unique . '-options">';
+			echo '<div class="exopite-sof-wrapper exopite-sof-wrapper-' . esc_attr($this->config['type']) . ' ' . esc_attr($this->unique) . '-options">';
 
 			switch ( $this->config['type'] ) {
 				case 'menu':
@@ -1956,9 +1957,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 					if ( $this->debug ) {
 						$meta_options = get_post_meta( get_the_ID() );
-						echo '<pre>POST_META<br>';
-						var_export( $meta_options );
-						echo '</pre>';
+						
 					}
 
 					break;
@@ -1986,7 +1985,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				 * Current language need to pass to save function, if "All languages" seleted, WPML report default
 				 * on save hook.
 				 */
-				echo '<input type="hidden" name="_language" value="' . $current_language . '">';
+				echo '<input type="hidden" name="_language" value="' . esc_html($current_language) . '">';
 			}
 
 			$sections = count( $this->fields );
@@ -2003,7 +2002,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			 * Generate fields
 			 */
 			// Generate tab navigation
-			echo '<div class="exopite-sof-content' . $tabbed . '">';
+			echo '<div class="exopite-sof-content' . esc_attr($tabbed) . '">';
 
 			if ( ! empty( $tabbed ) ) {
 

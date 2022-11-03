@@ -162,11 +162,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
               if($plugin_services->check_if_post_exists('contact', 'hash_id', $contact['payload']['id']) === 0){
                   $plugin_services->create_contact($contact['payload']);
               } else {
-                  /*echo '200';
-                  ini_set("log_errors", 1);
-                  ini_set("error_log", dirname( __FILE__ )."/swell.log");
-                  error_log( 'json_encode($request)' );
-                  error_log( json_encode($request->get_json_params()) );*/
                   $id = $plugin_services->check_if_post_exists('contact', 'hash_id', $contact['payload']['id']);
                   $plugin_services->create_contact( $contact['payload'], $id );
               }
@@ -174,11 +169,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     }
 
     public function create_item_clients( $request ) {
-        /*print_r( $request->get_json_params() );
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname( __FILE__ )."/swell.log");
-        error_log( 'json_encode($request)' );
-        error_log( json_encode($request->get_json_params()) );*/
+       
         $client = $request->get_json_params();
         if(isset($client['payload']['id'])){ //check the key exists in the array
             $plugin_services = new SWELLEnterprise_API_Services();
@@ -192,11 +183,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     }
 
     public function create_item_leads( $request ) {
-        echo '200';
-        ini_set("log_errors", 1);
-        ini_set("error_log", dirname( __FILE__ )."/swell.log");
-        error_log( 'json_encode($request)' );
-        error_log( json_encode($request->get_json_params()) );
+
         $lead = $request->get_json_params();
         if(isset($lead['payload']['id'])){ //check the key exists in the array
             $plugin_services = new SWELLEnterprise_API_Services();
@@ -211,11 +198,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
 
     public function delete_item_tasks( $request ) {
-      /*echo '200';
-      ini_set("log_errors", 1);
-      ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      error_log( "Delete task Callback" );
-      error_log( json_encode($request->get_json_params()));*/
+      
       $delete_post_hash_id = $request->get_json_params();
       $plugin_services = new SWELLEnterprise_API_Services();
       $plugin_services->delete_task( $delete_post_hash_id );
@@ -223,22 +206,12 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
     // Delete Leads
     public function delete_item_leads( $request ) {
-      /*echo '200';
-      ini_set("log_errors", 1);
-      ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      error_log( "Delete Lead Callback" );
-      error_log( json_encode($request->get_json_params()));*/
       $delete_post_hash_id = $request->get_json_params();
       $plugin_services = new SWELLEnterprise_API_Services();
       $plugin_services->delete_lead( $delete_post_hash_id['payload'] );
     }
     // Delete Clients
     public function delete_item_clients( $request ) {
-      /*echo '200';
-      ini_set("log_errors", 1);
-      ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      error_log( "Delete Client Callback" );
-      error_log( json_encode($request->get_json_params()));*/
       $delete_post_hash_id = $request->get_json_params();
       $plugin_services = new SWELLEnterprise_API_Services();
       $plugin_services->delete_client( $delete_post_hash_id['payload'] );
@@ -246,28 +219,12 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
     // Delete Contacts
     public function delete_item_contacts( $request ) {
-      /*echo '200';
-      ini_set("log_errors", 1);
-      ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      error_log( "Delete contact Callback" );
-      error_log( json_encode($request->get_json_params()));*/
       $delete_post_hash_id = $request->get_json_params();
       $plugin_services = new SWELLEnterprise_API_Services();
       $plugin_services->delete_contact( $delete_post_hash_id['payload'] );
     }
     // notes creation callback.
     public function create_item_notes( $request ) {
-      print_r( $request->get_json_params() );
-      echo '200';
-      ini_set("log_errors", 1);
-      ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      error_log( json_encode("Notes endpoint"));
-      error_log( json_encode($request->get_json_params()) );
-      // Writing logs in file.
-      $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
-      fwrite($fp, json_encode("Notes endpoint").PHP_EOL);
-      fwrite($fp, json_encode($request->get_json_params()).PHP_EOL );
-      fclose($fp);
       $note = $request->get_json_params();
       if(isset($note['payload']['id'])) { //check the key exists in the array
           $plugin_services = new SWELLEnterprise_API_Services();
@@ -283,11 +240,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     }
     // Delete notes callback.
     public function delete_item_notes( $request ) {
-          print_r( $request->get_json_params() );
-          echo '200';
-          ini_set("log_errors", 1);
-          ini_set("error_log", dirname( __FILE__ )."/swell.log");
-          error_log( json_encode($request->get_json_params()) );
           $delete_post_hash_id = $request->get_json_params();
           $plugin_services = new SWELLEnterprise_API_Services();
           $plugin_services->delete_note( $delete_post_hash_id['payload'] );
@@ -295,17 +247,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
     // Tasks creation and updation callback.
     public function create_item_tasks( $request ) {
-      // echo '200';
-      // ini_set("log_errors", 1);
-      // ini_set("error_log", dirname( __FILE__ )."/swell.log");
-      // error_log( json_encode("Tasks Endpoint") );
-      // error_log( json_encode($request->get_json_params()) );
-
-      // Writing logs in file.
-      $fp = fopen(dirname( __FILE__ )."/swell.txt", 'a');
-      fwrite($fp, json_encode("Tasks Endpoint"). PHP_EOL );
-      fwrite($fp, json_encode($request->get_json_params()). PHP_EOL );
-      fclose($fp);
 
       $task = $request->get_json_params();
       if(isset($task['payload']['id'])){ //check the key exists in the array
@@ -457,7 +398,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
      */
     public function swell_get_post_data( $post_ID, $post, $update ) {
         if( isset( $_POST['post_type']) ) {
-            $post_type = sanitize_text_field( $_POST['post_type'] );
+          $post_type = sanitize_text_field( $_POST['post_type'] );
           // get hash_id.
           $id = get_post_field( 'hash_id', $post_ID );
           $url = '';
@@ -466,37 +407,37 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             $method = 'PUT';
             $case = 'Update';
             if( $post_type === 'contact' ) {
-              $url = SWELLENTERPRISE_BASE_URL . 'api/contacts/'.$id;
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/contacts/'.$id;
             }
             if( $post_type === 'client' ) {
-              $url = SWELLENTERPRISE_BASE_URL . 'api/clients/'.$id;
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/clients/'.$id;
             }
             if( $post_type === 'lead' ) {
-              $url = SWELLENTERPRISE_BASE_URL . 'api/leads/'.$id;
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/leads/'.$id;
             }
             if( $post_type === 'note' ) {
-              $url = SWELLENTERPRISE_BASE_URL . 'api/notes/'.$id; 
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/notes/'.$id; 
             }
             if( $post_type === 'task' ) {
-              $url = SWELLENTERPRISE_BASE_URL . 'api/tasks/'.$id; 
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/tasks/'.$id; 
             }
           } else {
               $method = 'POST';
               $case = 'Add';
               if( $post_type === 'contact' ) {
-                $url = SWELLENTERPRISE_BASE_URL . 'api/contacts/';
+                $url = SWELLENTERPRISE_BASE_URL . 'api/v3/contacts/';
               }
               if( $post_type === 'client' ) {
-                $url = SWELLENTERPRISE_BASE_URL . 'api/clients/';
+                $url = SWELLENTERPRISE_BASE_URL . 'api/v3/clients/';
               }
               if( $post_type === 'lead' ) {
-                $url = SWELLENTERPRISE_BASE_URL . 'api/leads/';
+                $url = SWELLENTERPRISE_BASE_URL . 'api/v3/leads/';
               }
               if( $post_type === 'note' ) {
-                $url = SWELLENTERPRISE_BASE_URL . 'api/notes/'; 
+                $url = SWELLENTERPRISE_BASE_URL . 'api/v3/notes/'; 
               }
               if( $post_type === 'task' ) {
-                $url = SWELLENTERPRISE_BASE_URL . 'api/tasks/'; 
+                $url = SWELLENTERPRISE_BASE_URL . 'api/v3/tasks/'; 
               }
           }
 
@@ -513,7 +454,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             $id = get_post_meta( $post_ID, 'hash_id', true );
             if( !empty( $id ) ) {
               $method = 'PATCH';
-              $url = SWELLENTERPRISE_BASE_URL . 'api/notes/'.$id; 
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/notes/'.$id; 
             } else {
               $method = 'POST';
             }
@@ -524,7 +465,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             $id = get_post_meta( $post_ID, 'hash_id', true );
             if( !empty( $id ) ) {
               $method = 'PATCH';
-              $url = SWELLENTERPRISE_BASE_URL . 'api/tasks/'.$id;
+              $url = SWELLENTERPRISE_BASE_URL . 'api/v3/tasks/'.$id;
             } else {
               $method = 'POST';
             }
@@ -532,33 +473,13 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
           }
 
           $plugin_services = new SWELLEnterprise_API_Services();
-          // echo "URL is:".$url;
-          // echo "Method is:".$method;
-          // echo "<pre>";
-          // print_r( $body_fields );
-          // die();
-          // if( $body_fields ) {
-          //   $result = $plugin_services->rs_remote_request( $url, $method, $body_fields ); 
-          // } else {
-          // if( isset($url) && isset($method) && isset($body_fields) ) {
-            $result = $plugin_services->rs_remote_request( $url, $method, $body_fields );
-          // }
-          // }
-          // echo "<pre>";
-          // var_dump( $result['response_body'] );
-          // echo $result['response_body']->id;
-          // echo "<pre>";
-          // print_r( $result );
-          // die();
+          
           if( isset($result['response_body']->id) ){
             $body_fields['id'] = $result['response_body']->id;
           }
 
           if( $post_type === 'lead' ) {
-            ini_set("log_errors", 1);
-            ini_set("error_log", dirname( __FILE__ )."/swell.log");
-            error_log( json_encode( "From system" ));
-            error_log( json_encode( $body_fields ));
+            
             $plugin_services->create_lead($body_fields,$post_ID, 1 );
           }
           if ( $post_type === 'contact' ) {
@@ -581,41 +502,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
               wp_safe_redirect( $url );
               exit();
             } 
-          // }
-
-
-          // die();
-          
-          // echo "<pre>";
-          // print_r( $result );
-          // ini_set("log_errors", 1);
-          // ini_set("error_log", dirname(__FILE__) . "/swell.log");
-          // error_log( json_encode( $result ));
-          // exit;
-          //return;
-          // Success (200 = changes ok, 204 = no change needed)
-          // if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
-          //     // return $result;
-          //   if( $post_type === 'note' || $post_type === 'task' ) {
-          //     $id = $response_body->id;
-          //     update_post_meta( $post_ID, $post_type.'_id', $id );
-          //   }
-          // }
-
-          // // Item does not exist
-          // else if ( $result['response_code'] == 404 ) {
-          //     return false;
-          // }
-          // // Unexpected response code, display a warning and exit.
-          // else {
-          //   // You should not use this in production code, at least make it more friendly and prevent it from exiting the script.
-          //   echo '<div class="rs-api-warning">';
-          //   echo '<p>RS API Warning ('. $api_result['response_code'].'): '. $api_result['response_message'] .'</p>';
-          //   echo '<pre>'. esc_html(print_r($api_result, true)) .'</pre>';
-          //   echo '</div>';
-          //   exit;
-          // } 
-          
         }
     }
 
@@ -627,10 +513,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
 
     // Get Notes body fields.
     public function get_notes_body_fields( $post_ID ) {
-      global $_POST;
-      echo "<pre>";
-      print_r( $_POST );
-      print_r( $_GET );
+        global $_POST;
         if ( isset( $_POST['attached_post_id'] ) ) {
           // $id = 0;
           $attached_id = sanitize_text_field( $_POST['attached_post_id'] );
@@ -644,7 +527,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             update_post_meta( $post_ID, 'resource', $resource );
           }
         } else {
-          // $id = get_post_meta( $post_ID, 'note_id', true );
           $attach_id = '';
           $resource  = '';
         }
@@ -673,7 +555,6 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
           update_post_meta( $post_ID, 'resource', $resource );
         }
       } else {
-        // $id = get_post_meta( $post_ID, 'task_id', true );
         $attach_id = '';
         $resource = '';
       }
@@ -715,12 +596,8 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       global $_POST;
       $custom_fields = array();
       // get hash_id.
-      $id        = get_post_field( 'hash_id', $post_id );
-      $post_data = isset( $_POST['swellenterprise-meta'] )? sanitize_text_field( $_POST['swellenterprise-meta'] ): null;
-      // echo "<pre>";
-      // print_r( $_POST );
-      //print_r( $post_data );
-      //die();
+      $id        = get_post_field( 'hash_id', $post_id );      
+      $post_data = isset( $_POST['swellenterprise-meta'] )?  $_POST['swellenterprise-meta'] : null;
 
       // Setting lead status if post type is lead.
       if( $post_type === 'lead' && isset( $_POST['swell_lead_status_field'] ) ) {
@@ -733,24 +610,12 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       } else {
         $status = '';
       }
-      // Getting custom fields data.
-      // if( $id ) {
-      //   $get_custom_fields = get_post_meta( $post_id, 'custom_fields', true );
-      //   if( $get_custom_fields ) {
-      //     $get_custom_fields = json_decode($get_custom_fields );
-      //     foreach ( $get_custom_fields as $key => $value ) {
-      //       $key = str_replace( array( "[", "]" )," ' ",$key );
-      //       $key = 'bic_'.$key;
-      //       $custom_fields = $this->array_push_assoc( $custom_fields, $key, $post_data[$key] );
-      //     }
-      //   }
-      // }
       if( isset( $post_data['custom_field'] ) ) {
-          $custom_fields = $post_data['custom_field'];
+          $custom_fields = sanitize_text_field($post_data['custom_field']);
       } else {
         $custom_fields = '';
       }
-      
+   
       $form_data = array( 
         'id'         => $id,
         'first_name' => isset($post_data['first_name'] )? sanitize_text_field( $post_data['first_name'] ):null,
@@ -786,34 +651,27 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       if( !empty( $hash_id ) ) {
         $method = 'DELETE';
         if( $post_type === 'contact' ) {
-          $url = SWELLENTERPRISE_BASE_URL . 'api/contacts/'.$hash_id;
+          $url = SWELLENTERPRISE_BASE_URL . 'api/v3/contacts/'.$hash_id;
           $result_code = $this->delete_related_data( $hash_id, 'contact' );
         }
         if( $post_type === 'client' ) {
-          $url = SWELLENTERPRISE_BASE_URL . 'api/clients/'.$hash_id;
+          $url = SWELLENTERPRISE_BASE_URL . 'api/v3/clients/'.$hash_id;
           $result_code = $this->delete_related_data( $hash_id, 'client' );
         }
         if( $post_type === 'lead' ) {
-          $url = SWELLENTERPRISE_BASE_URL . 'api/leads/'.$hash_id;
+          $url = SWELLENTERPRISE_BASE_URL . 'api/v3/leads/'.$hash_id;
           $result_code = $this->delete_related_data( $hash_id, 'lead' );
         }
         if( $post_type === 'note' ) {
           $hash_id   = get_post_meta( $postid, 'hash_id' , true);
-          $url = SWELLENTERPRISE_BASE_URL . 'api/notes/'.$hash_id;
+          $url = SWELLENTERPRISE_BASE_URL . 'api/v3/notes/'.$hash_id;
         }
         if( $post_type === 'task' ) {
           $hash_id   = get_post_meta( $postid, 'hash_id' , true);
-          $url = SWELLENTERPRISE_BASE_URL . 'api/tasks/'.$hash_id;
+          $url = SWELLENTERPRISE_BASE_URL . 'api/v3/tasks/'.$hash_id;
         }
-        // Mailchimp-style api key using basic authorization.
-        // if( $result_code === 201 || $result_code === 0 )
-        // {
           $plugin_services = new SWELLEnterprise_API_Services();
           $result = $plugin_services->rs_remote_request( $url, $method );
-          // echo "<pre>";
-          // print_r( $result );
-          // die();
-        // }
       }
     }
 
@@ -839,7 +697,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             $related_data_post_type = get_post_field( 'post_type', $related_data->ID );
             // die();      
             if ( $related_data_post_type === 'task' ) {
-              $related_url = SWELLENTERPRISE_BASE_URL . 'api/tasks/'.$related_data_hash_id;
+              $related_url = SWELLENTERPRISE_BASE_URL . 'api/v3/tasks/'.$related_data_hash_id;
               $plugin_services = new SWELLEnterprise_API_Services();
               // Delete task from Wordpress.
               wp_delete_post( $related_data->ID );
@@ -848,7 +706,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             } 
 
             if ( $related_data_post_type === 'note' ) {
-              $related_url = SWELLENTERPRISE_BASE_URL . 'api/notes/'.$related_data_hash_id;
+              $related_url = SWELLENTERPRISE_BASE_URL . 'api/v3/notes/'.$related_data_hash_id;
               $plugin_services = new SWELLEnterprise_API_Services();
               // Delete note from Wordpress.
               wp_delete_post( $related_data->ID );
@@ -872,15 +730,12 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
           $task_status_url = SWELLENTERPRISE_BASE_URL . 'api/statuses/task';
           $method = 'GET';
           $plugin_services = new SWELLEnterprise_API_Services();
-          $result = $plugin_services->rs_remote_request(  $task_status_url, $method);        
-          ini_set("log_errors", 1);
-          ini_set("error_log", dirname(__FILE__) . "/swell.log");
-          error_log( json_encode( $result ));
+          $result = $plugin_services->rs_remote_request(  $task_status_url, $method);
           //Success (200 = changes ok, 204 = no change needed)
           if ( isset( $result['response_code'] ) ) {
             if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
               $task_status_data = $result['response_body'];
-              set_transient( "swell_task_statuses", $task_status_data, 1 * DAY_IN_SECONDS );
+              set_transient( "swell_task_statuses", $task_status_data, 180 );
             }
           }
         }
@@ -897,15 +752,12 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
             $lead_status_url = SWELLENTERPRISE_BASE_URL . 'api/statuses/lead';
             $method = 'GET';
             $plugin_services = new SWELLEnterprise_API_Services();
-            $result = $plugin_services->rs_remote_request(  $lead_status_url, $method);        
-            ini_set("log_errors", 1);
-            ini_set("error_log", dirname(__FILE__) . "/swell.log");
-            error_log( json_encode( $result ));
+            $result = $plugin_services->rs_remote_request(  $lead_status_url, $method);
             //Success (200 = changes ok, 204 = no change needed)
             if ( isset( $result['response_code'] ) ) {
               if ( $result['response_code'] == 200 || $result['response_code'] == 204 ) {
                   $lead_status_data = $result['response_body'];
-                  set_transient( "swell_lead_statuses", $lead_status_data, 1 * DAY_IN_SECONDS );
+                  set_transient( "swell_lead_statuses", $lead_status_data, 180 );
               }
             }
           }
@@ -919,19 +771,15 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_save_lead_custom_fields () {
       if( false == ( $service_data = get_transient( "swell_lead_custom_fields" ) ) ) 
         {
-          $lead_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/lead';
+          $lead_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/v3/customfields/lead';
           $method = 'GET';
           $plugin_services = new SWELLEnterprise_API_Services();
-          $result = $plugin_services->rs_remote_request( $lead_custom_fields_url, $method);        
-          ini_set("log_errors", 1);
-          ini_set("Lead custom fields", 1);
-          ini_set("error_log", dirname(__FILE__) . "/swell.log");
-          error_log( json_encode( $result ));
+          $result = $plugin_services->rs_remote_request( $lead_custom_fields_url, $method);
           //Success (200 = changes ok, 204 = no change needed)
           if ( isset( $result['response_code'] ) ) {
             if ( $result['response_code'] === 201 || $result['response_code'] === 204 ) {
                 $lead_custom_fields_data = $result['response_body'];
-                set_transient( "swell_lead_custom_fields", $lead_custom_fields_data, 1 * DAY_IN_SECONDS );
+                set_transient( "swell_lead_custom_fields", $lead_custom_fields_data, 180 );
             }
           }
         }
@@ -944,18 +792,15 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_save_contact_custom_fields () {
       if( false == ( $service_data = get_transient( "swell_contact_custom_fields" ) ) ) 
         {
-          $contact_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/contact';
+          $contact_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/v3/customfields/contact';
           $method = 'GET';
           $plugin_services = new SWELLEnterprise_API_Services();
-          $result = $plugin_services->rs_remote_request( $contact_custom_fields_url, $method);        
-          ini_set("log_errors", 1);
-          ini_set("error_log", dirname(__FILE__) . "/swell.log");
-          error_log( json_encode( $result ));
+          $result = $plugin_services->rs_remote_request( $contact_custom_fields_url, $method);
           //Success (200 = changes ok, 204 = no change needed)
           if ( isset( $result['response_code'] ) ) {
             if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
               $contact_custom_fields_data = $result['response_body'];
-              set_transient( "swell_contact_custom_fields", $contact_custom_fields_data, 1 * DAY_IN_SECONDS );
+              set_transient( "swell_contact_custom_fields", $contact_custom_fields_data, 180 );
             }
           }
         }
@@ -968,18 +813,15 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_save_client_custom_fields () {
       if( false == ( $service_data = get_transient( "swell_client_custom_fields" ) ) ) 
         {
-          $client_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/customfields/client';
+          $client_custom_fields_url = SWELLENTERPRISE_BASE_URL . 'api/v3/customfields/client';
           $method = 'GET';
           $plugin_services = new SWELLEnterprise_API_Services();
-          $result = $plugin_services->rs_remote_request(  $client_custom_fields_url, $method);        
-          ini_set("log_errors", 1);
-          ini_set("error_log", dirname(__FILE__) . "/swell.log");
-          error_log( json_encode( $result ));
+          $result = $plugin_services->rs_remote_request(  $client_custom_fields_url, $method);
           //Success (200 = changes ok, 204 = no change needed)
           if ( isset( $result['response_code'] ) ) {
             if ( $result['response_code'] == 201 || $result['response_code'] == 204 ) {
                 $client_custom_fields_data = $result['response_body'];
-                set_transient( "swell_client_custom_fields", $client_custom_fields_data, 1 * DAY_IN_SECONDS );
+                set_transient( "swell_client_custom_fields", $client_custom_fields_data, 180 );
             }
           }
         }
@@ -1005,6 +847,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_task_status_callback( $post) {
       $get_task_statuses = get_transient('swell_task_statuses');
       $saved_task_status = get_post_meta( $post->ID, 'swell_task_status', true );
+      $saved_task_status = sanitize_text_field( $saved_task_status );
       if ( $get_task_statuses ) {
       ?>
       <label for="swell_task_status_field">Select Task Status</label>
@@ -1036,6 +879,7 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_lead_status_callback( $post ) {
       $swell_lead_statuses = get_transient('swell_lead_statuses');
       $saved_lead_status = get_post_meta( $post->ID, 'swell_lead_status', true );
+      $saved_lead_status = sanitize_text_field( $saved_lead_status );
       if ( $swell_lead_statuses ) {
       ?>
       <label for="swell_lead_status_field">Select Lead Status</label>
@@ -1056,8 +900,8 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
       if( isset( $_GET['attached_post_id'] ) ) {
         if( $post->post_type === 'note' || $post->post_type === 'task' ) {
           $get_attached_id = sanitize_text_field( $_GET['attached_post_id'] );
-          $output = '<input type="hidden" id="'.$get_attached_id.'" name="attached_post_id" value="'.$get_attached_id.'">';
-          echo  ($output);
+          $output = '<input type="hidden" id="'.esc_attr($get_attached_id).'" name="attached_post_id" value="'.esc_attr($get_attached_id).'">';
+          echo $output;
         }  
       } 
     }

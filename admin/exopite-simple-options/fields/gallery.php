@@ -17,9 +17,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_gallery' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
-			echo $this->element_prepend();
+			echo esc_attr( $this->element_prepend() );
 
 			$defaults = array(
 				'add_button' => esc_attr__( 'Add to gallery', 'exopite-sof' ),
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_gallery' ) ) {
 			$value = $this->element_value();
 
 			echo esc_html('<div class="exopite-sof-gallery-field" data-media-frame-title="' . esc_attr( $options['media_frame_title'] ) . '" data-media-frame-button="' . esc_attr( $options['media_frame_button'] ) . '" data-media-frame-type="' . esc_attr( $options['media_type'] ) . '">');
-			echo esc_html('<input type="hidden" name="' . $this->element_name() . '" data-control="gallery-ids" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>');
+			echo esc_html('<input type="hidden" name="' . esc_attr( $this->element_name() ) . '" data-control="gallery-ids" value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_class() ) . esc_attr( $this->element_attributes() ) . '/>');
 			echo esc_html('<div class="exopite-sof-gallery">');
 
 			if ( $value ) :
@@ -52,9 +52,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_gallery' ) ) {
 			echo esc_html('<input class="exopite-sof-gallery-add button button-primary exopite-sof-button" type="button" value="' . esc_attr( $options['add_button'] ) . '" />');
 			echo esc_html('</div>');
 
-			echo $this->element_append();
+			echo esc_attr( $this->element_append() );
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

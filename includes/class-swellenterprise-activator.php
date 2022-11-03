@@ -52,17 +52,7 @@ if( !class_exists('SWELLEnterprise_Activator') ) {
              * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
              */
             $plugin_post_types->create_custom_post_type();
-            //$plugin_api->registerWebhooks();
-            /*
-              $plugin_services->sync_clients();
-              $plugin_services->sync_leads();
-              $plugin_services->sync_contacts();
-              $plugin_services->sync_tasks();
-              $plugin_services->sync_notes();
-             */
-
-            // $plugin_api->init_services();
-            // $plugin_services->sync_leads();
+         
 
             /**
              * This is only required if the custom post type has rewrite!

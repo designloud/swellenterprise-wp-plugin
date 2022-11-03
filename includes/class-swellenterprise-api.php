@@ -35,14 +35,6 @@ class SWELLEnterprise_API {
 
         $url = SWELLENTERPRISE_BASE_URL . 'api/v2/' . $endpoint;
 
-        //$transient_prefix = esc_attr($method . $endpoint);
-        //$transient = get_transient('swellenterprise-' . $transient_prefix);
-        //if( !empty( $transient ) ) {
-        //Already have the transient so fetch that instead
-        //    return $transient;
-        //} else {
-        // No transient so call the API and create one
-
         $wp_request_headers = array(
             'Content-type' => 'application/json',
             'Authorization' => 'Basic ' . base64_encode($this->options['username'] . ':' . $this->options['password'])
@@ -58,14 +50,8 @@ class SWELLEnterprise_API {
 
         if (wp_remote_retrieve_response_code($response) === 200) {
             $response_body = wp_remote_retrieve_body($response);
-            /* set_transient('swellenterprise-' . $transient_prefix, $response_body, apply_filters('null_swellenterprise_cache_time', HOUR_IN_SECONDS * 2)); */
             return $response_body;
-        } else {
-
-            //           $this->swell_admin_notice('danger', 'There is an error: ' . wp_remote_retrieve_response_message( $response ));
         }
-        //}
-//        var_dump($this->options['password']);
     }
 
     private function register_swell_webhook($method, $event, $url) {
@@ -131,52 +117,6 @@ class SWELLEnterprise_API {
         }
         $this->closeConnection();
     }
-
-    /*
-      private function delete_swell_webhook( $id ){
-
-      try {
-
-      if(!isset($this->options) || empty($this->options))
-
-      $this->options = get_exopite_sof_option( 'swellenterprise' );
-
-      } catch (HttpException $httpException) {
-
-      $this->swell_admin_notice('danger', 'There is an error: Not Authorized' );
-      }
-
-      $endpoint = SWELLENTERPRISE_BASE_URL.'api/subscribe/'.$id;
-
-      //No transient so call the API and create one
-
-      $wp_request_headers = array(
-      'Content-type' => 'application/json',
-      'Authorization' => 'Basic ' . base64_encode( $this->options['username'] . ':' . $this->options['password'] )
-      );
-
-      $response = wp_remote_request(
-      $endpoint,
-      array(
-      'method' => 'DELETE',
-      'headers'   => $wp_request_headers
-      )
-      );
-
-      if(wp_remote_retrieve_response_code( $response ) === 200){
-
-      $response_body = wp_remote_retrieve_body($response);
-
-      return $response_body;
-
-      } else {
-
-      //$this->swell_admin_notice('danger', 'There is an error: ' . wp_remote_retrieve_response_message( $response ));
-      }
-      $this->closeConnection();
-
-      }
-     */
 
     public function delete_swell_webhook($id, $option_name = NULL) {
 

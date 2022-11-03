@@ -18,7 +18,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_notice' ) ) {
 
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
-			$content = ( isset( $this->field['content'] ) ) ? $this->field['content'] : '';
+			$content = ( isset( $this->field['content'] ) ) ? esc_attr( $this->field['content'] ) : '';
 
 			if ( isset( $this->field['callback'] ) ) {
 
@@ -31,9 +31,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_notice' ) ) {
 				}
 			}
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 			echo esc_html('<div class="exopite-sof-notice ' . esc_attr( $classes ) . '">' . esc_attr( $content ) . '</div>');
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

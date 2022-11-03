@@ -16,31 +16,31 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_number' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
-			$unit = ( isset( $this->field['unit'] ) ) ? '<em>' . $this->field['unit'] . '</em>' : '';
+			$unit = ( isset( $this->field['unit'] ) ) ? '<em>' . esc_attr($this->field['unit']) . '</em>' : '';
 
 			$attr = array();
 			if ( isset( $this->field['min'] ) ) {
-				$attr[] = 'min="' . $this->field['min'] . '"';
+				$attr[] = 'min="' . esc_attr($this->field['min']) . '"';
 			}
 			if ( isset( $this->field['max'] ) ) {
-				$attr[] = 'max="' . $this->field['max'] . '"';
+				$attr[] = 'max="' . esc_attr($this->field['max']) . '"';
 			}
 			if ( isset( $this->field['step'] ) ) {
-				$attr[] = 'step="' . $this->field['step'] . '"';
+				$attr[] = 'step="' . esc_attr($this->field['step']) . '"';
 			}
 			$attrs = ( ! empty( $attr ) ) ? ' ' . trim( implode( ' ', $attr ) ) : '';
 
-			echo $this->element_prepend();
+			echo esc_attr( $this->element_prepend() );
 
-			echo esc_html('<input type="number" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . esc_attr( $attrs ) . '/>');
+			echo esc_html('<input type="number" name="' . esc_attr( $this->element_name() ) . '" value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_class() ) . esc_attr( $this->element_attributes() ) . esc_attr( $attrs ) . '/>');
 
-			echo $this->element_append();
+			echo esc_attr ( $this->element_append() );
 
-			echo $unit;
+			echo sanitize_text_field( $unit );
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

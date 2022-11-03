@@ -235,8 +235,6 @@ class SWELLEnterprise {
         $this->loader->add_action('init', $SWELLEnterprise_RestApis, 'swell_save_lead_custom_fields', 999 );
         $this->loader->add_action('init', $SWELLEnterprise_RestApis, 'swell_save_contact_custom_fields', 999 );
         $this->loader->add_action('init', $SWELLEnterprise_RestApis, 'swell_save_client_custom_fields', 999 );
-        //.  $this->loader->add_action( 'init', $this->admin, 'notes_meta_meta_boxes', 999 );
-        // $this->loader->add_action('wp_ajax_nopriv_swell_get_data', $plugin_services, 'swell_get_data', 999);
         $this->loader->add_action('wp_ajax_swell_get_data', $plugin_services, 'swell_get_data', 999);
         $this->loader->add_action('rest_api_init', $SWELLEnterprise_RestApis, 'register_routes', 999);
         $this->loader->add_action('wp_trash_post', $SWELLEnterprise_RestApis, 'swell_trash_post', 10, 2);
@@ -260,16 +258,10 @@ class SWELLEnterprise {
         //$this->loader->add_action('init', $plugin_api, 'init_services', 999);
 
 
-        //if (isset($_GET['register_swell_hooks'])) {
-            $this->loader->add_action('init', $plugin_api, 'registerWebhooks', 999);
-        //}
+        $this->loader->add_action('init', $plugin_api, 'registerWebhooks', 999);
 
 
         $this->loader->add_action( 'init', $plugin_services, 'sync_alldata', 999 );
-        /* $this->loader->add_action( 'init', $plugin_api, 'get_clients', 999 );
-          $this->loader->add_action( 'init', $plugin_api, 'sync_clients', 999 ); */
-        // $this->loader->add_action( 'init', $plugin_api, 'get_leads', 999 );
-        // $this->loader->add_action( 'init', $plugin_api, 'sync_leads', 999 );
 
         /**
          * This function runs when WordPress completes its upgrade process

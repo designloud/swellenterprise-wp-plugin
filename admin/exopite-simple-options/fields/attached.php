@@ -26,11 +26,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			if ( $this->where != 'metabox' ) {
 
-				echo 'This item only available in metabox!<br>';
+				echo esc_str( 'This item only available in metabox!<br>' );
 
 			} else {
 
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
 			}
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

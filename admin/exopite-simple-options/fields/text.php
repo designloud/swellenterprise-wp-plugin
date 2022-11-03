@@ -17,15 +17,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_text' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
-			echo $this->element_prepend();
+			echo esc_attr( $this->element_prepend() );
 
-			echo '<input type="' . $this->element_type() . '" name="' . $this->element_name() . '" value="' . $this->element_value() . '"' . $this->element_class() . $this->element_attributes() . '/>';
+			echo '<input type="' . esc_attr( $this->element_type() ) . '" name="' . esc_attr( $this->element_name() ) . '" value="' . esc_attr( $this->element_value() ) . '"' . sanitize_text_field( $this->element_class() ) . sanitize_text_field( $this->element_attributes() ) . '/>';
 
-			echo $this->element_append();
+			echo esc_attr( $this->element_append() );
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

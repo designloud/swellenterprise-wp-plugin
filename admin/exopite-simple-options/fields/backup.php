@@ -18,7 +18,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
 			if ( $this->config['type'] == 'menu' ) {
 
@@ -49,15 +49,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 				echo esc_html('<small class="exopite-sof-info--small exopite-sof-info--warning">' . esc_attr__( 'Please be sure for reset all of framework options.', 'exopite-sof' ) . '</small>');
 				echo esc_html('<a href="#" class="button button-warning exopite-sof-reset-js" data-confirm="' . esc_attr__( 'Are you sure, you want to reset all options?', 'exopite-sof' ) . '">' . esc_attr__( 'Reset All Options', 'exopite-sof' ) . '</a>');
 
-				echo esc_html('<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . $this->unique . '" data-wpnonce="' . esc_attr( $nonce ) . '"></div>');
+				echo esc_html('<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . esc_attr( $this->unique ) . '" data-wpnonce="' . esc_attr( $nonce ) . '"></div>');
 
 			} else {
 
-				echo 'This item only available in menu!<br>';
+				echo esc_str( 'This item only available in menu!<br>' ); 
 
 			}
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 		 * Decode string for backup options
 		 */
 		function decode_string( $option ) {
-			return json_decode( $_POST['value'], true );
+			return json_decode( sanitize_text_field( $_POST['value'] ), true );
 			// return unserialize( gzuncompress( stripslashes( call_user_func( 'base' . '64' . '_decode', rtrim( strtr( $option, '-_', '+/' ), '=' ) ) ) ) );
 		}
 

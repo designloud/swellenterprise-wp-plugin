@@ -23,31 +23,31 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_color' ) ) {
 			$formats = array( 'rgb', 'hex' );
 			$format = ( isset( $this->field['format'] ) ) ? $this->field['format'] : 'rgb';
 
-			echo $this->element_before();
-			echo '<input type="';
+			echo esc_attr( $this->element_before() );
+			echo esc_html( '<input type="' );
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
-				echo 'color';
+				echo esc_attr( 'color' ) ;
 			} else {
-				echo 'text';
+				echo esc_attr( 'text' );
 			}
-			echo '" ';
+			echo esc_html('" ');
 			if ( ! isset( $this->field['picker'] ) || $this->field['picker'] != 'html5' ) {
-				echo 'class="minicolor ' . esc_attr( $classes ) . '" ';
+				echo esc_html( 'class="minicolor ' . esc_attr( $classes ) . '" ' );
 			}
 			if ( isset( $this->field['rgba'] ) && $this->field['rgba'] ) {
-				echo 'data-opacity="1" ';
+				echo esc_html('data-opacity="1" ' );
 			}
 			if ( in_array( $control, $controls ) ) {
-				echo 'data-control="' . esc_attr( $control ) . '" '; // hue, brightness, saturation, wheel
+				echo esc_html( 'data-control="' . esc_attr( $control ) . '" ' ); // hue, brightness, saturation, wheel
 			}
 			if ( in_array( $format, $formats ) ) {
-				echo 'data-format="' . esc_attr( $format ) . '" '; // hue, brightness, saturation, wheel
+				echo esc_html( 'data-format="' . esc_attr( $format ) . '" '); // hue, brightness, saturation, wheel
 			}
-			echo 'name="' . $this->element_name() . '" value="' . $this->element_value() . '"';
+			echo esc_html( 'name="' . $this->element_name() . '" value="' . $this->element_value() . '"' );
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
-				echo $this->element_class();
+				echo esc_attr( $this->element_class() );
 			}
-			echo $this->element_attributes() . '/>';
+			echo esc_html( esc_attr( $this->element_attributes() ) . '/>');
 
 		}
 

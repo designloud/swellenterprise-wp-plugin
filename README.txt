@@ -1,5 +1,5 @@
 === SWELLEnterprise ===
-Contributors: designloud
+Contributors: hdr105
 Tags: comments, spam
 Requires at least: 3.0.1
 Tested up to: 6.0.1

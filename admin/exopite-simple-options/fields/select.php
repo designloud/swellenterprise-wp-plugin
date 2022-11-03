@@ -77,9 +77,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
 		public function output() {
 
-			echo $this->element_before();
+			echo esc_attr( $this->element_before() );
 
-			echo $this->element_prepend();
+			echo esc_attr( $this->element_prepend() );
 
 			if ( isset( $this->field['options'] ) || isset( $this->field['query'] ) ) {
 
@@ -89,25 +89,25 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 				$class      = $this->element_class();
 				$extra_name = ( isset( $this->field['attributes']['multiple'] ) ) ? '[]' : '';
 
-				echo esc_html('<select name="' . $this->element_name( $extra_name ) . '"' . $this->element_class() . $this->element_attributes() . '>');
+				echo esc_html('<select name="' . esc_attr( $this->element_name( $extra_name ) ) . '"' . esc_attr( $this->element_class() ) . esc_attr( $this->element_attributes() ) . '>');
 
-				echo ( isset( $this->field['default_option'] ) ) ? '<option value="">' . $this->field['default_option'] . '</option>' : '';
+				echo ( isset( $this->field['default_option'] ) ) ? esc_html('<option value="">' . esc_attr( $this->field['default_option'] ) . '</option>') : '';
 
 				if ( ! empty( $select ) ) {
 
 					foreach ( $select as $key => $value ) {
-						echo esc_html('<option value="' . esc_attr( $key ) . '" ' . $this->checked( $this->element_value(), $key, 'selected' ) . '>' . esc_attr( $value ) . '</option>');
+						echo esc_html('<option value="' . esc_attr( $key ) . '" ' . $this->checked( $this->element_value(), esc_attr ($key ) , 'selected' ) . '>' . esc_attr( $value ) . '</option>');
 
 					}
 				}
 
-				echo '</select>';
+				echo esc_html('</select>');
 
 			}
 
-			echo $this->element_append();
+			echo esc_attr( $this->element_append() );
 
-			echo $this->element_after();
+			echo esc_attr( $this->element_after() );
 
 		}
 

@@ -17,9 +17,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_switcher' ) ) {
 		public function output() {
 
 			echo $this->element_before();
-			$label = ( isset( $this->field['label'] ) ) ? '<div class="exopite-sof-text-desc">' . $this->field['label'] . '</div><span class="sync_sucess swell_sync_success_'.$this->field['title'].'"></span><button class="buttonload button_sync_'.$this->field['title'].'">
-  <i class="fa fa-refresh fa-spin"></i> Syncing '.$this->field['title'].'
-</button><a class="swell-sync" data-sync="'.$this->field['title'].'">Sync '.$this->field['title'].'</a>' : '';
+			$label = ( isset( $this->field['label'] ) ) ? '<div class="exopite-sof-text-desc">' . esc_attr( $this->field['label'] ) . '</div><span class="sync_sucess swell_sync_success_'. esc_attr( $this->field['title'] ) .'"></span><button class="buttonload button_sync_'. esc_attr( $this->field['title'] ) .'">
+  <i class="fa fa-refresh fa-spin"></i> Syncing '. esc_attr( $this->field['title'] ).'
+</button><a class="swell-sync" data-sync="'. esc_attr( $this->field['title'] ) .'">Sync '. esc_attr( $this->field['title'] ) .'</a>' : '';
 
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
