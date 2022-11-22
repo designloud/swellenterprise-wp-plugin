@@ -902,7 +902,7 @@ class SWELLEnterprise_Admin {
                 if(!empty(get_post_meta( $post_id, $column, true ))){
                     $first_name = get_post_meta( $post_id, $column, true );
                     echo '<a href="' . get_edit_post_link() . '">';
-                    echo sanitize_text_field( $first_name );
+                    echo esc_attr( $first_name );
                     echo '</a>';
                 } else {
                     echo 'N/A';
@@ -912,7 +912,7 @@ class SWELLEnterprise_Admin {
                 if(!empty(get_post_meta( $post_id, $column, true ))){
                     $last_name = get_post_meta( $post_id, $column, true );
                     echo '<a href="' . get_edit_post_link() . '">';
-                    echo sanitize_text_field( $last_name );
+                    echo esc_attr( $last_name );
                     echo '</a>';
                 } else {
                     echo 'N/A';
@@ -922,7 +922,7 @@ class SWELLEnterprise_Admin {
                 if(!empty(get_post_meta( $post_id, $column, true ))){
                     $organization = get_post_meta( $post_id, $column, true );
                     echo '<a href="' . get_edit_post_link() . '">';
-                    echo sanitize_text_field( $organization );
+                    echo esc_attr( $organization );
                     echo '</a>';
                 } else {
                     echo 'N/A';
