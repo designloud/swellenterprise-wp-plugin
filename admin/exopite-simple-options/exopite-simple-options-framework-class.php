@@ -1804,7 +1804,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			echo '<li  class="exopite-sof-nav-list-item' . esc_attr( $active ) . esc_attr( $hidden ) . '"' . esc_attr( $depend ) . ' data-section="' . sanitize_text_field( ($section_name) ) . '">';
 			echo '<span class="exopite-sof-nav-list-item-title">';
 			$this->get_menu_item_icons( $section );
-			echo ucfirst( sanitize_title($section['title']) );
+			echo ucfirst( esc_attr($section['title']) );
 			echo '</span>';
 			echo '</li>';
 

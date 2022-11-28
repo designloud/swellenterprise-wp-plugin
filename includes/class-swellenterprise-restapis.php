@@ -899,9 +899,9 @@ class SWELLEnterprise_RestApis extends WP_REST_Controller {
     public function swell_edit_form_callback ( $post ) {
       if( isset( $_GET['attached_post_id'] ) ) {
         if( $post->post_type === 'note' || $post->post_type === 'task' ) {
-          $get_attached_id = sanitize_text_field( $_GET['attached_post_id'] );
-          $output = '<input type="hidden" id="'.esc_attr($get_attached_id).'" name="attached_post_id" value="'.esc_attr($get_attached_id).'">';
-          echo $output;
+          $get_attached_id = sanitize_text_field( $_GET['attached_post_id'] ); ?>
+          <input type="hidden" id="<?php echo esc_attr($get_attached_id); ?>" name="attached_post_id" value="<?php echo esc_attr($get_attached_id); ?>">
+          <?php
         }  
       } 
     }
