@@ -27,7 +27,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_checkbox' ) ) {
 					echo esc_html('<label class="checkbox">');
 					echo esc_html('<input type="checkbox" class="checkbox__input" name="' . esc_attr( $this->element_name() ) . '" value="yes"' . $this->element_attributes() . checked( $this->element_value(), 'yes', false ) . '>');
 					echo esc_html('<div class="checkbox__checkmark"></div>');
-					echo sanitize_text_field( $label );
+					echo esc_attr( $label );
 					echo esc_html('</label>');
 					break;
 

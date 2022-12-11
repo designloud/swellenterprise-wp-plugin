@@ -38,16 +38,16 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 				}
 
 				echo esc_html('<textarea name="_nonce" class="exopite-sof__import"></textarea>');
-				echo esc_html('<small class="exopite-sof-info--small">( ' . esc_attr__( 'copy-paste your backup string here', 'exopite-sof' ) . ' )</small>');
-				echo esc_html('<a href="#" class="button button-primary exopite-sof-import-js" data-confirm="' . esc_attr__( 'Are you sure, you want to overwrite existing options?', 'exopite-sof' ) . '">' . esc_attr__( 'Import a Backup', 'exopite-sof' ) . '</a>');
+				echo esc_html('<small class="exopite-sof-info--small">( ' . esc_attr__( 'copy-paste your backup string here', 'swellenterprise' ) . ' )</small>');
+				echo esc_html('<a href="#" class="button button-primary exopite-sof-import-js" data-confirm="' . esc_attr__( 'Are you sure, you want to overwrite existing options?', 'swellenterprise' ) . '">' . esc_attr__( 'Import a Backup', 'swellenterprise' ) . '</a>');
 
 				echo esc_html('<hr />');
 				echo esc_html('<textarea name="_nonce" class="exopite-sof__export" readonly>' . esc_attr( $encoded_options ) . '</textarea>');
-				echo esc_html('<a href="' . esc_attr( $export ) . '" class="button button-primary" target="_blank">' . esc_attr__( 'Download Backup', 'exopite-sof' ) . '</a>');
+				echo esc_html('<a href="' . esc_attr( $export ) . '" class="button button-primary" target="_blank">' . esc_attr__( 'Download Backup', 'swellenterprise' ) . '</a>');
 
 				echo esc_html('<hr />');
-				echo esc_html('<small class="exopite-sof-info--small exopite-sof-info--warning">' . esc_attr__( 'Please be sure for reset all of framework options.', 'exopite-sof' ) . '</small>');
-				echo esc_html('<a href="#" class="button button-warning exopite-sof-reset-js" data-confirm="' . esc_attr__( 'Are you sure, you want to reset all options?', 'exopite-sof' ) . '">' . esc_attr__( 'Reset All Options', 'exopite-sof' ) . '</a>');
+				echo esc_html('<small class="exopite-sof-info--small exopite-sof-info--warning">' . esc_attr__( 'Please be sure for reset all of framework options.', 'swellenterprise' ) . '</small>');
+				echo esc_html('<a href="#" class="button button-warning exopite-sof-reset-js" data-confirm="' . esc_attr__( 'Are you sure, you want to reset all options?', 'swellenterprise' ) . '">' . esc_attr__( 'Reset All Options', 'swellenterprise' ) . '</a>');
 
 				echo esc_html('<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . esc_attr( $this->unique ) . '" data-wpnonce="' . esc_attr( $nonce ) . '"></div>');
 

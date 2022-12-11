@@ -201,7 +201,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		public function get_mo_file() {
 			$path = wp_normalize_path( dirname( __FILE__ ) ) . '/lang';
-			$domain = 'exopite-sof';
+			$domain = 'swellenterprise';
 			if ( function_exists( 'determine_locale' ) ) {
 				$locale = determine_locale();
 			} else {
@@ -214,7 +214,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		public function load_textdomain() {
 
 			$mofile = $this->get_mo_file();
-			load_textdomain( 'exopite-sof', $mofile );
+			load_textdomain( 'swellenterprise', $mofile );
 
 		}
 
@@ -282,7 +282,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 					if ( ! array_key_exists( $key, $this->config ) ) {
 						// Add error message to the WP_Error object
-						$this->errors->add( "missing_config_key_{$key}", sprintf( eac_attr__( "%s is missing in the configuration array", 'exopite-sof' ), $key ) );
+						$this->errors->add( "missing_config_key_{$key}", sprintf( eac_attr__( "%s is missing in the configuration array", 'swellenterprise' ), $key ) );
 					}
 
 				endforeach;
@@ -365,7 +365,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				$message .= esc_html( implode( ', ', $errors_array ) );
 			} else {
 				// if no message is set, throw generic error message
-				$message .= eac_attr__( 'Irks! An un-known error has occurred.', 'exopite-sof' );
+				$message .= eac_attr__( 'Irks! An un-known error has occurred.', 'swellenterprise' );
 			}
 
 			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
@@ -1586,7 +1586,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function display_options_page_header() {
 			
-			echo '<form method="post" action="options.php" enctype="multipart/form-data" name="' . $this->unique . '" class="exopite-sof-form-js ' . $this->unique . '-form" data-save="' . esc_attr__( 'Saving...', 'exopite-sof' ) . '" data-saved="' . esc_attr__( 'Saved Successfully.', 'exopite-sof' ) . '">';
+			echo '<form method="post" action="options.php" enctype="multipart/form-data" name="' . $this->unique . '" class="exopite-sof-form-js ' . $this->unique . '-form" data-save="' . esc_attr__( 'Saving...', 'swellenterprise' ) . '" data-saved="' . esc_attr__( 'Saved Successfully.', 'swellenterprise' ) . '">';
 
 			settings_fields( $this->unique );
 			do_settings_sections( $this->unique );
@@ -1606,7 +1606,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			echo '<span class="exopite-sof-search-wrapper"><input type="text" class="exopite-sof-search"></span>';
 
 			echo '<fieldset><span class="exopite-sof-ajax-message"></span>';
-			submit_button( esc_attr__( 'Save Settings', 'exopite-sof' ), 'primary ' . 'exopite-sof-submit-button-js', $this->unique . '-save', false, array() );
+			submit_button( esc_attr__( 'Save Settings', 'swellenterprise' ), 'primary ' . 'exopite-sof-submit-button-js', $this->unique . '-save', false, array() );
 			echo '</fieldset>';
 			echo '</header>';
 
@@ -1621,7 +1621,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			echo '<footer class="exopite-sof-footer-js exopite-sof-footer">';
 
 			echo '<fieldset><span class="exopite-sof-ajax-message"></span>';
-			submit_button( esc_attr__( 'Save Settings', 'exopite-sof' ), 'primary ' . 'exopite-sof-submit-button-js', '', false, array() );
+			submit_button( esc_attr__( 'Save Settings', 'swellenterprise' ), 'primary ' . 'exopite-sof-submit-button-js', '', false, array() );
 			echo '</fieldset>';
 
 			echo '</footer>';
@@ -1830,7 +1830,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 					echo '<li  class="exopite-sof-nav-list-parent-item' . $active . '">';
 					echo '<span class="exopite-sof-nav-list-item-title">';
 					$this->get_menu_item_icons( $value );
-					echo sanitize_title( ucfirst($value['title']) );
+					echo esc_attr( ucfirst($value['title']) );
 					echo '</span>';
 					echo '<ul style="display:none;">';
 

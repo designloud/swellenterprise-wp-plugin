@@ -71,7 +71,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_video' ) ) {
 
 				if ( ! $this->field['options']['oembed'] ) {
 
-					echo esc_html('<a href="#" class="button button-primary exopite-sof-button">' . esc_attr__( 'Add Video', 'exopite-sof' ) . '</a>');
+					echo esc_html('<a href="#" class="button button-primary exopite-sof-button">' . esc_attr__( 'Add Video', 'swellenterprise' ) . '</a>');
 
 				}
 				echo esc_html( '</div>' );

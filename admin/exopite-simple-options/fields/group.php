@@ -33,14 +33,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 			parent::__construct( $field, $value, $unique, $config );
 
 			$defaults = array(
-				'group_title'  	=> esc_attr( 'Group Title', 'exopite-sof' ),
+				'group_title'  	=> esc_attr( 'Group Title', 'swellenterprise' ),
 				'repeater'     	=> false,
 				'cloneable'    	=> true,
 				'sortable'   	=> true,
 				'accordion'    	=> true,
 				'closed'       	=> true,
 				'limit'        	=> 0,
-				'button_title' 	=> esc_attr( 'Add new', 'exopite-sof' ),
+				'button_title' 	=> esc_attr( 'Add new', 'swellenterprise' ),
 			);
 
 			$options = ( ! empty( $this->field['options'] ) ) ? $this->field['options'] : array();
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				echo esc_html ( '</div>' ); // exopite-sof-cloneable__wrapper
 
-				echo esc_html ( '<div class="exopite-sof-cloneable-data" data-unique-id="' . esc_attr( $unique_id ) . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'exopite-sof' ) . ' ' . esc_attr( $this->field['options']['limit'] ) . '</div>' );
+				echo esc_html ( '<div class="exopite-sof-cloneable-data" data-unique-id="' . esc_attr( $unique_id ) . '" data-limit="' . $this->field['options']['limit'] . '">' . esc_attr__( 'Max items:', 'swellenterprise' ) . ' ' . esc_attr( $this->field['options']['limit'] ) . '</div>' );
 
 				echo esc_html ( '<a href="#" class="button button-primary exopite-sof-cloneable--add">' . esc_attr( $this->field['options']['button_title'] ) . '</a>' );
 
