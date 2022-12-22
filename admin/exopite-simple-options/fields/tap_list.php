@@ -38,14 +38,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tap_list' ) ) {
 					switch ( $input_type ) {
 						case 'radio':
 							echo esc_html( '<label class="radio-button">' );
-							echo esc_html('<input type="' . esc_attr( $input_type ) . '" name="' . esc_attr( $this->element_name( $input_attr ) ) . '" class="radio-button__input" id="' . esc_attr( $this->field['id'] ) . '-' . sanitize_title( $value ) . '" value="' . esc_attr( $key ) . '"' . esc_attr( $this->element_attributes( $key ) ) . $this->checked( $this->element_value(), esc_attr( $key ) ) . '/>');
+							echo esc_html('<input type="' . esc_attr( $input_type ) . '" name="' . esc_attr( $this->element_name( $input_attr ) ) . '" class="radio-button__input" id="' . esc_attr( $this->field['id'] ) . '-' . esc_attr( $value ) . '" value="' . esc_attr( $key ) . '"' . esc_attr( $this->element_attributes( $key ) ) . $this->checked( $this->element_value(), esc_attr( $key ) ) . '/>');
 							echo esc_html( '<div class="radio-button__checkmark"></div>' );
 							echo esc_html( '</label>' );
 							break;
 
 						case 'checkbox':
 							echo esc_html( '<label class="checkbox checkbox--noborder">' );
-							echo esc_html('<input type="' . esc_attr( $input_type ) . '" name="' . esc_attr( $this->element_name( $input_attr ) ) . '" class="checkbox__input checkbox--noborder__input" id="' . esc_attr( $this->field['id'] ) . '-' . sanitize_title( $value ) . '" value="' . esc_attr( $key ) . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), esc_attr( $key ) ) . '>');
+							echo esc_html('<input type="' . esc_attr( $input_type ) . '" name="' . esc_attr( $this->element_name( $input_attr ) ) . '" class="checkbox__input checkbox--noborder__input" id="' . esc_attr( $this->field['id'] ) . '-' . esc_attr( $value ) . '" value="' . esc_attr( $key ) . '"' . $this->element_attributes( $key ) . $this->checked( $this->element_value(), esc_attr( $key ) ) . '>');
 							echo esc_html( '<div class="checkbox__checkmark checkbox--noborder checkbox--noborder__checkmark"></div>' );
 							echo esc_html( '</label>' );
 							break;
@@ -53,8 +53,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tap_list' ) ) {
 
 
 					echo esc_html( '</div>' );
-					echo esc_html('<label for="' . esc_attr( $this->field['id'] ) . '-' . sanitize_title( $value ) . '" class="list__item__center">');
-					echo sanitize_title( $value );
+					echo esc_html('<label for="' . esc_attr( $this->field['id'] ) . '-' . esc_attr( $value ) . '" class="list__item__center">');
+					echo esc_attr( $value );
 					echo esc_html('</label>');
 					echo esc_html( '</li>' );
 

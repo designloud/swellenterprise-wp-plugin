@@ -30,10 +30,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_card' ) ) {
 			echo '<div class="card-body">';
 
 			if ( ! empty( $this->field['title'] ) ) {
-				echo ('<h4 class="card-title">' . $this->field['title'] . '</h4>');
+				echo ('<h4 class="card-title">' . esc_attr($this->field['title']) . '</h4>');
 			}
 
-			echo ('<div class="card-text">' . $this->field['content'] . '</div>');
+			echo ('<div class="card-text">' . esc_attr($this->field['content']) . '</div>');
 
 			echo ('</div>');
 
