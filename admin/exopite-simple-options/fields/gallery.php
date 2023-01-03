@@ -33,9 +33,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_gallery' ) ) {
 
 			$value = $this->element_value();
 
-			echo esc_html('<div class="exopite-sof-gallery-field" data-media-frame-title="' . esc_attr( $options['media_frame_title'] ) . '" data-media-frame-button="' . esc_attr( $options['media_frame_button'] ) . '" data-media-frame-type="' . esc_attr( $options['media_type'] ) . '">');
-			echo esc_html('<input type="hidden" name="' . esc_attr( $this->element_name() ) . '" data-control="gallery-ids" value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_class() ) . esc_attr( $this->element_attributes() ) . '/>');
-			echo esc_html('<div class="exopite-sof-gallery">');
+			echo '<div class="exopite-sof-gallery-field" data-media-frame-title="' . esc_attr( $options['media_frame_title'] ) . '" data-media-frame-button="' . esc_attr( $options['media_frame_button'] ) . '" data-media-frame-type="' . esc_attr( $options['media_type'] ) . '">';
+			echo '<input type="hidden" name="' . esc_attr( $this->element_name() ) . '" data-control="gallery-ids" value="' . esc_attr( $this->element_value() ) . '"' . esc_attr( $this->element_class() ) . esc_attr( $this->element_attributes() ) . '/>';
+			echo '<div class="exopite-sof-gallery">';
 
 			if ( $value ) :
 
